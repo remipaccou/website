@@ -1,9 +1,8 @@
 ---
-// Home page, built as a register in four blocks:
+// Home page, built as a register:
 //   0. triad    the three words of the title under their Greek roots
 //   1. lead     the latest essay, text first, its image beside it
-//   2. papers   a row of four selected papers
-//   3. essays   cards on a three-column grid, with a narrow side column
+//   2. notices  dated register of everything new, with a narrow side column
 //   4. footer   (in the layout)
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
@@ -13,6 +12,8 @@ import { href } from '../lib/url';
 import { getEssays, pathOf, longDate, isoDate } from '../lib/writing';
 import { scriptsToHtml } from '../lib/typography.mjs';
 import { publications } from '../lib/publications';
+import { getNotices } from '../lib/notices';
+import { talks } from '../data/talks';
 
 const essays = await getEssays();
 const lead = essays[0];
@@ -22,7 +23,7 @@ const triad = [
   { greek: 'ἐνέργεια', word: 'Energy' },
   { greek: 'οἶκος', word: 'Ecology' },
 ];
-const selected = publications.filter((p) => p.selected).slice(0, 4);
+const notices = await getNotices();
 ---
 <Base>
   <div class="wrap home">
@@ -49,32 +50,17 @@ const selected = publications.filter((p) => p.selected).slice(0, 4);
     )}
 
     <section class="block">
-      <SectionHead title="Papers" />
-      <ul class="quad">
-        {selected.map((p) => (
-          <li>
-            <p class="meta">{p.year}</p>
-            <h3>{p.link ? <a href={p.link}>{p.title}</a> : p.title}</h3>
-            <p class="quad-venue">{p.venue ?? p.note}</p>
-          </li>
-        ))}
-      </ul>
-      <p class="block-more"><a href={href('/publications/')}>All papers</a></p>
-    </section>
-
-    <section class="block">
-      <SectionHead title="Essays" />
+      <SectionHead title="Notices" />
       <div class="with-side">
-        <ul class="cards">
-          {essays.map((essay) => (
-            <li class="card">
-              {essay.data.cover && (
-                <a href={href(pathOf(essay))} tabindex="-1" aria-hidden="true">
-                  <Image src={essay.data.cover} alt="" widths={[400, 800]} sizes="(max-width: 54rem) 100vw, 18rem" />
-                </a>
-              )}
-              <p class="meta"><time datetime={isoDate(essay.data.date)}>{longDate(essay.data.date)}</time></p>
-              <h3><a href={href(pathOf(essay))}>{essay.data.title}</a></h3>
+        <ul class="notices">
+          {notices.map((n) => (
+            <li>
+              <span class="meta">{n.label}</span>
+              <span class="meta">{n.kind}</span>
+              <p>
+                {n.url ? <a href={n.url}>{n.text}</a> : n.text}
+                {n.detail && <cite>{n.detail}</cite>}
+              </p>
             </li>
           ))}
         </ul>
@@ -86,6 +72,7 @@ const selected = publications.filter((p) => p.selected).slice(0, 4);
           <ul>
             <li><a href={href('/writing/')}>Essays</a> <span>{essays.length}</span></li>
             <li><a href={href('/publications/')}>Papers</a> <span>{publications.length}</span></li>
+            {talks.length > 0 && <li><a href={href('/talks/')}>Talks</a> <span>{talks.length}</span></li>}
           </ul>
           <h3 class="side-head">Follow</h3>
           <ul>

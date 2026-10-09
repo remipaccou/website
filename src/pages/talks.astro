@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { talks } from '../data/talks';
+const sorted = [...talks].sort((a, b) => b.date.localeCompare(a.date));
+const label = (date: string) => date.slice(0, 7).replace('-', '.');
+---
+<Base title="Talks" description="Talks and conference presentations by Rémi Paccou.">
+  <div class="wrap">
+    <header class="page-head band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main">
+        <h1 class="page-title">Talks</h1>
+      </div>
+    </header>
+    <section class="band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main">
+        {sorted.length === 0 && <p>No talks listed yet.</p>}
+        <ul class="list">
+          {sorted.map((t) => (
+            <li class="pub talk">
+              <span class="pub-year">{label(t.date)}</span>
+              <div class="pub-body">
+                <p class="pub-title">{t.url ? <a href={t.url}>{t.title}</a> : t.title}</p>
+                <p class="pub-meta"><cite>{t.event}</cite>{t.place && <>, {t.place}</>}.</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </div>
+</Base>

@@ -9,6 +9,8 @@ export const site = {
   nav: [
     { label: 'Essays', path: '/writing/' },
     { label: 'Papers', path: '/publications/' },
+    // Shown only once src/data/talks.ts has an entry.
+    { label: 'Talks', path: '/talks/' },
     { label: 'About', path: '/about/' },
   ],
   // Leave a value empty to hide the link.
