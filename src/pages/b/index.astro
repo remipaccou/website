@@ -1,0 +1,97 @@
+---
+// Draft B, "Planche": dark plate, Computer Modern, the compute curve against
+// the two ceilings of the essay on thermodynamic limits.
+import 'katex/dist/katex.min.css';
+import '../../styles/drafts.css';
+import Base from '../../layouts/Base.astro';
+import Drafts from '../../components/Drafts.astro';
+import { href } from '../../lib/url';
+import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
+import { publications } from '../../lib/publications';
+
+const essays = await getEssays();
+const selected = publications.filter((p) => p.selected);
+const limits = essays.find((e) => e.id.includes('thermodynamic-limits')) ?? essays[0];
+
+// Redrawn from figure 1 of the essay: log10(FLOP) against the year.
+const W = 900, H = 500, L = 64, R = 20, T = 16, B = 40;
+const x = (year: number) => L + ((year - 2025) / 15) * (W - L - R);
+const y = (log: number) => H - B - ((log - 24) / 19) * (H - B - T);
+const curve = (year: number) => 24 + 0.0777 * (year - 2025) ** 2;
+const path = (from: number, to: number) =>
+  Array.from({ length: 41 }, (_, i) => from + ((to - from) * i) / 40)
+    .map((t, i) => `${i ? 'L' : 'M'}${x(t).toFixed(1)} ${y(curve(t)).toFixed(1)}`)
+    .join(' ');
+const ceilings = [
+  { log: 36, name: 'GPT-9', zone: 'feasible', cls: 'c9' },
+  { log: 40, name: 'GPT-11', zone: 'climate sacrifice', cls: 'c11' },
+];
+const ticks = [25, 30, 35, 40];
+const years = [2025, 2028, 2031, 2034, 2037, 2040];
+---
+<Base noindex theme="planche">
+  <div class="wrap planche">
+    <header class="planche-head">
+      <h1>Information, energy and ecology</h1>
+      <p>Essays and papers by Rémi Paccou.</p>
+    </header>
+
+    <figure class="planche-plate">
+      <a href={href(pathOf(limits))} aria-label={limits.data.title}>
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Training compute from 2025 to 2040 on a logarithmic scale. The curve crosses the GPT-9 ceiling at 10 to the 36 FLOP around 2037; the GPT-11 ceiling sits at 10 to the 40 FLOP.">
+          {ticks.map((t) => (
+            <>
+              <line class="grid" x1={L} x2={W - R} y1={y(t)} y2={y(t)} />
+              <text class="tick" x={L - 10} y={y(t) + 5} text-anchor="end">10<tspan dy="-7" font-size="11">{t}</tspan></text>
+            </>
+          ))}
+          {years.map((yr) => <text class="tick" x={x(yr)} y={H - B + 24} text-anchor="middle">{yr}</text>)}
+          <line class="axis" x1={L} x2={L} y1={T} y2={H - B} />
+          <line class="axis" x1={L} x2={W - R} y1={H - B} y2={H - B} />
+          {ceilings.map((c) => (
+            <>
+              <line class={`ceiling ${c.cls}`} x1={L} x2={W - R} y1={y(c.log)} y2={y(c.log)} />
+              <text class={`ceiling-name ${c.cls}`} x={L + 14} y={y(c.log) - 10}>{c.name}, 10<tspan dy="-8" font-size="13">{c.log}</tspan><tspan dy="8"> FLOP</tspan></text>
+              <text class="zone" x={W - R - 12} y={y(c.log) + 46} text-anchor="end">{c.zone}</text>
+            </>
+          ))}
+          <text class="zone" x={W - R - 12} y={y(40) - 12} text-anchor="end">planet destructive</text>
+          <path class="curve" pathLength="1" d={path(2025, 2036)} />
+          <path class="curve projected" d={path(2036, 2038)} />
+        </svg>
+      </a>
+      <figcaption>
+        Training compute, in FLOP, if each model generation keeps asking for a hundred times more. Earth sets two
+        ceilings, one that energy systems can sustain and one that the climate pays for.{' '}
+        <a href={href(pathOf(limits))}>Read the essay</a>
+      </figcaption>
+    </figure>
+
+    <div class="planche-below">
+      <section>
+        <h2>Essays</h2>
+        <ul class="list">
+          {essays.map((essay) => (
+            <li>
+              <a href={href(pathOf(essay))}>{essay.data.title}</a>
+              <time datetime={isoDate(essay.data.date)}>{longDate(essay.data.date)}</time>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <h2>Papers</h2>
+        <ul class="list">
+          {selected.map((p) => (
+            <li>
+              {p.link ? <a href={p.link}>{p.title}</a> : p.title}
+              <span><cite>{p.venue ?? p.note}</cite>, {p.year}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="more"><a href={href('/publications/')}>All papers</a></p>
+      </section>
+    </div>
+  </div>
+  <Drafts current="b" />
+</Base>

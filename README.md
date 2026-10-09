@@ -1,6 +1,6 @@
 # remipaccou.blog
 
-Personal site of Rémi Paccou: research, publications and essays.
+Personal site of Rémi Paccou: essays and papers.
 Built with [Astro](https://astro.build), deployed to GitHub Pages on every push to `main`.
 
 ## Everyday tasks
@@ -53,7 +53,6 @@ home page; `note = {...}` is printed after the venue.
 | Page          | File                                      |
 | ------------- | ----------------------------------------- |
 | Home          | `src/pages/index.astro`                   |
-| Research      | `src/pages/research.astro`                |
 | About         | `src/pages/about.astro`                   |
 | Menu, contact links | `src/site.ts`                       |
 | Colours, fonts | `src/styles/global.css` (variables at the top) |

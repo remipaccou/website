@@ -1,0 +1,64 @@
+---
+// Draft A, "Revue": the latest essay leads, with its figure.
+import '../../styles/drafts.css';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Drafts from '../../components/Drafts.astro';
+import Publication from '../../components/Publication.astro';
+import { href } from '../../lib/url';
+import { getEssays, pathOf, longDate, isoDate, readingMinutes } from '../../lib/writing';
+import { scriptsToHtml } from '../../lib/typography.mjs';
+import { publications } from '../../lib/publications';
+
+const [lead, ...earlier] = await getEssays();
+const figure = lead.data.lead ?? lead.data.cover;
+const figureAlt = lead.data.lead ? lead.data.leadAlt : lead.data.coverAlt;
+const selected = publications.filter((p) => p.selected);
+---
+<Base noindex>
+  <div class="wrap revue">
+    <article class="revue-lead">
+      <div class="revue-lead-text">
+        <p class="revue-meta">
+          <time datetime={isoDate(lead.data.date)}>{longDate(lead.data.date)}</time>, {readingMinutes(lead.body ?? '')} min read
+        </p>
+        <h1 class="revue-title"><a href={href(pathOf(lead))}>{lead.data.title}</a></h1>
+        <p class="revue-desc" set:html={scriptsToHtml(lead.data.description)} />
+        <p class="more"><a href={href(pathOf(lead))}>Read the essay</a></p>
+      </div>
+      {figure && (
+        <a class="revue-figure" href={href(pathOf(lead))} tabindex="-1" aria-hidden="true">
+          <Image src={figure} alt={figureAlt} widths={[640, 960, 1400]} sizes="(max-width: 54rem) 100vw, 40rem" loading="eager" />
+        </a>
+      )}
+    </article>
+
+    <div class="revue-below">
+      <section>
+        <h2 class="revue-head">Earlier essays</h2>
+        {earlier.map((essay) => (
+          <article class="revue-item">
+            {essay.data.cover && (
+              <a href={href(pathOf(essay))} tabindex="-1" aria-hidden="true">
+                <Image src={essay.data.cover} alt="" widths={[320, 640]} sizes="12rem" />
+              </a>
+            )}
+            <div>
+              <p class="revue-meta"><time datetime={isoDate(essay.data.date)}>{longDate(essay.data.date)}</time></p>
+              <h3 class="essay-title"><a href={href(pathOf(essay))}>{essay.data.title}</a></h3>
+              <p class="essay-desc" set:html={scriptsToHtml(essay.data.description)} />
+            </div>
+          </article>
+        ))}
+      </section>
+      <section>
+        <h2 class="revue-head">Papers</h2>
+        <ul class="list revue-papers">
+          {selected.map((item) => <Publication item={item} />)}
+        </ul>
+        <p class="more"><a href={href('/publications/')}>All papers</a></p>
+      </section>
+    </div>
+  </div>
+  <Drafts current="a" />
+</Base>

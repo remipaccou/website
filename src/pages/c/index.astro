@@ -1,0 +1,50 @@
+---
+// Draft C, "Bandes": one wide band of colour per essay, then one for the papers.
+import '../../styles/drafts.css';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Drafts from '../../components/Drafts.astro';
+import { href } from '../../lib/url';
+import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
+import { scriptsToHtml } from '../../lib/typography.mjs';
+import { publications } from '../../lib/publications';
+
+const essays = await getEssays();
+const selected = publications.filter((p) => p.selected);
+const colours = ['sage', 'ochre', 'plum'];
+---
+<Base noindex>
+  <div class="bandes">
+    {essays.map((essay, i) => (
+      <article class={`bande ${colours[i % colours.length]}`}>
+        <div class="wrap bande-inner">
+          <div>
+            <p class="bande-meta"><time datetime={isoDate(essay.data.date)}>{longDate(essay.data.date)}</time></p>
+            <h2 class="bande-title"><a href={href(pathOf(essay))}>{essay.data.title}</a></h2>
+            <p class="bande-desc" set:html={scriptsToHtml(essay.data.description)} />
+          </div>
+          {essay.data.cover && (
+            <a class="bande-image" href={href(pathOf(essay))} tabindex="-1" aria-hidden="true">
+              <Image src={essay.data.cover} alt="" widths={[480, 800, 1200]} sizes="(max-width: 54rem) 100vw, 28rem" loading={i === 0 ? 'eager' : 'lazy'} />
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
+    <section class={`bande ${colours[essays.length % colours.length]}`}>
+      <div class="wrap">
+        <h2 class="bande-title">Papers</h2>
+        <ul class="list bande-papers">
+          {selected.map((p) => (
+            <li>
+              {p.link ? <a href={p.link}>{p.title}</a> : p.title}
+              <span><cite>{p.venue ?? p.note}</cite>, {p.year}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="more"><a href={href('/publications/')}>All papers</a></p>
+      </div>
+    </section>
+  </div>
+  <Drafts current="c" />
+</Base>

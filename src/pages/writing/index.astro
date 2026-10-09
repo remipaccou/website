@@ -4,13 +4,12 @@ import EssayItem from '../../components/EssayItem.astro';
 import { getEssays } from '../../lib/writing';
 const essays = await getEssays();
 ---
-<Base title="Writing" description="Essays by Rémi Paccou on information, energy and ecology.">
+<Base title="Essays" description="Essays by Rémi Paccou on information, energy and ecology.">
   <div class="wrap">
     <header class="page-head band">
       <div class="band-label" aria-hidden="true"></div>
       <div class="band-main">
-        <h1 class="page-title">Writing</h1>
-        <p class="page-lead">Essays on information, energy and ecology.</p>
+        <h1 class="page-title">Essays</h1>
       </div>
     </header>
     <ul class="list">

@@ -3,12 +3,12 @@ import Base from '../layouts/Base.astro';
 import Publication from '../components/Publication.astro';
 import { publicationsByGroup } from '../lib/publications';
 ---
-<Base title="Publications" description="Journal articles, conference papers, preprints and reports by Rémi Paccou.">
+<Base title="Papers" description="Journal articles, conference papers, preprints and reports by Rémi Paccou.">
   <div class="wrap">
     <header class="page-head band">
       <div class="band-label" aria-hidden="true"></div>
       <div class="band-main">
-        <h1 class="page-title">Publications</h1>
+        <h1 class="page-title">Papers</h1>
       </div>
     </header>
     {publicationsByGroup.map(({ group, items }) => (

@@ -1,0 +1,17 @@
+---
+// Temporary: lets the three home page drafts be compared. Remove with /a/, /b/ and /c/.
+import { href } from '../lib/url';
+interface Props { current: 'a' | 'b' | 'c' }
+const { current } = Astro.props;
+const drafts = [
+  { id: 'a', name: 'Revue' },
+  { id: 'b', name: 'Planche' },
+  { id: 'c', name: 'Bandes' },
+];
+---
+<nav class="drafts" aria-label="Home page drafts">
+  <span>Home page drafts</span>
+  {drafts.map((d) => (
+    <a href={href(`/${d.id}/`)} aria-current={d.id === current ? 'page' : undefined}>{d.id.toUpperCase()} {d.name}</a>
+  ))}
+</nav>

@@ -14,19 +14,22 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   published?: Date;
+  theme?: string;
+  noindex?: boolean;
 }
-const { title, description = site.description, image, type = 'website', published } = Astro.props;
+const { title, description = site.description, image, type = 'website', published, theme, noindex } = Astro.props;
 const fullTitle = title ? `${title} | ${site.author}` : `${site.author} | ${site.title}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image ?? href('/og.jpg'), Astro.site);
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme={theme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="author" content={site.author} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" sizes="32x32" href={href('/favicon-32.png')} />

@@ -14,6 +14,9 @@ const writing = defineCollection({
       topic: z.string().optional(),
       cover: image().optional(),
       coverAlt: z.string().default(''),
+      // Optional figure shown with the essay when it leads the home page.
+      lead: image().optional(),
+      leadAlt: z.string().default(''),
       draft: z.boolean().default(false),
       responses: z
         .array(z.object({ author: z.string(), date: z.coerce.date(), body: z.string() }))
