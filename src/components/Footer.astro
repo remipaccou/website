@@ -1,0 +1,21 @@
+---
+import { site } from '../site';
+import { href } from '../lib/url';
+const { email, github, linkedin, orcid, scholar } = site.links;
+const links = [
+  email && { label: 'Email', url: `mailto:${email}` },
+  linkedin && { label: 'LinkedIn', url: linkedin },
+  orcid && { label: 'ORCID', url: orcid },
+  scholar && { label: 'Google Scholar', url: scholar },
+  github && { label: 'GitHub', url: github },
+  { label: 'RSS feed', url: href('/rss.xml') },
+].filter(Boolean) as { label: string; url: string }[];
+---
+<footer class="site-footer">
+  <div class="wrap site-footer-inner">
+    <p>© {new Date().getFullYear()} {site.author}. The views expressed here are my own.</p>
+    <ul>
+      {links.map((l) => <li><a href={l.url}>{l.label}</a></li>)}
+    </ul>
+  </div>
+</footer>

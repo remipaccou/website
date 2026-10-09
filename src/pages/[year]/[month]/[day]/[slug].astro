@@ -1,0 +1,63 @@
+---
+import 'katex/dist/katex.min.css';
+import { render } from 'astro:content';
+import { getImage, Image } from 'astro:assets';
+import Base from '../../../../layouts/Base.astro';
+import { scriptsToHtml } from '../../../../lib/typography.mjs';
+import { getEssays, dateParts, slugOf, longDate, isoDate, readingMinutes } from '../../../../lib/writing';
+
+export async function getStaticPaths() {
+  const essays = await getEssays();
+  return essays.map((essay) => ({
+    params: { ...dateParts(essay.data.date), slug: slugOf(essay) },
+    props: { essay },
+  }));
+}
+
+const { essay } = Astro.props;
+const { Content } = await render(essay);
+const { title, description, date, topic, cover, coverAlt, responses } = essay.data;
+const minutes = readingMinutes(essay.body ?? '');
+const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'jpg' })).src : undefined;
+---
+<Base title={title} description={description} image={shareImage} type="article" published={date}>
+  <article class="wrap">
+    <header class="essay-head band">
+      <div class="band-label essay-info">
+        <time datetime={isoDate(date)}>{longDate(date)}</time>
+        <span>{minutes} min read</span>
+        {topic && <span>{topic}</span>}
+      </div>
+      <div class="band-main">
+        <h1 class="page-title">{title}</h1>
+        <p class="page-lead" set:html={scriptsToHtml(description)} />
+      </div>
+    </header>
+
+    <div class="band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main">
+        {cover && (
+          <figure class="essay-cover">
+            <Image src={cover} alt={coverAlt} widths={[640, 960, 1400]} sizes="(max-width: 54rem) 100vw, 41rem" loading="eager" />
+          </figure>
+        )}
+        <div class="prose">
+          <Content />
+        </div>
+
+        {responses.length > 0 && (
+          <section class="responses">
+            <h2>Responses</h2>
+            {responses.map((r) => (
+              <div class="response">
+                <p class="response-by"><b>{r.author}</b>, <time datetime={isoDate(r.date)}>{longDate(r.date)}</time></p>
+                {r.body.trim().split(/\n\s*\n/).map((para) => <p>{para}</p>)}
+              </div>
+            ))}
+          </section>
+        )}
+      </div>
+    </div>
+  </article>
+</Base>

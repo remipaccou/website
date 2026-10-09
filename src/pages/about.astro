@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+import { href } from '../lib/url';
+const { email, github, linkedin, orcid, scholar } = site.links;
+const contacts = [
+  email && { label: 'Email', text: email, url: `mailto:${email}` },
+  linkedin && { label: 'LinkedIn', text: linkedin.replace(/^https?:\/\/(www\.)?/, ''), url: linkedin },
+  orcid && { label: 'ORCID', text: orcid.replace(/^https?:\/\//, ''), url: orcid },
+  scholar && { label: 'Google Scholar', text: 'Profile', url: scholar },
+  github && { label: 'GitHub', text: github.replace(/^https?:\/\//, ''), url: github },
+].filter(Boolean) as { label: string; text: string; url: string }[];
+---
+<Base title="About" description="About Rémi Paccou, head of corporate research on digital and energy systems at Schneider Electric and doctoral researcher at CIRED.">
+  <div class="wrap">
+    <header class="page-head band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main">
+        <h1 class="page-title">About</h1>
+      </div>
+    </header>
+
+    <section class="band">
+      <h2 class="band-label">Rémi Paccou</h2>
+      <div class="band-main prose">
+        <p>
+          I am Head of Corporate Research, Digital &amp; Energy Systems, at Schneider Electric, where I work within the
+          Sustainability Research Institute. My subject is the meeting point of digitalisation, energy systems and
+          climate trajectories, and I contribute to international assessments of the effects of digitalisation and AI
+          on energy transitions.
+        </p>
+        <p>
+          Alongside this work I am a doctoral researcher at CIRED (CNRS, École des Ponts, AgroParisTech, EHESS,
+          Cirad), under the supervision of Franck Lecocq.
+        </p>
+        <p>
+          I trained as an engineer at Arts et Métiers ParisTech, with a specialisation in thermodynamics, and have
+          spent more than twenty years at Schneider Electric.
+        </p>
+        <p>More on the <a href={href('/research/')}>research</a> and the <a href={href('/publications/')}>publications</a>.</p>
+      </div>
+    </section>
+
+    <section class="band">
+      <h2 class="band-label">Affiliations</h2>
+      <div class="band-main prose">
+        <p>Schneider Electric, Sustainability Research Institute, Grenoble</p>
+        <p>CIRED, Centre International de Recherche sur l'Environnement et le Développement, Nogent-sur-Marne</p>
+      </div>
+    </section>
+
+    {contacts.length > 0 && (
+      <section class="band">
+        <h2 class="band-label">Contact</h2>
+        <div class="band-main prose">
+          {contacts.map((c) => <p>{c.label}: <a href={c.url}>{c.text}</a></p>)}
+        </div>
+      </section>
+    )}
+
+    <section class="band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main prose">
+        <p>The views expressed on this site are my own and do not represent those of my employer or of CIRED.</p>
+      </div>
+    </section>
+  </div>
+</Base>

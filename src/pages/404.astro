@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+---
+<Base title="Page not found">
+  <div class="wrap">
+    <header class="page-head band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main">
+        <h1 class="page-title">This page does not exist</h1>
+        <p class="page-lead">The address may have changed. The <a href={href('/writing/')}>essays</a> and the <a href={href('/publications/')}>publications</a> are still here.</p>
+      </div>
+    </header>
+  </div>
+</Base>

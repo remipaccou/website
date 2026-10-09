@@ -1,0 +1,14 @@
+---
+import { href } from '../lib/url';
+import { pathOf, longDate, isoDate, type Essay } from '../lib/writing';
+import { scriptsToHtml } from '../lib/typography.mjs';
+interface Props { essay: Essay }
+const { essay } = Astro.props;
+---
+<li class="essay">
+  <time class="essay-date" datetime={isoDate(essay.data.date)}>{longDate(essay.data.date)}</time>
+  <div class="essay-body">
+    <h3 class="essay-title"><a href={href(pathOf(essay))}>{essay.data.title}</a></h3>
+    <p class="essay-desc" set:html={scriptsToHtml(essay.data.description)} />
+  </div>
+</li>

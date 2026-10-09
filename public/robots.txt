@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://remipaccou.blog/sitemap-index.xml

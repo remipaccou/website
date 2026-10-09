@@ -1,0 +1,19 @@
+---
+import type { Publication } from '../lib/publications';
+interface Props { item: Publication }
+const { item } = Astro.props;
+---
+<li class="pub">
+  <span class="pub-year">{item.year}</span>
+  <div class="pub-body">
+    <p class="pub-title">{item.title}</p>
+    <p class="pub-meta">
+      {item.authors.map((a, i) => (
+        <>{a.self ? <span class="pub-self">{a.name}</span> : a.name}{i < item.authors.length - 1 ? (i === item.authors.length - 2 ? ' and ' : ', ') : '.'}</>
+      ))}
+      {item.venue && <> <cite>{item.venue}</cite>.</>}
+      {item.note && <> {item.note}.</>}
+    </p>
+    {item.link && <p class="pub-link"><a href={item.link}>{item.linkLabel}</a></p>}
+  </div>
+</li>

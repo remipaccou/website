@@ -1,0 +1,63 @@
+---
+import 'katex/dist/katex.min.css';
+import katex from 'katex';
+import Base from '../layouts/Base.astro';
+import EssayItem from '../components/EssayItem.astro';
+import Publication from '../components/Publication.astro';
+import { site } from '../site';
+import { href } from '../lib/url';
+import { getEssays } from '../lib/writing';
+import { publications } from '../lib/publications';
+
+const essays = (await getEssays()).slice(0, 3);
+const selected = publications.filter((p) => p.selected);
+const landauer = katex.renderToString('E_{\\min} = k_B\\,T \\ln 2', { displayMode: false });
+---
+<Base>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">Information, energy and ecology</h1>
+        <p class="hero-lead">
+          I am Rémi Paccou. I study what the digitalisation of the economy does to energy systems and climate
+          trajectories, as head of corporate research on digital and energy systems at Schneider Electric and as a
+          doctoral researcher at CIRED.
+        </p>
+      </div>
+      <aside class="hero-law" aria-label="Landauer's bound">
+        <span set:html={landauer} />
+        <p>Landauer's bound: erasing one bit of information at temperature T dissipates at least this much heat.</p>
+      </aside>
+    </section>
+
+    <section class="band">
+      <h2 class="band-label">Writing</h2>
+      <div class="band-main">
+        <ul class="list">
+          {essays.map((essay) => <EssayItem essay={essay} />)}
+        </ul>
+        <p class="more"><a href={href('/writing/')}>All essays</a></p>
+      </div>
+    </section>
+
+    <section class="band">
+      <h2 class="band-label">Selected publications</h2>
+      <div class="band-main">
+        <ul class="list">
+          {selected.map((item) => <Publication item={item} />)}
+        </ul>
+        <p class="more"><a href={href('/publications/')}>All publications</a></p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main">
+        <blockquote class="epigraph">
+          <p>What we observe is not nature itself, but nature exposed to our method of questioning.</p>
+          <footer>Werner Heisenberg</footer>
+        </blockquote>
+      </div>
+    </section>
+  </div>
+</Base>
