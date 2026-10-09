@@ -5,8 +5,8 @@ const here = Astro.url.pathname;
 const isCurrent = (path: string) => here.startsWith(href(path));
 ---
 <header class="site-header">
-  <div class="wrap">
-    <a class="site-name" href={href('/')}><span class="site-mark" aria-hidden="true"></span>{site.author}</a>
+  <div class="wrap site-header-inner">
+    <a class="site-name" href={href('/')}>{site.author}</a>
     <nav aria-label="Main">
       <ul>
         {site.nav.map((item) => (

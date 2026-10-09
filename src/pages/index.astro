@@ -1,57 +1,82 @@
 ---
-import 'katex/dist/katex.min.css';
-import katex from 'katex';
+// Home page, built as a register in four blocks:
+//   1. lead     the latest essay, image with its title on a panel
+//   2. papers   a row of four selected papers
+//   3. essays   cards on a three-column grid, with a narrow side column
+//   4. footer   (in the layout)
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import EssayItem from '../components/EssayItem.astro';
-import Publication from '../components/Publication.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { site } from '../site';
 import { href } from '../lib/url';
-import { getEssays } from '../lib/writing';
+import { getEssays, pathOf, longDate, isoDate } from '../lib/writing';
+import { scriptsToHtml } from '../lib/typography.mjs';
 import { publications } from '../lib/publications';
 
-const essays = (await getEssays()).slice(0, 3);
-const selected = publications.filter((p) => p.selected);
-const landauer = katex.renderToString('E_{\\min} = k_B\\,T \\ln 2', { displayMode: false });
+const essays = await getEssays();
+const lead = essays[0];
+const selected = publications.filter((p) => p.selected).slice(0, 4);
 ---
 <Base>
-  <div class="wrap">
-    <section class="hero">
-      <div>
-        <h1 class="hero-title">Information, energy and ecology</h1>
-      </div>
-      <aside class="hero-law" aria-label="Landauer's bound">
-        <span set:html={landauer} />
-        <p>Landauer's bound: erasing one bit of information at temperature T dissipates at least this much heat.</p>
-      </aside>
+  <div class="wrap home">
+    {lead && (
+      <article class="lead">
+        {lead.data.cover && (
+          <a class="lead-image" href={href(pathOf(lead))} tabindex="-1" aria-hidden="true">
+            <Image src={lead.data.cover} alt="" widths={[800, 1200, 1800]} sizes="(max-width: 74rem) 100vw, 70rem" loading="eager" />
+          </a>
+        )}
+        <div class="lead-panel">
+          <p class="meta"><time datetime={isoDate(lead.data.date)}>{longDate(lead.data.date)}</time></p>
+          <h1 class="lead-title"><a href={href(pathOf(lead))}>{lead.data.title}</a></h1>
+        </div>
+      </article>
+    )}
+
+    <section class="block">
+      <SectionHead title="Papers" />
+      <ul class="quad">
+        {selected.map((p) => (
+          <li>
+            <p class="meta">{p.year}</p>
+            <h3>{p.link ? <a href={p.link}>{p.title}</a> : p.title}</h3>
+            <p class="quad-venue">{p.venue ?? p.note}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="block-more"><a href={href('/publications/')}>All papers</a></p>
     </section>
 
-    <section class="band">
-      <h2 class="band-label">Essays</h2>
-      <div class="band-main">
-        <ul class="list">
-          {essays.map((essay) => <EssayItem essay={essay} />)}
+    <section class="block">
+      <SectionHead title="Essays" />
+      <div class="with-side">
+        <ul class="cards">
+          {essays.map((essay) => (
+            <li class="card">
+              {essay.data.cover && (
+                <a href={href(pathOf(essay))} tabindex="-1" aria-hidden="true">
+                  <Image src={essay.data.cover} alt="" widths={[400, 800]} sizes="(max-width: 54rem) 100vw, 18rem" />
+                </a>
+              )}
+              <p class="meta"><time datetime={isoDate(essay.data.date)}>{longDate(essay.data.date)}</time></p>
+              <h3><a href={href(pathOf(essay))}>{essay.data.title}</a></h3>
+            </li>
+          ))}
         </ul>
-        <p class="more"><a href={href('/writing/')}>All essays</a></p>
-      </div>
-    </section>
-
-    <section class="band">
-      <h2 class="band-label">Papers</h2>
-      <div class="band-main">
-        <ul class="list">
-          {selected.map((item) => <Publication item={item} />)}
-        </ul>
-        <p class="more"><a href={href('/publications/')}>All papers</a></p>
-      </div>
-    </section>
-
-    <section class="band">
-      <div class="band-label" aria-hidden="true"></div>
-      <div class="band-main">
-        <blockquote class="epigraph">
-          <p>What we observe is not nature itself, but nature exposed to our method of questioning.</p>
-          <footer>Werner Heisenberg</footer>
-        </blockquote>
+        <aside class="side">
+          <h3 class="side-head">About</h3>
+          <p>{site.about}</p>
+          <p><a href={href('/about/')}>More</a></p>
+          <h3 class="side-head">Sections</h3>
+          <ul>
+            <li><a href={href('/writing/')}>Essays</a> <span>{essays.length}</span></li>
+            <li><a href={href('/publications/')}>Papers</a> <span>{publications.length}</span></li>
+          </ul>
+          <h3 class="side-head">Follow</h3>
+          <ul>
+            <li><a href={href('/rss.xml')}>RSS feed</a></li>
+          </ul>
+        </aside>
       </div>
     </section>
   </div>

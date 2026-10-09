@@ -4,6 +4,8 @@ export const site = {
   title: 'Information, energy and ecology',
   description:
     'Essays and papers by Rémi Paccou on information, energy and ecology.',
+  // One line, shown in the side column of the home page.
+  about: 'I work on what information technologies do to energy systems and to the climate.',
   nav: [
     { label: 'Essays', path: '/writing/' },
     { label: 'Papers', path: '/publications/' },
