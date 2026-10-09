@@ -45,7 +45,8 @@ export const publications: Publication[] = records
       venue: r['container-title'] ?? r.publisher,
       note: r.note,
       link: doi ? `https://doi.org/${doi}` : r.URL,
-      linkLabel: doi ? `doi:${doi}` : r.URL?.replace(/^https?:\/\//, ''),
+      // A DOI is shown in full; any other link by its site name only.
+      linkLabel: doi ? `doi:${doi}` : r.URL?.replace(/^https?:\/\/(www\.)?/, '').replace(/^([^/]+)\/.{40,}$/, '$1'),
       selected: String(r.keyword ?? '').split(/[,;]\s*/).includes('selected'),
     };
   })
