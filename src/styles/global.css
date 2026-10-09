@@ -345,3 +345,8 @@ sub { bottom: -0.2em; }
   .paper { font-size: 1.05rem; }
   .paper .prose > p, .paper .prose li, .paper-abstract { text-align: left; }
 }
+
+.paper .references p { overflow-wrap: anywhere; }
+.about .band-label { padding-top: 0.4rem; }
+.portrait { width: 100%; max-width: 15rem; aspect-ratio: 1; object-fit: cover; }
+@media (max-width: 54rem) { .about .band-label { margin-bottom: 1.6rem; } }

@@ -76,6 +76,7 @@ const notices = await getNotices();
           </ul>
           <h3 class="side-head">Follow</h3>
           <ul>
+            {site.links.github && <li><a href={site.links.github}>GitHub</a></li>}
             <li><a href={href('/rss.xml')}>RSS feed</a></li>
           </ul>
         </aside>

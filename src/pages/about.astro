@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait.png';
 import { site } from '../site';
 const { email, github, linkedin, orcid, scholar } = site.links;
 const contacts = [
@@ -19,8 +21,10 @@ const contacts = [
       </div>
     </header>
 
-    <section class="band">
-      <div class="band-label" aria-hidden="true"></div>
+    <section class="band about">
+      <div class="band-label">
+        <Image class="portrait" src={portrait} alt="Portrait of Rémi Paccou" widths={[240, 480, 720]} sizes="(max-width: 54rem) 60vw, 11rem" loading="eager" />
+      </div>
       <div class="band-main prose">
         <p>
           I am Rémi Paccou. I work on what information technologies do to energy systems and to the climate, as a
@@ -29,7 +33,7 @@ const contacts = [
         <p>I trained as an engineer in thermodynamics at Arts et Métiers.</p>
         <p>
           The views expressed here are my own.
-          {contacts.length > 0 && <>You can reach me through {contacts.map((c, i) => <>{i > 0 && (i === contacts.length - 1 ? ' or ' : ', ')}<a href={c.url}>{c.label}</a></>)}.</>}
+          {contacts.length > 0 && <>{' '}You can reach me through {contacts.map((c, i) => <>{i > 0 && (i === contacts.length - 1 ? ' or ' : ', ')}<a href={c.url}>{c.label}</a></>)}.</>}
         </p>
       </div>
     </section>

@@ -16,7 +16,7 @@ export const site = {
   // Leave a value empty to hide the link.
   links: {
     email: '',
-    github: 'https://github.com/remipaccou',
+    github: 'https://github.com/remiopensource',
     linkedin: '',
     orcid: '',
     scholar: '',
