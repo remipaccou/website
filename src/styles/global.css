@@ -350,3 +350,7 @@ sub { bottom: -0.2em; }
 .about .band-label { padding-top: 0.4rem; }
 .portrait { width: 100%; max-width: 15rem; aspect-ratio: 1; object-fit: cover; }
 @media (max-width: 54rem) { .about .band-label { margin-bottom: 1.6rem; } }
+
+/* Drawn figures (SVG, black line work): full column width, inverted at night. */
+.paper .prose figure img[src$='.svg'] { width: 100%; max-height: none; mix-blend-mode: normal; }
+@media (prefers-color-scheme: dark) { .paper .prose figure img[src$='.svg'] { filter: invert(1) hue-rotate(180deg); } }

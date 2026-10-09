@@ -9,15 +9,15 @@ lead: ./figure-1-compute-projection.png
 leadAlt: "Chart of training compute from 2025 to 2040 on a logarithmic scale, rising through bands labelled feasible, climate sacrifice, planet destructive and impossible."
 ---
 
-Projections of AI compute typically depict an exponential curve rising indefinitely—training requirements climbing from 10²⁵ to 10³⁰ to 10⁴⁰ FLOP with no visible ceiling.
+Projections of AI compute typically depict an exponential curve rising indefinitely—training requirements climbing from $10^{25}$ to $10^{30}$ to $10^{40}$ FLOP with no visible ceiling.
 
-![Chart of training compute from 2025 to 2040 on a logarithmic scale, rising through bands labelled feasible, climate sacrifice, planet destructive and impossible.](./figure-1-compute-projection.png "Training compute projections must eventually encounter thermodynamic constraints. The curve cannot extend indefinitely.")
+![Chart of training compute from 2025 to 2040 on a logarithmic scale, rising through bands labelled feasible, climate sacrifice, planet destructive and impossible.](./figure-1-compute-projection.svg "Training compute projections must eventually encounter thermodynamic constraints. The curve cannot extend indefinitely.")
 
 The implicit assumption is that intelligence scales without bound, limited only by capital and engineering. Yet all exponential processes terminate. The question is not whether AI scaling will encounter constraints, but where those constraints lie.
 
-This article examines the upper bounds of trained AI systems based on energy availability, thermodynamic limits of computation, and heat dissipation capacity of Earth. The analysis suggests that without planetary-scale disruption, approximately GPT-9 level (10³⁶ FLOP) represents a realistic ceiling.
+This article examines the upper bounds of trained AI systems based on energy availability, thermodynamic limits of computation, and heat dissipation capacity of Earth. The analysis suggests that without planetary-scale disruption, approximately GPT-9 level ($10^{36}$ FLOP) represents a realistic ceiling.
 
-Accepting significant climate destabilization extends this to GPT-11 (10⁴⁰ FLOP). Catastrophic scenarios involving biosphere collapse might reach GPT-11.5 (10⁴¹ FLOP).
+Accepting significant climate destabilization extends this to GPT-11 ($10^{40}$ FLOP). Catastrophic scenarios involving biosphere collapse might reach GPT-11.5 ($10^{41}$ FLOP).
 
 These constitute the thermodynamic boundaries of terrestrial intelligence.
 
@@ -35,15 +35,15 @@ Three factors structure this analysis:
 
 We consider four energy scenarios of increasing magnitude:
 
-**E₀ = 100 GW** (10¹¹ W) — current global datacenter capacity, 2025.
+$E_0 = 100\ \mathrm{GW}$ ($10^{11}$ W) — current global datacenter capacity, 2025.
 
-**E₁ = 200 GW** (2×10¹¹ W) — projected global datacenter capacity by 2030.
+$E_1 = 200\ \mathrm{GW}$ ($2\times10^{11}$ W) — projected global datacenter capacity by 2030.
 
-**E₂ = 1 PW** (10¹⁵ W) — theoretical maximum from solar capture at continental scale.
+$E_2 = 1\ \mathrm{PW}$ ($10^{15}$ W) — theoretical maximum from solar capture at continental scale.
 
-**E₃ = 50 PW** (5×10¹⁶ W) — nuclear energy generation at catastrophic scale.
+$E_3 = 50\ \mathrm{PW}$ ($5\times10^{16}$ W) — nuclear energy generation at catastrophic scale.
 
-The E₂ scenario derives from the following calculation. Given Earth’s surface area of 5×10¹⁴ m², land coverage of 29%, average solar irradiance of 168 W/m², and assuming 20% land utilization with 20% conversion efficiency:
+The $E_2$ scenario derives from the following calculation. Given Earth’s surface area of $5\times10^{14}$ m$^2$, land coverage of 29%, average solar irradiance of 168 W/m$^2$, and assuming 20% land utilization with 20% conversion efficiency:
 
 $$
 E_2 = (5 \times 10^{14}\,\mathrm{m^2}) \times (0.29 \times 0.20 \times 0.20) \times (168\,\mathrm{W/m^2}) \approx 10^{15}\,\mathrm{W}
@@ -51,7 +51,7 @@ $$
 
 Solar capture at this scale would reduce Earth’s albedo, contributing 1-2K of warming through altered reflectivity. However, solar power possesses a crucial thermodynamic advantage: it redirects energy already arriving at Earth rather than introducing new heat into the system.
 
-![Bar chart of four power scenarios, from 100 GW today to 50 PW, set against Earth's heat dissipation limit.](./figure-2-energy-scenarios.png "Four orders of magnitude separate current infrastructure from thermodynamic limits.")
+![Bar chart of four power scenarios, from 100 GW today to 50 PW, set against Earth's heat dissipation limit.](./figure-2-energy-scenarios.svg "Four orders of magnitude separate current infrastructure from thermodynamic limits.")
 
 Nuclear and fusion power introduce a fundamental problem absent from solar. Earth dissipates heat according to the Stefan-Boltzmann law:
 
@@ -92,27 +92,27 @@ $$
 \eta_{\max} = \frac{1}{50 \times E_{\min}} \approx 5 \times 10^{18}\ \mathrm{FLOPS/W}
 $$
 
-Current hardware achieves approximately 10¹³ FLOPS/W (NVIDIA H100), five orders of magnitude below the theoretical limit. At historical rates of efficiency improvement, closing this gap would require roughly 30 years.
+Current hardware achieves approximately $10^{13}$ FLOPS/W (NVIDIA H100), five orders of magnitude below the theoretical limit. At historical rates of efficiency improvement, closing this gap would require roughly 30 years.
 
-![Bar chart of computational efficiency: current H100 hardware, a neuromorphic scenario at 1% of the limit, and the Landauer limit.](./figure-3-compute-efficiency.png "Current hardware operates 10⁵× below thermodynamic limits.")
+![Bar chart of computational efficiency: current H100 hardware, a neuromorphic scenario at 1% of the limit, and the Landauer limit.](./figure-3-compute-efficiency.svg "Current hardware operates 10⁵× below thermodynamic limits.")
 
 Three efficiency scenarios structure the subsequent analysis:
 
-**η₀ = 10¹³ FLOPS/W** — current state of the art (H100-class hardware).
+$\eta_0 = 10^{13}\ \mathrm{FLOPS/W}$ — current state of the art (H100-class hardware).
 
-**η₁ = 5×10¹⁶ FLOPS/W** — 1% of Landauer limit, potentially achievable through neuromorphic or novel architectures.
+$\eta_1 = 5\times10^{16}\ \mathrm{FLOPS/W}$ — 1% of Landauer limit, potentially achievable through neuromorphic or novel architectures.
 
-**η₂ = 5×10¹⁸ FLOPS/W** — approaching Landauer limit, requiring near-perfect reversible computing.
+$\eta_2 = 5\times10^{18}\ \mathrm{FLOPS/W}$ — approaching Landauer limit, requiring near-perfect reversible computing.
 
 ## Scenarios
 
-Current estimates place GPT-4 training compute at approximately 10²⁵ FLOP. Historical progression suggests each model generation requires roughly 100× more compute. Combining energy and efficiency scenarios yields a ladder of possibilities with escalating consequences.
+Current estimates place GPT-4 training compute at approximately $10^{25}$ FLOP. Historical progression suggests each model generation requires roughly 100× more compute. Combining energy and efficiency scenarios yields a ladder of possibilities with escalating consequences.
 
 ### C1: Market-Bounded Growth
 
 Progress constrained by commercial investment and existing infrastructure.
 
-*Parameters:* E₀ (100 GW), η₀ (10¹³ FLOPS/W), 6-month training, 20% utilization.
+*Parameters:* $E_0$ (100 GW), $\eta_0$ ($10^{13}$ FLOPS/W), 6-month training, 20% utilization.
 
 $$
 (10^{13}) \times (10^{11}) \times (1.6 \times 10^{7}) \times (0.2) \approx 3.1 \times 10^{31}\ \mathrm{FLOP}
@@ -124,7 +124,7 @@ $$
 
 State-level mobilization comparable to the Manhattan Project, driving both infrastructure expansion and efficiency breakthroughs.
 
-*Parameters:* E₁ (200 GW), η₁ (5×10¹⁶ FLOPS/W), 6-month training, 20% utilization.
+*Parameters:* $E_1$ (200 GW), $\eta_1$ ($5\times10^{16}$ FLOPS/W), 6-month training, 20% utilization.
 
 $$
 (5 \times 10^{16}) \times (2 \times 10^{11}) \times (1.6 \times 10^{7}) \times (0.2) \approx 3.1 \times 10^{35}\ \mathrm{FLOP}
@@ -136,7 +136,7 @@ $$
 
 Global coordination accepting significant ecological cost for maximum terrestrial intelligence.
 
-*Parameters:* E₂ (1 PW), η₂ (5×10¹⁸ FLOPS/W), 6-month training, 20% utilization.
+*Parameters:* $E_2$ (1 PW), $\eta_2$ ($5\times10^{18}$ FLOPS/W), 6-month training, 20% utilization.
 
 $$
 (5 \times 10^{18}) \times (10^{15}) \times (1.6 \times 10^{7}) \times (0.2) \approx 1.6 \times 10^{40}\ \mathrm{FLOP}
@@ -148,7 +148,7 @@ $$
 
 Pursuit of maximum capability regardless of planetary consequences.
 
-*Parameters:* E₃ (50 PW), η₂ adjusted for 325K (4.6×10¹⁸ FLOPS/W), 6-month training, 20% utilization.
+*Parameters:* $E_3$ (50 PW), $\eta_2$ adjusted for 325K ($4.6\times10^{18}$ FLOPS/W), 6-month training, 20% utilization.
 
 $$
 (4.6 \times 10^{18}) \times (5 \times 10^{16}) \times (1.6 \times 10^{7}) \times (0.2) \approx 7.4 \times 10^{41}\ \mathrm{FLOP}
@@ -156,19 +156,19 @@ $$
 
 *Outcome:* GPT-11.5 equivalent—a marginal gain of 0.5 generations. Cost: biosphere collapse, ocean evaporation, civilizational destruction. A pyrrhic achievement.
 
-![Scenarios C1 to C4 placed on a logarithmic compute scale, with the corresponding model generations from GPT-4 to GPT-11.5.](./figure-4-scenarios-ladder.png "Each increment in capability demands exponentially greater sacrifice.")
+![Scenarios C1 to C4 placed on a logarithmic compute scale, with the corresponding model generations from GPT-4 to GPT-11.5.](./figure-4-scenarios-ladder.svg "Each increment in capability demands exponentially greater sacrifice.")
 
 ## Constraints and Objections
 
 Several additional constraints compound those discussed above.
 
-**Distribution and latency.** Scenarios E₂ and E₃ require planetary-scale heat dissipation, which necessitates geographic distribution of compute. This introduces speed-of-light latency—a signal traversing Earth requires approximately 67 milliseconds. Current training algorithms assume low-latency synchronization; distributed architectures would require fundamental algorithmic innovation.
+**Distribution and latency.** Scenarios $E_2$ and $E_3$ require planetary-scale heat dissipation, which necessitates geographic distribution of compute. This introduces speed-of-light latency—a signal traversing Earth requires approximately 67 milliseconds. Current training algorithms assume low-latency synchronization; distributed architectures would require fundamental algorithmic innovation.
 
 **Quantum computing.** While quantum systems excel at specific problem classes, their applicability to neural network training remains uncertain. Moreover, cryogenic cooling requirements would shift rather than eliminate thermodynamic burdens.
 
 **Reversible computing.** Theoretically capable of circumventing Landauer limits by avoiding bit erasure, reversible computing remains incompatible with current training methods. Backpropagation inherently involves irreversible weight updates. As Michael Frank has noted, practical reversible computing would require changes as fundamental as the transition from stone tablets to microprocessors.
 
-![Diagram of four constraints around terrestrial intelligence: energy, heat, Landauer and latency.](./figure-5-four-walls.png "Four independent constraints bound terrestrial intelligence—each sufficient alone.")
+![Diagram of four constraints around terrestrial intelligence: energy, heat, Landauer and latency.](./figure-5-four-walls.svg "Four independent constraints bound terrestrial intelligence—each sufficient alone.")
 
 **Extended training.** Longer training duration offers linear gains: one order of magnitude per decade. Reaching GPT-11 through duration alone would require millennia—at which point the endeavor becomes indistinguishable from civilizational projects like Dyson sphere construction.
 
@@ -192,15 +192,15 @@ $$
 
 *Outcome:* Not a singular superintelligence but a distributed cognitive ecosystem—resilient, adaptive, sustainable. The human scientific community offers a partial model: collective intelligence emerging from diverse perspectives rather than concentrated computation.
 
-![Two columns contrasting an entropic paradigm of intelligence, based on accumulation, with a negentropic one, based on organisation.](./figure-6-two-paradigms.png "Entropic accumulation versus negentropic cultivation.")
+![Two columns contrasting an entropic paradigm of intelligence, based on accumulation, with a negentropic one, based on organisation.](./figure-6-two-paradigms.svg "Entropic accumulation versus negentropic cultivation.")
 
 ## Conclusions
 
 The thermodynamic analysis yields several conclusions:
 
-GPT-9 (10³⁶ FLOP) represents the realistic upper bound for training runs compatible with sustainable energy systems, achievable through coordinated effort and substantial efficiency improvements.
+GPT-9 ($10^{36}$ FLOP) represents the realistic upper bound for training runs compatible with sustainable energy systems, achievable through coordinated effort and substantial efficiency improvements.
 
-GPT-11 (10⁴⁰ FLOP) constitutes the theoretical maximum within Earth’s heat dissipation capacity, requiring near-Landauer efficiency and acceptance of significant climate disruption.
+GPT-11 ($10^{40}$ FLOP) constitutes the theoretical maximum within Earth’s heat dissipation capacity, requiring near-Landauer efficiency and acceptance of significant climate disruption.
 
 Beyond this, marginal capability gains demand catastrophic planetary costs. The thermodynamic return on civilizational investment becomes vanishingly small.
 
@@ -403,7 +403,7 @@ $$
 \end{aligned}
 $$
 
-### A6. Maximum Solar Power (E₂)
+### A6. Maximum Solar Power ($E_2$)
 
 $$
 \begin{aligned}
@@ -524,22 +524,22 @@ $$
 
 | Parameter                   | Value                     | Source                      |
 |-----------------------------|---------------------------|-----------------------------|
-| Boltzmann constant k<sub>B</sub>    | 1.380649 × 10⁻²³ J/K      | CODATA 2018                 |
-| Stefan-Boltzmann constant σ | 5.670374 × 10⁻⁸ W·m⁻²·K⁻⁴ | CODATA 2018                 |
-| Speed of light c            | 2.998 × 10⁸ m/s           | CODATA 2018                 |
-| Earth surface area          | 5.1 × 10¹⁴ m²             | NASA                        |
+| Boltzmann constant $k_B$    | $1.380649\times10^{-23}$ J/K      | CODATA 2018                 |
+| Stefan-Boltzmann constant $\sigma$ | $5.670374\times10^{-8}$ $\mathrm{W\,m^{-2}\,K^{-4}}$ | CODATA 2018                 |
+| Speed of light $c$            | $2.998\times10^{8}$ m/s           | CODATA 2018                 |
+| Earth surface area          | $5.1\times10^{14}$ m$^2$             | NASA                        |
 | Earth land fraction         | 29%                       | NASA                        |
-| Average solar irradiance    | 168 W/m²                  | Stephens et al. 2012        |
+| Average solar irradiance    | 168 W/m$^2$                  | Stephens et al. 2012        |
 | Earth effective emissivity  | 0.612                     | Derived from energy balance |
 | Current datacenter capacity | ~100 GW                   | IEA 2024                    |
-| H100 efficiency             | ~10¹³ FLOPS/W             | NVIDIA 2022                 |
-| GPT-4 training compute      | ~10²⁵ FLOP                | Epoch AI 2024               |
+| H100 efficiency             | ~$10^{13}$ FLOPS/W             | NVIDIA 2022                 |
+| GPT-4 training compute      | ~$10^{25}$ FLOP                | Epoch AI 2024               |
 
 ## Summary of Scenarios
 
 | Scenario | Energy | Efficiency       | Compute       | Model    | Cost                   |
 |----------|--------|------------------|---------------|----------|------------------------|
-| C1       | 100 GW | 10¹³ FLOPS/W     | 3×10³¹ FLOP   | GPT-6    | Market constraints     |
-| C2       | 200 GW | 5×10¹⁶ FLOPS/W   | 3×10³⁵ FLOP   | GPT-9    | Manhattan-scale effort |
-| C3       | 1 PW   | 5×10¹⁸ FLOPS/W   | 1.6×10⁴⁰ FLOP | GPT-11   | +1-2K warming          |
-| C4       | 50 PW  | 4.6×10¹⁸ FLOPS/W | 7×10⁴¹ FLOP   | GPT-11.5 | Biosphere collapse     |
+| C1       | 100 GW | $10^{13}$ FLOPS/W     | $3\times10^{31}$ FLOP   | GPT-6    | Market constraints     |
+| C2       | 200 GW | $5\times10^{16}$ FLOPS/W   | $3\times10^{35}$ FLOP   | GPT-9    | Manhattan-scale effort |
+| C3       | 1 PW   | $5\times10^{18}$ FLOPS/W   | $1.6\times10^{40}$ FLOP | GPT-11   | +1-2K warming          |
+| C4       | 50 PW  | $4.6\times10^{18}$ FLOPS/W | $7\times10^{41}$ FLOP   | GPT-11.5 | Biosphere collapse     |
