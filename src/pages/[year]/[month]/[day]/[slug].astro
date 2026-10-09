@@ -1,10 +1,12 @@
 ---
 import 'katex/dist/katex.min.css';
+import 'computer-modern/cmu-serif.css';
 import { render } from 'astro:content';
 import { getImage, Image } from 'astro:assets';
 import Base from '../../../../layouts/Base.astro';
+import { site } from '../../../../site';
 import { scriptsToHtml } from '../../../../lib/typography.mjs';
-import { getEssays, dateParts, slugOf, longDate, isoDate, readingMinutes } from '../../../../lib/writing';
+import { getEssays, dateParts, slugOf, longDate, isoDate } from '../../../../lib/writing';
 
 export async function getStaticPaths() {
   const essays = await getEssays();
@@ -17,47 +19,43 @@ export async function getStaticPaths() {
 const { essay } = Astro.props;
 const { Content } = await render(essay);
 const { title, description, date, topic, cover, coverAlt, responses } = essay.data;
-const minutes = readingMinutes(essay.body ?? '');
 const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'jpg' })).src : undefined;
 ---
 <Base title={title} description={description} image={shareImage} type="article" published={date}>
-  <article class="wrap">
-    <header class="essay-head band">
-      <div class="band-label essay-info">
-        <time datetime={isoDate(date)}>{longDate(date)}</time>
-        <span>{minutes} min read</span>
-        {topic && <span>{topic}</span>}
-      </div>
-      <div class="band-main">
-        <h1 class="page-title">{title}</h1>
-        <p class="page-lead" set:html={scriptsToHtml(description)} />
-      </div>
+  <!-- Essays are set like a LaTeX article: Computer Modern throughout,
+       numbered sections, equations, figures and tables. -->
+  <article class="wrap paper">
+    <header class="paper-head">
+      <h1>{title}</h1>
+      <p class="paper-author">{site.author}</p>
+      <p class="paper-date"><time datetime={isoDate(date)}>{longDate(date)}</time></p>
     </header>
 
-    <div class="band">
-      <div class="band-label" aria-hidden="true"></div>
-      <div class="band-main">
-        {cover && (
-          <figure class="essay-cover">
-            <Image src={cover} alt={coverAlt} widths={[640, 960, 1400]} sizes="(max-width: 54rem) 100vw, 41rem" loading="eager" />
-          </figure>
-        )}
-        <div class="prose">
-          <Content />
-        </div>
+    <section class="paper-abstract">
+      <h2>Abstract</h2>
+      <p set:html={scriptsToHtml(description)} />
+    </section>
 
-        {responses.length > 0 && (
-          <section class="responses">
-            <h2>Responses</h2>
-            {responses.map((r) => (
-              <div class="response">
-                <p class="response-by"><b>{r.author}</b>, <time datetime={isoDate(r.date)}>{longDate(r.date)}</time></p>
-                {r.body.trim().split(/\n\s*\n/).map((para) => <p>{para}</p>)}
-              </div>
-            ))}
-          </section>
-        )}
-      </div>
+    {cover && (
+      <figure class="paper-cover">
+        <Image src={cover} alt={coverAlt} widths={[480, 800, 1200]} sizes="(max-width: 40rem) 100vw, 24rem" loading="eager" />
+      </figure>
+    )}
+
+    <div class="prose paper-body">
+      <Content />
     </div>
+
+    {responses.length > 0 && (
+      <section class="responses">
+        <h2>Responses</h2>
+        {responses.map((r) => (
+          <div class="response">
+            <p class="response-by"><b>{r.author}</b>, <time datetime={isoDate(r.date)}>{longDate(r.date)}</time></p>
+            {r.body.trim().split(/\n\s*\n/).map((para) => <p>{para}</p>)}
+          </div>
+        ))}
+      </section>
+    )}
   </article>
 </Base>

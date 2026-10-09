@@ -276,3 +276,72 @@ sub { bottom: -0.2em; }
 .derivations .katex-display { background: var(--panel); padding: 1.3rem 1.5rem; border-radius: 3px; margin-block: 1rem 0; }
 .derivations .katex-display > .katex { text-align: left; }
 .derivations .katex { font-size: 1em; }
+
+/* Essays, set like a LaTeX article. Text, headings, captions and tables use
+   Computer Modern, the face of the equations, so the page is of one piece. */
+.paper {
+  --cm: 'CMU Serif', 'KaTeX_Main', 'Latin Modern Roman', 'Times New Roman', serif;
+  --measure: 36rem;
+  font-family: var(--cm); font-weight: 500; font-size: 1.12rem; line-height: 1.5;
+  padding-top: clamp(2.5rem, 7vw, 4.5rem);
+  counter-reset: sec eq fig tab;
+}
+.paper > * { max-width: var(--measure); margin-inline: auto; }
+.paper b, .paper strong, .paper th { font-weight: 700; }
+.paper-head { text-align: center; }
+.paper-head h1 { font-size: clamp(1.6rem, 3.6vw, 2.05rem); font-weight: 500; line-height: 1.25; letter-spacing: 0; }
+.paper-author { margin-top: 1.5rem; font-size: 1.2rem; }
+.paper-date { margin-top: 0.5rem; font-size: 1.2rem; }
+.paper-abstract { margin-top: 2.6rem; padding-inline: clamp(0rem, 5vw, 2.4rem); font-size: 0.94em; text-align: justify; hyphens: auto; }
+.paper-abstract h2 { font-size: 1em; font-weight: 700; text-align: center; margin-bottom: 0.6rem; }
+.paper-cover { margin-top: 2.6rem; margin-bottom: 0; }
+.paper-cover img { width: min(100%, 22rem); margin-inline: auto; filter: grayscale(1); }
+.paper-body { margin-top: 2.6rem; }
+
+.paper .prose > p, .paper .prose li, .paper .references p, .paper .derivations p { text-align: justify; hyphens: auto; }
+.paper .prose > * + * { margin-top: 0.9em; }
+.paper .prose h2 { font-size: 1.44em; font-weight: 700; letter-spacing: 0; margin-top: 2.2em; counter-increment: sec; counter-reset: sub; text-align: left; }
+.paper .prose h2::before { content: counter(sec); margin-right: 1em; }
+.paper .prose h3 { font-size: 1.2em; font-weight: 700; margin-top: 1.8em; counter-increment: sub; }
+.paper .prose > h3::before { content: counter(sec) '.' counter(sub); margin-right: 1em; }
+.paper .prose h4 { font-size: 1em; font-weight: 700; }
+/* References, appendices and what follows them are not numbered. */
+.paper .prose h2:has(+ .references), .paper .prose .references ~ h2 { counter-increment: none; }
+.paper .prose h2:has(+ .references)::before, .paper .prose .references ~ h2::before, .paper .prose .references ~ h3::before { content: none; }
+.paper .prose h2 + *, .paper .prose h3 + *, .paper .prose h4 + * { margin-top: 0.7em; }
+.paper .prose hr { border: 0; margin-block: 2.4rem; text-align: center; }
+.paper .prose hr::after { content: '∗ ∗ ∗'; letter-spacing: 0.4em; }
+.paper .prose a { color: inherit; }
+.paper .prose sup:has(a) { font-family: inherit; }
+
+/* Displayed equations, numbered at the right margin. */
+.paper .prose .katex { font-size: 1em; }
+.paper .prose > .katex-display, .paper .prose > p > .katex-display { position: relative; margin-block: 1.1rem; padding: 0.2rem 2.6rem 0.2rem 0; counter-increment: eq; }
+.paper .prose > .katex-display::after, .paper .prose > p > .katex-display::after { content: '(' counter(eq) ')'; position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+
+/* Figures and tables: centred, captioned and numbered. */
+.paper .prose figure { margin-block: 2rem; text-align: center; counter-increment: fig; }
+.paper .prose figure img { margin-inline: auto; max-height: 30rem; border-radius: 0; mix-blend-mode: multiply; }
+.paper .prose figcaption { margin-top: 0.8rem; font-family: inherit; font-size: 0.92em; line-height: 1.4; color: inherit; }
+.paper .prose figcaption::before { content: 'Figure ' counter(fig) ': '; }
+.paper .prose figure:not(:has(figcaption)) { counter-increment: none; }
+.paper .prose figure:not(:has(figcaption)) img { filter: grayscale(1); max-height: 22rem; }
+.paper .prose table { display: table; width: auto; max-width: 100%; margin: 2rem auto 0; font-family: inherit; font-size: 0.92em; line-height: 1.35; border-collapse: collapse; border-block: 0.09em solid var(--ink); counter-increment: tab; }
+.paper .prose th, .paper .prose td { padding: 0.32rem 0.8rem; border: 0; white-space: normal; }
+.paper .prose th { font-weight: 500; border-bottom: 0.05em solid var(--ink); }
+.paper .prose table + p > em:only-child { font-family: inherit; font-size: 0.92em; color: inherit; margin-top: -0.2rem; text-align: center; }
+.paper .prose table + p > em:only-child::before { content: 'Table ' counter(tab) ': '; }
+.paper .prose table + p { text-align: center; }
+@media (max-width: 40rem) { .paper .prose table { display: block; overflow-x: auto; } }
+@media (prefers-color-scheme: dark) { .paper .prose figure img { mix-blend-mode: normal; } }
+
+.paper .references { font-size: 0.92em; line-height: 1.4; }
+.paper .references p { padding-left: 1.5em; text-indent: -1.5em; text-align: left; }
+.paper .derivations .katex-display { background: none; padding: 0; margin-block: 0.8rem; }
+.paper .responses { font-family: var(--cm); }
+.paper .response-by { font-family: inherit; }
+.paper .prose .katex-display { overflow-x: auto; overflow-y: hidden; }
+@media (max-width: 40rem) {
+  .paper { font-size: 1.05rem; }
+  .paper .prose > p, .paper .prose li, .paper-abstract { text-align: left; }
+}
