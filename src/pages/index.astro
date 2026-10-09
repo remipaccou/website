@@ -7,6 +7,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
+import Seal from '../components/Seal.astro';
 import { site } from '../site';
 import { href } from '../lib/url';
 import { getEssays, pathOf, longDate, isoDate } from '../lib/writing';
@@ -26,6 +27,7 @@ const triad = [
 const notices = await getNotices();
 ---
 <Base>
+  <p class="edge" aria-hidden="true">Information, energy and ecology</p>
   <div class="wrap home">
     <h1 class="triad">
       {triad.map((t) => (
@@ -82,5 +84,11 @@ const notices = await getNotices();
         </aside>
       </div>
     </section>
+
+    <blockquote class="epigraph">
+      <p>What we observe is not nature itself, but nature exposed to our method of questioning.</p>
+      <footer>Werner Heisenberg</footer>
+      <Seal />
+    </blockquote>
   </div>
 </Base>

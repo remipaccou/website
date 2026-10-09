@@ -354,3 +354,16 @@ sub { bottom: -0.2em; }
 /* Drawn figures (SVG, black line work): full column width, inverted at night. */
 .paper .prose figure img[src$='.svg'] { width: 100%; max-height: none; mix-blend-mode: normal; }
 @media (prefers-color-scheme: dark) { .paper .prose figure img[src$='.svg'] { filter: invert(1) hue-rotate(180deg); } }
+
+/* Small signs: the seal, the epigraph, the title running down the edge. */
+.seal { display: block; width: 2.1rem; height: 2.1rem; }
+.seal rect { fill: var(--sun); }
+.seal text { font-style: normal; fill: var(--paper); font-family: var(--serif); font-size: 19px; font-weight: 500; letter-spacing: 0.02em; }
+.epigraph { margin: clamp(4rem, 9vw, 6.5rem) auto 0; max-width: 32rem; text-align: center; font-style: italic; font-size: 1.3rem; line-height: 1.5; }
+.epigraph footer { margin-top: 0.9rem; font-style: normal; font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
+.epigraph .seal { margin: 2rem auto 0; }
+.prose .seal { margin-top: 2rem; }
+.edge { display: none; }
+@media (min-width: 88rem) {
+  .edge { display: block; position: fixed; left: 2.2rem; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--muted); }
+}

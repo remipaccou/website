@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import portrait from '../assets/portrait.png';
+import Seal from '../components/Seal.astro';
 import { site } from '../site';
 const { email, github, linkedin, orcid, scholar } = site.links;
 const contacts = [
@@ -35,6 +36,7 @@ const contacts = [
           The views expressed here are my own.
           {contacts.length > 0 && <>{' '}You can reach me through {contacts.map((c, i) => <>{i > 0 && (i === contacts.length - 1 ? ' or ' : ', ')}<a href={c.url}>{c.label}</a></>)}.</>}
         </p>
+        <Seal />
       </div>
     </section>
   </div>
