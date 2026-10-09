@@ -1,0 +1,39 @@
+---
+// Draft D, "Ma": almost nothing on the page. Two short lists set low and to
+// the right, small type, the rest left empty.
+import '../../styles/drafts.css';
+import Base from '../../layouts/Base.astro';
+import Drafts from '../../components/Drafts.astro';
+import { href } from '../../lib/url';
+import { getEssays, pathOf, dateParts } from '../../lib/writing';
+import { publications } from '../../lib/publications';
+
+const essays = await getEssays();
+const selected = publications.filter((p) => p.selected);
+const dotted = (d: Date) => { const { year, month, day } = dateParts(d); return `${year}.${month}.${day}`; };
+---
+<Base noindex theme="ma">
+  <div class="wrap ma">
+    <h1 class="ma-title">Information, energy and ecology</h1>
+    <div class="ma-lists">
+      <section>
+        <h2>Essays</h2>
+        <ul class="list">
+          {essays.map((essay) => (
+            <li><time>{dotted(essay.data.date)}</time><a href={href(pathOf(essay))}>{essay.data.title}</a></li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <h2>Papers</h2>
+        <ul class="list">
+          {selected.map((p) => (
+            <li><time>{p.year}</time>{p.link ? <a href={p.link}>{p.title}</a> : <span>{p.title}</span>}</li>
+          ))}
+          <li><time></time><a class="ma-all" href={href('/publications/')}>All papers</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <Drafts current="d" />
+</Base>

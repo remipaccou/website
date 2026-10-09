@@ -1,0 +1,38 @@
+---
+// Draft F, "Index": the site as a catalogue. The title runs down the left
+// edge; essays and papers are entries in one ruled table.
+import '../../styles/drafts.css';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Drafts from '../../components/Drafts.astro';
+import { href } from '../../lib/url';
+import { getEssays, pathOf, dateParts } from '../../lib/writing';
+import { publications } from '../../lib/publications';
+
+const essays = await getEssays();
+const selected = publications.filter((p) => p.selected);
+const dotted = (d: Date) => { const { year, month, day } = dateParts(d); return `${year}.${month}.${day}`; };
+---
+<Base noindex theme="index">
+  <div class="wrap index">
+    <h1 class="index-title">Information, energy and ecology</h1>
+    <div class="index-table">
+      {essays.map((essay) => (
+        <a class="index-row" href={href(pathOf(essay))}>
+          <span class="index-kind">Essay</span>
+          <span class="index-date">{dotted(essay.data.date)}</span>
+          <span class="index-name">{essay.data.title}</span>
+          {essay.data.cover && <Image class="index-thumb" src={essay.data.cover} alt="" widths={[160, 320]} sizes="5rem" />}
+        </a>
+      ))}
+      {selected.map((p) => (
+        <a class="index-row" href={p.link ?? href('/publications/')}>
+          <span class="index-kind">Paper</span>
+          <span class="index-date">{p.year}</span>
+          <span class="index-name">{p.title}<small>{p.venue ?? p.note}</small></span>
+        </a>
+      ))}
+    </div>
+  </div>
+  <Drafts current="f" />
+</Base>

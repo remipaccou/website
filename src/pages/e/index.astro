@@ -1,0 +1,49 @@
+---
+// Draft E, "Soleil": paper, ink and one red disc. The sun is the source that
+// bounds everything the essays discuss, so it is the only image on the page.
+import '../../styles/drafts.css';
+import Base from '../../layouts/Base.astro';
+import Drafts from '../../components/Drafts.astro';
+import { href } from '../../lib/url';
+import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
+import { publications } from '../../lib/publications';
+
+const essays = await getEssays();
+const selected = publications.filter((p) => p.selected);
+---
+<Base noindex theme="soleil">
+  <div class="wrap soleil">
+    <section class="soleil-top">
+      <div class="soleil-disc" aria-hidden="true"></div>
+      <div class="soleil-text">
+        <h1>Information, energy and ecology</h1>
+        <p>About 173,000 terawatts of sunlight reach the Earth.</p>
+      </div>
+    </section>
+
+    <section class="soleil-row">
+      <h2>Essays</h2>
+      <ul class="list">
+        {essays.map((essay) => (
+          <li>
+            <a href={href(pathOf(essay))}>{essay.data.title}</a>
+            <time datetime={isoDate(essay.data.date)}>{longDate(essay.data.date)}</time>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section class="soleil-row">
+      <h2>Papers</h2>
+      <ul class="list">
+        {selected.map((p) => (
+          <li>
+            {p.link ? <a href={p.link}>{p.title}</a> : p.title}
+            <time><cite>{p.venue ?? p.note}</cite>, {p.year}</time>
+          </li>
+        ))}
+        <li><a class="soleil-all" href={href('/publications/')}>All papers</a></li>
+      </ul>
+    </section>
+  </div>
+  <Drafts current="e" />
+</Base>
