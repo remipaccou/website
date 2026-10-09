@@ -1,6 +1,7 @@
 ---
 // Home page, built as a register in four blocks:
-//   1. lead     the latest essay, image with its title on a panel
+//   0. triad    the three words of the title under their Greek roots
+//   1. lead     the latest essay, text first, its image beside it
 //   2. papers   a row of four selected papers
 //   3. essays   cards on a three-column grid, with a narrow side column
 //   4. footer   (in the layout)
@@ -15,21 +16,35 @@ import { publications } from '../lib/publications';
 
 const essays = await getEssays();
 const lead = essays[0];
+// The three words of the title, each under the Greek word it comes from.
+const triad = [
+  { greek: 'μορφή', word: 'Information' },
+  { greek: 'ἐνέργεια', word: 'Energy' },
+  { greek: 'οἶκος', word: 'Ecology' },
+];
 const selected = publications.filter((p) => p.selected).slice(0, 4);
 ---
 <Base>
   <div class="wrap home">
+    <h1 class="triad">
+      {triad.map((t) => (
+        <span><i lang="grc">{t.greek}</i><b>{t.word}</b></span>
+      ))}
+    </h1>
+
     {lead && (
       <article class="lead">
+        <div class="lead-text">
+          <p class="meta"><time datetime={isoDate(lead.data.date)}>{longDate(lead.data.date)}</time></p>
+          <h2 class="lead-title"><a href={href(pathOf(lead))}>{lead.data.title}</a></h2>
+          <p class="lead-desc" set:html={scriptsToHtml(lead.data.description)} />
+          <p class="more"><a href={href(pathOf(lead))}>Read the essay</a></p>
+        </div>
         {lead.data.cover && (
           <a class="lead-image" href={href(pathOf(lead))} tabindex="-1" aria-hidden="true">
-            <Image src={lead.data.cover} alt="" widths={[800, 1200, 1800]} sizes="(max-width: 74rem) 100vw, 70rem" loading="eager" />
+            <Image src={lead.data.cover} alt="" widths={[480, 800, 1200]} sizes="(max-width: 54rem) 100vw, 26rem" loading="eager" />
           </a>
         )}
-        <div class="lead-panel">
-          <p class="meta"><time datetime={isoDate(lead.data.date)}>{longDate(lead.data.date)}</time></p>
-          <h1 class="lead-title"><a href={href(pathOf(lead))}>{lead.data.title}</a></h1>
-        </div>
       </article>
     )}
 

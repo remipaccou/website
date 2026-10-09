@@ -6,7 +6,7 @@ const isCurrent = (path: string) => here.startsWith(href(path));
 ---
 <header class="site-header">
   <div class="wrap">
-    <a class="site-name" href={href('/')}><span class="site-mark" aria-hidden="true"></span>{site.author}</a>
+    <a class="site-name" href={href('/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>
     <nav aria-label="Main">
       <ul>
         {site.nav.map((item) => (

@@ -1,16 +1,16 @@
-/* White page, one serif in light weights, small letter-spaced capitals for
-   everything that is a label, one red. Change the values here to restyle
+/* White page, one Garamond, small letter-spaced capitals for everything that
+   is a label, one vermilion kept for the circle beside the name. Change the values here to restyle
    the whole site. */
 :root {
-  --paper: #ffffff;
-  --panel: #f6f5f3;
-  --ink: #222222;
-  --muted: #777777;
+  --paper: #fdfcfa;
+  --panel: #f4f2ee;
+  --ink: #1d1b19;
+  --muted: #76716b;
   --rule: #e4e4e2;
   --accent: #b4443a;
   --sun: #c9301c;
 
-  --serif: 'Noto Serif Variable', 'Noto Serif', Georgia, serif;
+  --serif: 'EB Garamond Variable', 'EB Garamond', 'Cormorant Garamond', Garamond, Georgia, serif;
   --sans: var(--serif);
 
   --margin-col: 10.5rem;
@@ -46,9 +46,9 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 1rem;
-  font-weight: 350;
-  line-height: 1.7;
+  font-size: 1.16rem;
+  font-weight: 400;
+  line-height: 1.6;
   font-optical-sizing: auto;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -82,17 +82,17 @@ p { margin: 0; }
 
 /* Small capitals used for every label: menu, dates, section names. */
 .meta, .band-label, .essay-date, .pub-year, .side-head, .site-header nav a, .section-head, .block-more, .more, .site-footer {
-  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; line-height: 1.7;
+  font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.18em; line-height: 1.7;
 }
 .meta { color: var(--muted); }
 
 /* Header and footer */
-.site-header { padding-top: 2.6rem; text-align: center; }
-.site-name { display: inline-flex; align-items: center; gap: 0.9rem; font-size: 1.2rem; font-weight: 450; color: var(--ink); text-decoration: none; text-transform: uppercase; letter-spacing: 0.22em; }
-.site-mark { width: 0.72em; height: 0.72em; border-radius: 50%; background: var(--sun); }
+.site-header { padding-top: 2.4rem; text-align: center; }
+.site-name { display: inline-flex; flex-direction: column; align-items: center; gap: 1rem; font-size: 1.15rem; font-weight: 400; color: var(--ink); text-decoration: none; text-transform: uppercase; letter-spacing: 0.22em; }
+.site-mark { width: 2.6rem; height: 2.6rem; fill: none; stroke: var(--sun); stroke-width: 3.4; stroke-linecap: round; }
 .site-header nav { margin-top: 2rem; border-block: 1px solid var(--rule); }
 .site-header nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 2.6rem; }
-.site-header nav a { display: block; padding-block: 0.95rem; font-size: 0.74rem; letter-spacing: 0.32em; color: var(--ink); text-decoration: none; }
+.site-header nav a { display: block; padding-block: 0.85rem; font-size: 0.8rem; letter-spacing: 0.3em; color: var(--ink); text-decoration: none; }
 .site-header nav a:hover, .site-header nav a[aria-current='page'] { color: var(--accent); }
 
 .site-footer { margin-top: 6rem; border-top: 1px solid var(--rule); padding-block: 1.6rem 2.4rem; color: var(--muted); }
@@ -119,15 +119,22 @@ h2.band-label { font-weight: 400; }
 
 /* Page titles */
 .page-head { padding-block: 3.5rem 3rem; }
-.page-title { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 300; letter-spacing: -0.005em; line-height: 1.2; }
+.page-title { font-size: clamp(2rem, 4.4vw, 2.9rem); font-weight: 400; letter-spacing: -0.012em; line-height: 1.12; }
 .page-lead { margin-top: 1.4rem; font-size: 1.2rem; line-height: 1.6; color: var(--ink); max-width: var(--text-col); }
 
 /* Home: lead, papers, essays with side column */
-.home { padding-top: 2rem; }
-.lead { position: relative; }
-.lead-image img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; object-position: center 30%; }
-.lead-panel { position: absolute; left: 0; bottom: 0; max-width: min(34rem, 80%); background: var(--paper); padding: 1.6rem 2.2rem 0.2rem 0; }
-.lead-title { margin-top: 0.5rem; font-size: clamp(1.4rem, 2.6vw, 1.95rem); font-weight: 300; line-height: 1.3; }
+.home { padding-top: 0; }
+.triad { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding-block: clamp(2.6rem, 7vw, 4.6rem); font-weight: 400; }
+.triad span { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding-inline: 0.5rem; }
+.triad span + span { border-left: 1px solid var(--rule); }
+.triad i { font-style: normal; font-size: clamp(1.7rem, 5vw, 3.3rem); line-height: 1.2; letter-spacing: 0.01em; }
+.triad b { font-weight: 400; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--muted); }
+@media (max-width: 34rem) { .triad b { font-size: 0.6rem; letter-spacing: 0.16em; } }
+
+.lead { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 5rem); align-items: center; border-top: 1px solid var(--ink); padding-top: clamp(2.2rem, 5vw, 3.5rem); }
+.lead-title { margin-top: 0.7rem; font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.12; letter-spacing: -0.012em; }
+.lead-desc { margin-top: 1.3rem; max-width: 34rem; color: var(--muted); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; overflow: hidden; }
+.lead-image img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1); }
 .lead-title a, .quad h3 a, .card h3 a { color: var(--ink); text-decoration: none; }
 .lead-title a:hover, .quad h3 a:hover, .card h3 a:hover { color: var(--accent); }
 
@@ -140,14 +147,14 @@ h2.band-label { font-weight: 400; }
 
 .quad { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.4rem 2rem; }
 .quad li { border-top: 1px solid var(--ink); padding-top: 1rem; }
-.quad h3 { margin-top: 0.6rem; font-size: 1.02rem; line-height: 1.5; }
-.quad-venue { margin-top: 0.7rem; font-size: 0.86rem; font-style: italic; color: var(--muted); line-height: 1.5; }
+.quad h3 { margin-top: 0.5rem; font-size: 1.16rem; line-height: 1.35; }
+.quad-venue { margin-top: 0.6rem; font-size: 1rem; font-style: italic; color: var(--muted); line-height: 1.5; }
 
 .with-side { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; column-gap: clamp(2rem, 5vw, 4rem); row-gap: 3.5rem; }
 .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.6rem 2rem; align-content: start; }
-.card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 1rem; }
-.card h3 { margin-top: 0.4rem; font-size: 1.1rem; line-height: 1.45; }
-.side { font-size: 0.9rem; line-height: 1.65; }
+.card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 1rem; filter: grayscale(1); }
+.card h3 { margin-top: 0.3rem; font-size: 1.3rem; line-height: 1.3; }
+.side { font-size: 1.02rem; line-height: 1.55; }
 .side-head { font-weight: 400; padding-bottom: 0.6rem; margin-bottom: 0.9rem; border-bottom: 1px solid var(--ink); }
 .side * + .side-head { margin-top: 2.4rem; }
 .side p + p { margin-top: 0.6rem; }
@@ -160,7 +167,7 @@ h2.band-label { font-weight: 400; }
 }
 @media (max-width: 54rem) {
   .with-side { grid-template-columns: minmax(0, 1fr); }
-  .lead-panel { position: static; max-width: none; padding: 1.2rem 0 0; }
+  .lead { grid-template-columns: minmax(0, 1fr); row-gap: 2rem; }
   .lead-image img { aspect-ratio: 3 / 2; }
 }
 @media (max-width: 34rem) {
@@ -181,7 +188,7 @@ h2.band-label { font-weight: 400; }
 .essay-date, .pub-year { color: var(--muted); padding-top: 0.5rem; }
 .band-main .essay-date { padding-top: 0; margin-bottom: 0.2rem; }
 .band-main .pub { grid-template-columns: 3.4rem minmax(0, 1fr); column-gap: 0.6rem; }
-.essay-title { font-size: 1.3rem; font-weight: 400; line-height: 1.35; }
+.essay-title { font-size: 1.5rem; font-weight: 400; line-height: 1.25; }
 .essay-title a { color: var(--ink); text-decoration: none; }
 .essay-title a:hover { color: var(--accent); text-decoration: underline; text-decoration-thickness: 0.06em; }
 .essay-desc { margin-top: 0.5rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
@@ -238,7 +245,7 @@ sub { bottom: -0.2em; }
 
 /* Essay page */
 .essay-head { padding-block: 3.5rem 2.5rem; }
-.essay-head .page-title { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+.essay-head .page-title { font-size: clamp(2rem, 4.4vw, 2.9rem); }
 .essay-head .page-lead { font-size: 1.12rem; color: var(--muted); }
 .essay-info { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); padding-top: 0.75rem; display: flex; flex-direction: column; gap: 0.15rem; }
 @media (max-width: 54rem) { .essay-info { flex-direction: row; flex-wrap: wrap; gap: 0.1rem 1.2rem; padding-top: 0; margin-bottom: 1rem; } }
