@@ -31,7 +31,13 @@ const notices = await getNotices(lang);
 ---
 <Base>
   <div class="wrap home">
-    <h1 class="hero-title">{t.heading} <em>{t.headingSub}</em></h1>
+    <h1 class="hero-title">{t.heading}</h1>
+    {/* The second line runs on as a hairline that closes in the open circle. */}
+    <p class="hero-sub">
+      <em>{t.headingSub}</em>
+      <span class="hero-line" aria-hidden="true"></span>
+      <svg class="hero-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg>
+    </p>
     <p class="triad">
       {triad.map((t) => (
         <span lang="grc" title={t.word}>{t.greek}</span>
