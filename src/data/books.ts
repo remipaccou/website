@@ -19,7 +19,7 @@ export const books: Book[] = [
       fr: "Une histoire naturelle de l'information",
     },
     status: { en: 'In progress', fr: 'En cours' },
-    text: { en: 'How information became an economic force.', fr: "Comment l'information est devenue une force économique." },
+    text: { en: 'On the emergence of information as an economic order.', fr: "De l'émergence de l'information comme ordre économique." },
     theme: 'history',
     cover: { japanese: ['伝送', '蓄積', '計算'] },
   },
