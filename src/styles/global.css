@@ -373,8 +373,12 @@ sub { bottom: -0.2em; }
   .edge { display: block; position: fixed; left: 2.2rem; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--muted); }
 }
 
-@media (max-width: 62rem) {
+@media (max-width: 78rem) {
   .site-header nav { flex-direction: column; padding-block: 0.4rem; }
   .site-header nav ul + ul { margin-left: 0; padding-left: 0; border-left: 0; }
   .site-header nav a { padding-block: 0.4rem; }
+}
+@media (max-width: 34rem) {
+  .site-header nav ul { gap: 0 0.9rem; }
+  .site-header nav a { font-size: 0.62rem; letter-spacing: 0.1em; }
 }
