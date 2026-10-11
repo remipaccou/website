@@ -47,7 +47,7 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
     {mine.length > 0 && (
       <section class="band">
         <h2 class="band-label">{t.projects}</h2>
-        <div class="band-main"><ul class="list">{mine.map((item) => <ProjectItem item={item} />)}</ul></div>
+        <div class="band-main"><ul class="list">{mine.map((item) => <ProjectItem item={item} compact />)}</ul></div>
       </section>
     )}
     {myBooks.length > 0 && (

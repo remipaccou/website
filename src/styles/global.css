@@ -433,3 +433,5 @@ sub { bottom: -0.2em; }
 @media (prefers-color-scheme: dark) { .project-figure img { filter: invert(1) hue-rotate(180deg); } }
 .project-group .meta { margin-bottom: 1rem; }
 .project-group + .project-group { margin-top: 4rem; }
+.pub-title a { color: var(--ink); text-decoration: none; }
+.pub-title a:hover { color: var(--accent); }

@@ -1,19 +1,20 @@
 ---
 import type { Project } from '../data/projects';
 import { href } from '../lib/url';
-import { langOf } from '../i18n';
-interface Props { item: Project }
-const { item } = Astro.props;
+import { langOf, lp } from '../i18n';
+// 'compact' is for the field pages: title and note only, linking to the projects page.
+interface Props { item: Project; compact?: boolean }
+const { item, compact = false } = Astro.props;
 const lang = langOf(Astro.url.pathname);
 const src = item.figure && (typeof item.figure.src === 'string' ? item.figure.src : item.figure.src[lang]);
 ---
 <li class="pub project">
   <span class="pub-year">{item.period}</span>
   <div class="pub-body">
-    <p class="pub-title">{item.url ? <a href={item.url} target="_blank" rel="noopener">{item.title[lang]}</a> : item.title[lang]}</p>
+    <p class="pub-title">{compact ? <a href={lp(lang, '/projects/')}>{item.title[lang]}</a> : item.url ? <a href={item.url} target="_blank" rel="noopener">{item.title[lang]}</a> : item.title[lang]}</p>
     <p class="pub-meta">{item.text[lang]}</p>
   </div>
-  {item.figure && (
+  {item.figure && !compact && (
     <figure class="project-figure">
       <a href={href(src!)} target="_blank" rel="noopener"><img src={href(src!)} alt={item.figure.alt[lang]} loading="lazy" /></a>
       {item.figure.caption && <figcaption>{item.figure.caption[lang]}</figcaption>}
