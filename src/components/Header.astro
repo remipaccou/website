@@ -19,7 +19,7 @@ const fields = themes.map((th) => ({ label: th[lang], path: `/${th.id}/` }));
 const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
 ---
 <header class="site-header">
-  <blockquote class="epigraph">
+  <blockquote class={here === '/' ? 'epigraph' : 'epigraph epigraph-inner'}>
     <p>{t.epigraph}</p>
     <footer>Alfred North Whitehead, <cite>Process and Reality</cite>, 1929</footer>
   </blockquote>

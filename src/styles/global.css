@@ -435,3 +435,13 @@ sub { bottom: -0.2em; }
 .project-group + .project-group { margin-top: 4rem; }
 .pub-title a { color: var(--ink); text-decoration: none; }
 .pub-title a:hover { color: var(--accent); }
+
+/* Phones: the quotation only on the home page, and labels large enough to read and to tap. */
+@media (max-width: 34rem) {
+  .epigraph-inner { display: none; }
+  .epigraph-inner + .wrap { padding-top: 0; }
+  .site-header nav a { font-size: 0.7rem; letter-spacing: 0.08em; padding-block: 0.55rem; }
+  .site-header nav ul, .main-nav, .field-nav { gap: 0 1rem; }
+  .meta, .band-label, .essay-date, .pub-year, .side-head, .site-footer, .essay-note, .epigraph footer { font-size: 0.68rem; }
+  .site-footer a { display: inline-block; padding-block: 0.4rem; }
+}
