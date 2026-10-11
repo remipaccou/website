@@ -15,6 +15,7 @@ import { scriptsToHtml } from '../../lib/typography.mjs';
 import { publications } from '../../lib/publications';
 import { getNotices } from '../../lib/notices';
 import { projects } from '../../data/projects';
+import { books } from '../../data/books';
 import { langOf, langPaths, lp, themes, ui } from '../../i18n';
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.url.pathname);
@@ -25,7 +26,7 @@ const lead = essays[0];
 // The three words of the title, each under the Greek word it comes from.
 const triad = ['μορφή', 'ἐνέργεια', 'οἶκος'].map((greek, i) => ({ greek, word: t.triad[i] }));
 const count = (id: string) =>
-  essays.filter((e) => e.data.theme === id).length + publications.filter((p) => p.theme === id).length + projects.filter((p) => p.theme === id).length;
+  essays.filter((e) => e.data.theme === id).length + publications.filter((p) => p.theme === id).length + projects.filter((p) => p.theme === id).length + books.filter((p) => p.theme === id).length;
 const notices = await getNotices(lang);
 ---
 <Base>

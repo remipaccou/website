@@ -5,39 +5,43 @@ import { langOf, bare, lp, themes, ui } from '../i18n';
 const lang = langOf(Astro.url.pathname);
 const here = bare(Astro.url.pathname);
 const t = ui[lang];
-// The menu, in three groups: the fields, the kinds of work, the person.
-const groups = [
-  themes.map((th) => ({ label: th[lang], path: `/${th.id}/` })),
-  [
-    { label: t.articles, path: '/articles/' },
-    { label: t.essays, path: '/essays/' },
-    { label: t.projects, path: '/projects/' },
-    ...(talks.length > 0 ? [{ label: t.talks, path: '/talks/' }] : []),
-  ],
-  [{ label: t.about, path: '/about/' }],
+// Two levels. First the kinds of work and the person, beside the name;
+// below, more quietly, the fields that cut across them.
+const main = [
+  { label: t.articles, path: '/articles/' },
+  { label: t.essays, path: '/essays/' },
+  { label: t.projects, path: '/projects/' },
+  { label: t.books, path: '/books/' },
+  ...(talks.length > 0 ? [{ label: t.talks, path: '/talks/' }] : []),
+  { label: t.about, path: '/about/' },
 ];
-const known = groups.flat().some((i) => i.path === here) || here === '/';
-// Essays exist in one language only: from one of them, the switch leads to the list.
+const fields = themes.map((th) => ({ label: th[lang], path: `/${th.id}/` }));
+const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
 ---
 <header class="site-header">
   <div class="wrap">
     <div class="site-top">
       <a class="site-name" href={lp(lang, '/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>
-      <nav class="lang-switch" aria-label="Language">
-      <ul>
-        <li><a href={known ? lp('en', here) : Astro.url.pathname} lang="en" hreflang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a></li>
-        <li><a href={lp('fr', known ? here : '/essays/')} lang="fr" hreflang="fr" aria-current={lang === 'fr' ? 'true' : undefined}>FR</a></li>
-      </ul>
-      </nav>
-    </div>
-    <nav aria-label="Main">
-      {groups.map((group) => (
+      <nav class="main-nav" aria-label="Main">
         <ul>
-          {group.map((item) => (
+          {main.map((item) => (
             <li><a href={lp(lang, item.path)} aria-current={here === item.path ? 'page' : undefined}>{item.label}</a></li>
           ))}
         </ul>
-      ))}
+        {/* Essays exist in one language only: from one of them, the switch leads to the list. */}
+        <ul class="lang-switch" aria-label="Language">
+          <li><a href={known ? lp('en', here) : Astro.url.pathname} lang="en" hreflang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a></li>
+          <li><a href={lp('fr', known ? here : '/essays/')} lang="fr" hreflang="fr" aria-current={lang === 'fr' ? 'true' : undefined}>FR</a></li>
+        </ul>
+      </nav>
+    </div>
+    <nav class="field-nav" aria-label={t.fields}>
+      <span>{t.fields}</span>
+      <ul>
+        {fields.map((item) => (
+          <li><a href={lp(lang, item.path)} aria-current={here === item.path ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
     </nav>
   </div>
 </header>

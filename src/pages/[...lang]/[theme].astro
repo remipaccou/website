@@ -8,6 +8,7 @@ import ProjectItem from '../../components/ProjectItem.astro';
 import { getEssays } from '../../lib/writing';
 import { publications } from '../../lib/publications';
 import { projects } from '../../data/projects';
+import { books } from '../../data/books';
 import { langOf, themes, ui } from '../../i18n';
 
 export function getStaticPaths() {
@@ -19,7 +20,8 @@ const th = themes.find((x) => x.id === Astro.params.theme)!;
 const essays = (await getEssays()).filter((e) => e.data.theme === th.id);
 const articles = publications.filter((p) => p.theme === th.id);
 const mine = projects.filter((p) => p.theme === th.id);
-const empty = essays.length + articles.length + mine.length === 0;
+const myBooks = books.filter((p) => p.theme === th.id);
+const empty = essays.length + articles.length + mine.length + myBooks.length === 0;
 ---
 <Base title={th[lang]}>
   <div class="wrap">
@@ -46,6 +48,12 @@ const empty = essays.length + articles.length + mine.length === 0;
       <section class="band">
         <h2 class="band-label">{t.projects}</h2>
         <div class="band-main"><ul class="list">{mine.map((item) => <ProjectItem item={item} />)}</ul></div>
+      </section>
+    )}
+    {myBooks.length > 0 && (
+      <section class="band">
+        <h2 class="band-label">{t.books}</h2>
+        <div class="band-main"><ul class="list">{myBooks.map((item) => <ProjectItem item={item} />)}</ul></div>
       </section>
     )}
   </div>

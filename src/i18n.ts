@@ -35,7 +35,7 @@ export const ui = {
     // The large title of the home page: the core of the research, in one sentence.
     heading: 'Energy, information and structure',
     triad: ['Information', 'Energy', 'Ecology'],
-    articles: 'Articles', essays: 'Essays', projects: 'Research projects', talks: 'Talks', about: 'About',
+    articles: 'Articles', essays: 'Essays', projects: 'Research projects', books: 'Books', fields: 'Fields', talks: 'Talks', about: 'About',
     notices: 'Notices', themes: 'Fields', follow: 'Follow', more: 'More', rss: 'RSS feed',
     readEssay: 'Read the essay', essayKind: 'Essay', articleKind: 'Article', talkKind: 'Talk', projectKind: 'Project',
     aboutLine: 'I work on what information technologies do to energy systems and to the climate.',
@@ -56,7 +56,7 @@ export const ui = {
     description: "Articles, essais et projets de recherche de Rémi Paccou sur l'information, l'énergie et l'écologie.",
     heading: 'Énergie, information et structure',
     triad: ['Information', 'Énergie', 'Écologie'],
-    articles: 'Articles', essays: 'Essais', projects: 'Projets de recherche', talks: 'Interventions', about: 'À propos',
+    articles: 'Articles', essays: 'Essais', projects: 'Projets de recherche', books: 'Livres', fields: 'Domaines', talks: 'Interventions', about: 'À propos',
     notices: 'Actualités', themes: 'Domaines', follow: 'Suivre', more: 'Lire la suite', rss: 'Flux RSS',
     readEssay: "Lire l'essai (en anglais)", essayKind: 'Essai', articleKind: 'Article', talkKind: 'Intervention', projectKind: 'Projet',
     aboutLine: "Je travaille sur ce que les technologies de l'information font aux systèmes énergétiques et au climat.",
