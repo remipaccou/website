@@ -426,9 +426,10 @@ sub { bottom: -0.2em; }
 .cover-author { margin-top: auto !important; font-size: calc(4 * var(--u)); font-variant-caps: all-small-caps; letter-spacing: 0.16em; }
 
 /* A project's figure: full page width under the notice, inverted at night. */
-.project-figure { grid-column: 1 / -1; margin: 2rem 0 0; }
+/* Wider than the page: the figure takes nearly the whole window. */
+.project-figure { --w: min(100vw - 3rem, 110rem); grid-column: 1 / -1; justify-self: start; width: var(--w); margin: 2.4rem 0 0 calc((100vw - var(--w)) / 2 - (max(0px, (100vw - var(--page)) / 2) + var(--gutter))); }
 .project-figure img { width: 100%; }
-.project-figure figcaption { margin-top: 0.8rem; font-size: 0.95rem; color: var(--muted); max-width: var(--text-col); }
+.project-figure figcaption { margin: 1.4rem auto 0; font-size: 0.92rem; line-height: 1.55; color: var(--muted); max-width: 44rem; }
 @media (prefers-color-scheme: dark) { .project-figure img { filter: invert(1) hue-rotate(180deg); } }
 .project-group .meta { margin-bottom: 1rem; }
 .project-group + .project-group { margin-top: 4rem; }
