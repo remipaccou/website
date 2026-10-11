@@ -15,10 +15,11 @@ export const books: Book[] = [
   {
     title: { en: 'Transmit, Store, Compute', fr: 'Transmettre, stocker, calculer' },
     subtitle: {
-      en: 'A phenomenological history of information in economics',
-      fr: "Une histoire phénoménologique de l'information en économie",
+      en: 'A natural history of information',
+      fr: "Une histoire naturelle de l'information",
     },
     status: { en: 'In progress', fr: 'En cours' },
+    text: { en: 'How information became an economic force.', fr: "Comment l'information est devenue une force économique." },
     theme: 'history',
     cover: { japanese: ['伝送', '蓄積', '計算'] },
   },
