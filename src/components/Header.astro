@@ -1,4 +1,5 @@
 ---
+import Sigil from './Sigil.astro';
 import { site } from '../site';
 import { talks } from '../data/talks';
 import { langOf, bare, lp, themes, ui } from '../i18n';
@@ -15,7 +16,7 @@ const main = [
   ...(talks.length > 0 ? [{ label: t.talks, path: '/talks/' }] : []),
   { label: t.about, path: '/about/' },
 ];
-const fields = themes.map((th) => ({ label: th[lang], path: `/${th.id}/` }));
+const fields = themes.map((th) => ({ id: th.id, label: th[lang], path: `/${th.id}/` }));
 const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
 ---
 <header class="site-header" id="site-menu">
@@ -25,7 +26,7 @@ const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
   </blockquote>
   <div class="wrap">
     <div class="site-top">
-      <a class="site-name" href={lp(lang, '/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>
+      <a class="site-name" href={lp(lang, '/')}><Sigil name="enso" class="site-mark" /><span>{site.author}</span></a>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
       <nav class="main-nav" aria-label="Main">
         <ul>
@@ -44,7 +45,7 @@ const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
       <span>{t.fields}</span>
       <ul>
         {fields.map((item) => (
-          <li><a href={lp(lang, item.path)} aria-current={here === item.path ? 'page' : undefined}>{item.label}</a></li>
+          <li><a href={lp(lang, item.path)} aria-current={here === item.path ? 'page' : undefined}><Sigil name={item.id} />{item.label}</a></li>
         ))}
       </ul>
     </nav>

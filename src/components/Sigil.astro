@@ -1,0 +1,20 @@
+---
+// The signs of the site: one drawn stroke each, in the red of the open circle.
+//   enso        the open circle, the mark of the site
+//   history     strata laid down one over the other
+//   economics   two rings that hold each other: exchange
+//   biophysics  a wave
+//   climate     a sun over the horizon
+interface Props { name: 'enso' | 'history' | 'economics' | 'biophysics' | 'climate'; class?: string }
+const { name, class: cls } = Astro.props;
+const paths = {
+  enso: ['M33.5 7.6A19 19 0 1 0 41.6 17'],
+  history: ['M9 13.5h30', 'M13.5 24h21', 'M18.5 34.5h11'],
+  economics: ['M8 24a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0-19 0', 'M21 24a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0-19 0'],
+  biophysics: ['M5 24c4.5-13 9.5-13 14 0s9.5 13 14 0s7-9.5 10-5'],
+  climate: ['M6 32.5h36', 'M13.5 32.5A10.5 10.5 0 0 1 34.5 32.5', 'M24 8.5v6'],
+};
+---
+<svg class:list={['sigil', cls]} viewBox="0 0 48 48" aria-hidden="true">
+  {paths[name].map((d) => <path d={d} />)}
+</svg>

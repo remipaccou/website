@@ -1,14 +1,14 @@
-/* White page, one Garamond, small letter-spaced capitals for everything that
+/* Ivory page and one red. One serif, small letter-spaced capitals for everything that
    is a label, one vermilion kept for the circle beside the name. Change the values here to restyle
    the whole site. */
 :root {
-  --paper: #fdfcfa;
-  --panel: #f4f2ee;
-  --ink: #1d1b19;
-  --muted: #76716b;
-  --rule: #e4e4e2;
-  --accent: #b4443a;
-  --sun: #c9301c;
+  --paper: #f7f2e8;   /* ivory */
+  --panel: #efe8da;
+  --ink: #26221d;
+  --muted: #7c7468;
+  --rule: #e1d8c6;
+  --accent: #b8321f;  /* the one red */
+  --sun: #b8321f;
 
   --serif: 'Spectral', 'EB Garamond Variable', 'EB Garamond', 'Cormorant Garamond', Garamond, Georgia, serif;
   --sans: Arial, Helvetica, sans-serif;
@@ -22,13 +22,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #161616;
-    --panel: #1f1f1f;
-    --ink: #e8e6e1;
-    --muted: #9a9a96;
-    --rule: #303030;
-    --accent: #e39488;
-    --sun: #d9432e;
+    --paper: #1b1815;
+    --panel: #24201c;
+    --ink: #ebe4d6;
+    --muted: #a0978a;
+    --rule: #37312a;
+    --accent: #e0705c;
+    --sun: #e0705c;
   }
 }
 
@@ -457,3 +457,18 @@ sub { bottom: -0.2em; }
   .site-header.is-open .field-nav { display: flex; }
   .site-header.is-open { padding-bottom: 0; border-bottom: 0; }
 }
+
+/* The signs. */
+.sigil { fill: none; stroke: var(--sun); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+::selection { background: color-mix(in srgb, var(--sun) 22%, transparent); }
+.page-sigil { padding-top: 0.15rem; }
+.page-sigil .sigil { width: 2.6rem; height: 2.6rem; stroke-width: 2.2; }
+.field-nav a { display: inline-flex !important; align-items: center; gap: 0.5rem; }
+.field-nav .sigil { width: 1.05rem; height: 1.05rem; stroke-width: 3.4; opacity: 0.85; }
+.side li.with-sigil { justify-content: flex-start; align-items: center; gap: 0.7rem; }
+.side li.with-sigil .sigil { width: 1.25rem; height: 1.25rem; stroke-width: 3; flex: none; }
+.side li.with-sigil span { margin-left: auto; }
+.site-footer { position: relative; }
+.footer-mark { position: absolute; left: 50%; top: 0; width: 1.6rem; height: 1.6rem; transform: translate(-50%, -50%) rotate(-150deg); stroke-width: 3; background: var(--paper); padding: 0 0.6rem; box-sizing: content-box; }
+.cover { --page-white: #f7f2e8; }
+@media (max-width: 54rem) { .page-sigil { margin-bottom: 0.4rem; } }

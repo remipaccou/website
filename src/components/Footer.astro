@@ -1,4 +1,5 @@
 ---
+import Sigil from './Sigil.astro';
 import { site } from '../site';
 import { href } from '../lib/url';
 import { langOf, ui } from '../i18n';
@@ -14,6 +15,7 @@ const links = [
 ].filter(Boolean) as { label: string; url: string }[];
 ---
 <footer class="site-footer">
+  <Sigil name="enso" class="footer-mark" />
   <div class="wrap site-footer-inner">
     <p>© {new Date().getFullYear()} {site.author}. {t.views}</p>
     <ul>
