@@ -9,7 +9,7 @@ import { getEssays } from '../../lib/writing';
 import { publications } from '../../lib/publications';
 import { projects } from '../../data/projects';
 import { books } from '../../data/books';
-import { langOf, themes, ui } from '../../i18n';
+import { langOf, lp, themes, ui } from '../../i18n';
 
 export function getStaticPaths() {
   return themes.flatMap((th) => [{ params: { lang: undefined, theme: th.id } }, { params: { lang: 'fr', theme: th.id } }]);
@@ -53,7 +53,15 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
     {myBooks.length > 0 && (
       <section class="band">
         <h2 class="band-label">{t.books}</h2>
-        <div class="band-main"><ul class="list">{myBooks.map((item) => <ProjectItem item={item} />)}</ul></div>
+        <div class="band-main"><ul class="list">{myBooks.map((b) => (
+          <li class="pub">
+            <span class="pub-year">{b.status[lang]}</span>
+            <div class="pub-body">
+              <p class="pub-title"><a href={lp(lang, '/books/')}>{b.title[lang]}</a></p>
+              <p class="pub-meta">{b.subtitle[lang]}</p>
+            </div>
+          </li>
+        ))}</ul></div>
       </section>
     )}
   </div>

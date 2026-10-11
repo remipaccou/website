@@ -1,28 +1,30 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
-import ProjectItem from '../../components/ProjectItem.astro';
-import { books as projects } from '../../data/books';
+import BookCover from '../../components/BookCover.astro';
+import { books } from '../../data/books';
 import { langOf, langPaths, themes, ui } from '../../i18n';
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.url.pathname);
 const t = ui[lang];
-const byTheme = themes.map((th) => ({ th, items: projects.filter((p) => p.theme === th.id) })).filter((g) => g.items.length > 0);
 ---
 <Base title={t.books}>
   <div class="wrap">
     <PageHead title={t.books} />
-    {projects.length === 0 && (
+    {books.length === 0 && (
       <section class="band">
         <div class="band-label" aria-hidden="true"></div>
         <div class="band-main"><p>{t.none}</p></div>
       </section>
     )}
-    {byTheme.map(({ th, items }) => (
-      <section class="band">
-        <h2 class="band-label">{th[lang]}</h2>
-        <div class="band-main">
-          <ul class="list">{items.map((item) => <ProjectItem item={item} />)}</ul>
+    {books.map((book) => (
+      <section class="book">
+        <BookCover book={book} />
+        <div class="book-text">
+          <p class="meta">{book.status[lang]}, {themes.find((th) => th.id === book.theme)?.[lang]}</p>
+          <h2 class="book-title">{book.url ? <a href={book.url}>{book.title[lang]}</a> : book.title[lang]}</h2>
+          <p class="book-subtitle">{book.subtitle[lang]}</p>
+          {book.text && <p class="book-desc">{book.text[lang]}</p>}
         </div>
       </section>
     ))}
