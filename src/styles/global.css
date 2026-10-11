@@ -376,7 +376,7 @@ sub { bottom: -0.2em; }
 /* The epigraph that closes the home page. */
 .epigraph { margin: clamp(4rem, 9vw, 6.5rem) auto 0; max-width: 32rem; text-align: center; font-style: italic; font-size: 1.3rem; line-height: 1.5; }
 .epigraph footer { margin-top: 0.9rem; font-style: normal; font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
-.epigraph .prose 
+
 @media (max-width: 34rem) {
   .site-header nav ul, .main-nav, .field-nav { gap: 0 0.9rem; }
   .site-header nav a { font-size: 0.62rem; letter-spacing: 0.1em; }
