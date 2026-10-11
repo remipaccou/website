@@ -5,6 +5,7 @@ import { langOf } from '../i18n';
 interface Props { item: Project }
 const { item } = Astro.props;
 const lang = langOf(Astro.url.pathname);
+const src = item.figure && (typeof item.figure.src === 'string' ? item.figure.src : item.figure.src[lang]);
 ---
 <li class="pub project">
   <span class="pub-year">{item.period}</span>
@@ -14,7 +15,7 @@ const lang = langOf(Astro.url.pathname);
   </div>
   {item.figure && (
     <figure class="project-figure">
-      <a href={href(item.figure.src)} target="_blank" rel="noopener"><img src={href(item.figure.src)} alt={item.figure.alt[lang]} loading="lazy" /></a>
+      <a href={href(src!)} target="_blank" rel="noopener"><img src={href(src!)} alt={item.figure.alt[lang]} loading="lazy" /></a>
       {item.figure.caption && <figcaption>{item.figure.caption[lang]}</figcaption>}
     </figure>
   )}
