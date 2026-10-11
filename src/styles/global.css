@@ -445,3 +445,15 @@ sub { bottom: -0.2em; }
   .meta, .band-label, .essay-date, .pub-year, .side-head, .site-footer, .essay-note, .epigraph footer { font-size: 0.68rem; }
   .site-footer a { display: inline-block; padding-block: 0.4rem; }
 }
+
+/* Phones: name and a Menu button; the two menus unfold below. */
+.menu-button { display: none; }
+@media (max-width: 34rem) {
+  .menu-button { display: block; margin: 0; padding: 0.55rem 0 0.55rem 1rem; border: 0; background: none; color: var(--ink); font-family: var(--sans); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.16em; cursor: pointer; }
+  .menu-button[aria-expanded='true'] { color: var(--accent); }
+  .site-header { padding-bottom: 0.9rem; border-bottom: 1px solid var(--rule); }
+  .site-header .main-nav, .site-header .field-nav { display: none; }
+  .site-header.is-open .main-nav { display: flex; width: 100%; padding-top: 0.6rem; }
+  .site-header.is-open .field-nav { display: flex; }
+  .site-header.is-open { padding-bottom: 0; border-bottom: 0; }
+}
