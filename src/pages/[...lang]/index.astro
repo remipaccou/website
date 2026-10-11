@@ -30,12 +30,11 @@ const count = (id: string) =>
 const notices = await getNotices(lang);
 ---
 <Base>
-  <p class="edge" aria-hidden="true">{t.title}</p>
   <div class="wrap home">
     <h1 class="hero-title">{t.heading}</h1>
     <p class="triad">
       {triad.map((t) => (
-        <span><i lang="grc">{t.greek}</i><b>{t.word}</b></span>
+        <span lang="grc" title={t.word}>{t.greek}</span>
       ))}
     </p>
 
