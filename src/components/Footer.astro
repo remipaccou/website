@@ -17,7 +17,7 @@ const links = [
   <div class="wrap site-footer-inner">
     <p>© {new Date().getFullYear()} {site.author}. {t.views}</p>
     <ul>
-      {links.map((l) => <li><a href={l.url}>{l.label}</a></li>)}
+      {links.map((l) => <li><a href={l.url} target={/^https?:/.test(l.url) ? '_blank' : undefined} rel="noopener">{l.label}</a></li>)}
     </ul>
   </div>
 </footer>

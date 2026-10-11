@@ -14,6 +14,6 @@ const { item } = Astro.props;
       {item.venue && <> <cite>{item.venue}</cite>.</>}
       {item.note && <> {item.note}.</>}
     </p>
-    {item.link && <p class="pub-link"><a href={item.link}>{item.linkLabel}</a></p>}
+    {item.link && <p class="pub-link"><a href={item.link} target="_blank" rel="noopener">{item.linkLabel}</a></p>}
   </div>
 </li>

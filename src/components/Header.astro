@@ -19,12 +19,10 @@ const fields = themes.map((th) => ({ label: th[lang], path: `/${th.id}/` }));
 const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
 ---
 <header class="site-header">
-  {here === '/' && (
-    <blockquote class="epigraph">
-      <p>{t.epigraph}</p>
-      <footer>Alfred North Whitehead, <cite>Process and Reality</cite>, 1929</footer>
-    </blockquote>
-  )}
+  <blockquote class="epigraph">
+    <p>{t.epigraph}</p>
+    <footer>Alfred North Whitehead, <cite>Process and Reality</cite>, 1929</footer>
+  </blockquote>
   <div class="wrap">
     <div class="site-top">
       <a class="site-name" href={lp(lang, '/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>

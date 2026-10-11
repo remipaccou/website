@@ -27,7 +27,7 @@ const contacts = [
         {t.aboutText.map((para) => <p>{para}</p>)}
         <p>
           {t.views}
-          {contacts.length > 0 && <>{' '}{t.reach}{contacts.map((c, i) => <>{i > 0 && (i === contacts.length - 1 ? t.or : ', ')}<a href={c.url}>{c.label}</a></>)}.</>}
+          {contacts.length > 0 && <>{' '}{t.reach}{contacts.map((c, i) => <>{i > 0 && (i === contacts.length - 1 ? t.or : ', ')}<a href={c.url} target="_blank" rel="noopener">{c.label}</a></>)}.</>}
         </p>
       </div>
     </section>

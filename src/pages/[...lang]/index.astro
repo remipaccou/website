@@ -65,7 +65,7 @@ const notices = await getNotices(lang);
               <span class="meta">{n.label}</span>
               <span class="meta">{n.kind}</span>
               <p>
-                {n.url ? <a href={n.url}>{n.text}</a> : n.text}
+                {n.url ? <a href={n.url} target={/^https?:/.test(n.url) ? '_blank' : undefined} rel="noopener">{n.text}</a> : n.text}
                 {n.detail && <cite>{n.detail}</cite>}
               </p>
             </li>
@@ -81,7 +81,7 @@ const notices = await getNotices(lang);
           </ul>
           <h3 class="side-head">{t.follow}</h3>
           <ul>
-            {site.links.github && <li><a href={site.links.github}>GitHub</a></li>}
+            {site.links.github && <li><a href={site.links.github} target="_blank" rel="noopener">GitHub</a></li>}
             <li><a href={href('/rss.xml')}>{t.rss}</a></li>
           </ul>
         </aside>
