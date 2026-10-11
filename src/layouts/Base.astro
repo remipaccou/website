@@ -10,6 +10,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../site';
 import { href } from '../lib/url';
+import { buildId } from '../build';
 import { langOf, bare, lp, ui } from '../i18n';
 
 interface Props {
@@ -53,6 +54,19 @@ const ogImage = new URL(image ?? href('/og.jpg'), Astro.site);
     {published && <meta property="article:published_time" content={published.toISOString()} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="color-scheme" content="light dark" />
+    <script is:inline define:vars={{ buildId, versionUrl: href('/version.txt') }}>
+      // Browsers keep each page for ten minutes. If the site has been rebuilt
+      // since this copy was made, fetch the new one.
+      fetch(versionUrl, { cache: 'no-store' })
+        .then((r) => (r.ok ? r.text() : ''))
+        .then((latest) => {
+          latest = latest.trim();
+          if (latest && latest !== buildId && !location.search.includes('v=' + latest)) {
+            location.replace(location.pathname + '?v=' + latest + location.hash);
+          }
+        })
+        .catch(() => {});
+    </script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
