@@ -3,7 +3,7 @@
 export interface Project {
   title: { en: string; fr: string };
   text: { en: string; fr: string };
-  theme: 'history' | 'economics' | 'biophysics';
+  theme: 'history' | 'economics' | 'biophysics' | 'climate';
   period?: string; // '2024–2027'
   url?: string;
 }

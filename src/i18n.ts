@@ -19,11 +19,12 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 // For getStaticPaths of pages under src/pages/[...lang]/.
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
-// The three fields the work is filed under.
+// The fields the work is filed under.
 export const themes = [
   { id: 'history', en: 'History', fr: 'Histoire' },
   { id: 'economics', en: 'Economics', fr: 'Économie' },
   { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique' },
+  { id: 'climate', en: 'Climate', fr: 'Climat' },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
 

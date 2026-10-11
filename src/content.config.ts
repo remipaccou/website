@@ -13,7 +13,7 @@ const writing = defineCollection({
       description: z.string(),
       topic: z.string().optional(),
       // The field the essay is filed under: history, economics or biophysics.
-      theme: z.enum(['history', 'economics', 'biophysics']).optional(),
+      theme: z.enum(['history', 'economics', 'biophysics', 'climate']).optional(),
       cover: image().optional(),
       coverAlt: z.string().default(''),
       draft: z.boolean().default(false),

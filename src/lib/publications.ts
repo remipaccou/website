@@ -47,7 +47,7 @@ export const publications: Publication[] = records
       link: doi ? `https://doi.org/${doi}` : r.URL,
       // A DOI is shown in full; any other link by its site name only.
       linkLabel: doi ? `doi:${doi}` : r.URL?.replace(/^https?:\/\/(www\.)?/, '').replace(/^([^/]+)\/.{40,}$/, '$1'),
-      theme: String(r.keyword ?? '').split(/[,;]\s*/).find((k) => ['history', 'economics', 'biophysics'].includes(k)),
+      theme: String(r.keyword ?? '').split(/[,;]\s*/).find((k) => ['history', 'economics', 'biophysics', 'climate'].includes(k)),
     };
   })
   .sort((a, b) => b.year - a.year);
