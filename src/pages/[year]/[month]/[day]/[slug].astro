@@ -19,6 +19,8 @@ export async function getStaticPaths() {
 const { essay } = Astro.props;
 const { Content } = await render(essay);
 const { title, description, date, topic, cover, coverAlt, responses } = essay.data;
+// The link appears once an email address is set in src/site.ts.
+const respond = site.links.email && `mailto:${site.links.email}?subject=${encodeURIComponent(`Response to: ${title}`)}`;
 const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'jpg' })).src : undefined;
 ---
 <Base title={title} description={description} image={shareImage} type="article" published={date}>
@@ -45,6 +47,8 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
     <div class="prose paper-body">
       <Content />
     </div>
+
+    {respond && <p class="respond"><a href={respond}>Write a response</a></p>}
 
     {responses.length > 0 && (
       <section class="responses">

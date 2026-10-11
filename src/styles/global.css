@@ -146,9 +146,6 @@ h2.band-label { font-weight: 400; }
 /* Home: lead, papers, essays with side column */
 .home { padding-top: 0; }
 .hero-title { max-width: 46rem; padding-top: clamp(2.6rem, 7vw, 5rem); font-size: clamp(1.7rem, 3.2vw, 2.5rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; }
-.triad { display: flex; flex-wrap: wrap; gap: 0.6rem 0; padding-block: 1.8rem clamp(2.6rem, 6vw, 4rem); }
-.triad span { font-family: 'EB Garamond Variable', serif; font-size: 1.45rem; line-height: 1.2; padding-right: 1.4rem; }
-.triad span + span { border-left: 1px solid var(--rule); padding-left: 1.4rem; }
 
 .lead { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 5rem); align-items: center; border-top: 1px solid var(--ink); padding-top: clamp(2.2rem, 5vw, 3.5rem); }
 .lead-title { margin-top: 0.6rem; font-size: clamp(1.4rem, 2.3vw, 1.85rem); line-height: 1.2; letter-spacing: -0.005em; }
@@ -373,9 +370,6 @@ sub { bottom: -0.2em; }
 .paper .prose figure img[src$='.svg'] { width: 100%; max-height: none; mix-blend-mode: normal; }
 @media (prefers-color-scheme: dark) { .paper .prose figure img[src$='.svg'] { filter: invert(1) hue-rotate(180deg); } }
 
-/* The epigraph that closes the home page. */
-.epigraph { margin: clamp(4rem, 9vw, 6.5rem) auto 0; max-width: 32rem; text-align: center; font-style: italic; font-size: 1.3rem; line-height: 1.5; }
-.epigraph footer { margin-top: 0.9rem; font-style: normal; font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
 
 @media (max-width: 34rem) {
   .site-header nav ul, .main-nav, .field-nav { gap: 0 0.9rem; }
@@ -392,4 +386,21 @@ sub { bottom: -0.2em; }
 .hero-sub em { font-size: clamp(1.1rem, 1.8vw, 1.35rem); color: var(--muted); white-space: nowrap; }
 .hero-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
 .hero-mark { flex: none; margin-left: -0.95rem; width: 2.1rem; height: 2.1rem; fill: none; stroke: var(--sun); stroke-width: 2.6; stroke-linecap: round; transform: rotate(-150deg); }
-.epigraph footer cite { font-style: normal; }
+
+/* The epigraph, on one quiet line above everything on the home page. */
+.epigraph { margin: 0; padding: 0.7rem var(--gutter); border-bottom: 1px solid var(--rule); text-align: center; font-size: 0.95rem; line-height: 1.5; color: var(--muted); }
+.epigraph p { display: inline; font-style: italic; }
+.epigraph footer { display: inline; margin-left: 0.8rem; font-family: var(--sans); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap; }
+.epigraph + .wrap { padding-top: 1.4rem; }
+
+/* The four Greek words. */
+.greek { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; padding-block: 1.6rem clamp(2.4rem, 6vw, 3.6rem); font-family: 'EB Garamond Variable', serif; font-size: 1.4rem; line-height: 1.2; }
+.greek a { color: var(--ink); text-decoration: none; }
+.greek a:hover { color: var(--accent); }
+.greek + .lead { margin-top: 0; }
+@media (min-width: 88rem) {
+  .greek { position: fixed; left: 2.2rem; top: 50%; transform: translateY(-50%); flex-direction: row; flex-wrap: nowrap; gap: 1.8rem; padding: 0; writing-mode: vertical-rl; font-size: 1.3rem; }
+  .hero-sub { margin-bottom: clamp(2.4rem, 6vw, 3.6rem); }
+}
+.respond { margin-top: 3.5rem; font-family: var(--cm); }
+@media (max-width: 54rem) { .epigraph footer { display: block; margin: 0.2rem 0 0; white-space: normal; } }

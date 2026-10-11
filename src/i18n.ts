@@ -19,12 +19,12 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 // For getStaticPaths of pages under src/pages/[...lang]/.
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
-// The fields the work is filed under.
+// The fields the work is filed under, each with the Greek word it comes from.
 export const themes = [
-  { id: 'history', en: 'History', fr: 'Histoire' },
-  { id: 'economics', en: 'Economics', fr: 'Économie' },
-  { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique' },
-  { id: 'climate', en: 'Climate', fr: 'Climat' },
+  { id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία' },
+  { id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία' },
+  { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις' },
+  { id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα' },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
 
@@ -35,12 +35,12 @@ export const ui = {
     // The large title of the home page: the core of the research, in one sentence.
     heading: 'Exploring the structural encodings of information',
     headingSub: '… by crossing ways of seeing',
-    triad: ['Information', 'Energy', 'Ecology'],
     articles: 'Articles', essays: 'Essays', projects: 'Research projects', books: 'Books', fields: 'Fields', talks: 'Talks', about: 'About',
     notices: 'Notices', themes: 'Fields', follow: 'Follow', more: 'More', rss: 'RSS feed',
     readEssay: 'Read the essay', essayKind: 'Essay', articleKind: 'Article', talkKind: 'Talk', projectKind: 'Project',
     aboutLine: 'I work on what information technologies do to energy systems and to the climate.',
     views: 'The views expressed here are my own.',
+    respond: 'Write a response', respondSubject: 'Response to',
     epigraph: 'The art of progress is to preserve order amid change, and to preserve change amid order.',
     none: 'Nothing listed here yet.',
     otherLang: 'Français', inEnglish: '',
@@ -57,12 +57,12 @@ export const ui = {
     description: "Articles, essais et projets de recherche de Rémi Paccou sur l'information, l'énergie et l'écologie.",
     heading: "Explorer les encodages structurels de l'information",
     headingSub: '… en croisant les regards',
-    triad: ['Information', 'Énergie', 'Écologie'],
     articles: 'Articles', essays: 'Essais', projects: 'Projets de recherche', books: 'Livres', fields: 'Domaines', talks: 'Interventions', about: 'À propos',
     notices: 'Actualités', themes: 'Domaines', follow: 'Suivre', more: 'Lire la suite', rss: 'Flux RSS',
     readEssay: "Lire l'essai (en anglais)", essayKind: 'Essai', articleKind: 'Article', talkKind: 'Intervention', projectKind: 'Projet',
     aboutLine: "Je travaille sur ce que les technologies de l'information font aux systèmes énergétiques et au climat.",
     views: "Les opinions exprimées ici n'engagent que moi.",
+    respond: 'Écrire une réponse', respondSubject: 'Réponse à',
     epigraph: "L'art du progrès consiste à préserver l'ordre au sein du changement, et à préserver le changement au sein de l'ordre.",
     none: "Rien n'est encore répertorié ici.",
     otherLang: 'English', inEnglish: 'en anglais',

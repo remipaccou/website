@@ -1,6 +1,6 @@
 ---
 // Home page, built as a register:
-//   0. triad    the three words of the title under their Greek roots
+//   0. title    the heading, its italic line, the four fields in Greek
 //   1. lead     the latest essay, text first, its image beside it
 //   2. notices  dated register of everything new, with a narrow side column
 //   4. footer   (in the layout)
@@ -22,8 +22,6 @@ const t = ui[lang];
 
 const essays = await getEssays();
 const lead = essays[0];
-// The three words of the title, each under the Greek word it comes from.
-const triad = ['μορφή', 'ἐνέργεια', 'οἶκος'].map((greek, i) => ({ greek, word: t.triad[i] }));
 const count = (id: string) =>
   essays.filter((e) => e.data.theme === id).length + publications.filter((p) => p.theme === id).length + projects.filter((p) => p.theme === id).length + books.filter((p) => p.theme === id).length;
 const notices = await getNotices(lang);
@@ -37,10 +35,9 @@ const notices = await getNotices(lang);
       <span class="hero-line" aria-hidden="true"></span>
       <svg class="hero-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg>
     </p>
-    <p class="triad">
-      {triad.map((t) => (
-        <span lang="grc" title={t.word}>{t.greek}</span>
-      ))}
+    {/* The four fields under their Greek names: down the left edge on wide screens, in a row otherwise. */}
+    <p class="greek">
+      {themes.map((th) => <a href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
     </p>
 
     {lead && (
@@ -90,10 +87,5 @@ const notices = await getNotices(lang);
         </aside>
       </div>
     </section>
-
-    <blockquote class="epigraph">
-      <p>{t.epigraph}</p>
-      <footer>Alfred North Whitehead, <cite>Process and Reality</cite>, 1929</footer>
-    </blockquote>
   </div>
 </Base>
