@@ -33,7 +33,7 @@ export const ui = {
     title: 'Information, energy and ecology',
     description: 'Articles, essays and research projects by Rémi Paccou on information, energy and ecology.',
     // The large title of the home page: the core of the research, in one sentence.
-    heading: 'Exploring how information encodes structure, across history, economics, biophysics and climate',
+    heading: 'Exploring the structural encodings of information, where history, economics, physics and climate meet',
     triad: ['Information', 'Energy', 'Ecology'],
     articles: 'Articles', essays: 'Essays', projects: 'Research projects', books: 'Books', fields: 'Fields', talks: 'Talks', about: 'About',
     notices: 'Notices', themes: 'Fields', follow: 'Follow', more: 'More', rss: 'RSS feed',
@@ -54,7 +54,7 @@ export const ui = {
   fr: {
     title: 'Information, énergie et écologie',
     description: "Articles, essais et projets de recherche de Rémi Paccou sur l'information, l'énergie et l'écologie.",
-    heading: "Explorer comment l'information encode la structure, à travers l'histoire, l'économie, la biophysique et le climat",
+    heading: "Explorer les encodages structurels de l'information, là où se croisent l'histoire, l'économie, la physique et le climat",
     triad: ['Information', 'Énergie', 'Écologie'],
     articles: 'Articles', essays: 'Essais', projects: 'Projets de recherche', books: 'Livres', fields: 'Domaines', talks: 'Interventions', about: 'À propos',
     notices: 'Actualités', themes: 'Domaines', follow: 'Suivre', more: 'Lire la suite', rss: 'Flux RSS',
