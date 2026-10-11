@@ -21,7 +21,15 @@ const known = groups.flat().some((i) => i.path === here) || here === '/';
 ---
 <header class="site-header">
   <div class="wrap">
-    <a class="site-name" href={lp(lang, '/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>
+    <div class="site-top">
+      <a class="site-name" href={lp(lang, '/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>
+      <nav class="lang-switch" aria-label="Language">
+      <ul>
+        <li><a href={known ? lp('en', here) : Astro.url.pathname} lang="en" hreflang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a></li>
+        <li><a href={lp('fr', known ? here : '/essays/')} lang="fr" hreflang="fr" aria-current={lang === 'fr' ? 'true' : undefined}>FR</a></li>
+      </ul>
+      </nav>
+    </div>
     <nav aria-label="Main">
       {groups.map((group) => (
         <ul>
@@ -30,10 +38,6 @@ const known = groups.flat().some((i) => i.path === here) || here === '/';
           ))}
         </ul>
       ))}
-      <ul class="lang-switch" aria-label="Language">
-        <li><a href={known ? lp('en', here) : Astro.url.pathname} lang="en" hreflang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a></li>
-        <li><a href={lp('fr', known ? here : '/essays/')} lang="fr" hreflang="fr" aria-current={lang === 'fr' ? 'true' : undefined}>FR</a></li>
-      </ul>
     </nav>
   </div>
 </header>

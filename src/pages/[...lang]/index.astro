@@ -31,11 +31,12 @@ const notices = await getNotices(lang);
 <Base>
   <p class="edge" aria-hidden="true">{t.title}</p>
   <div class="wrap home">
-    <h1 class="triad">
+    <h1 class="hero-title">{t.heading}</h1>
+    <p class="triad">
       {triad.map((t) => (
         <span><i lang="grc">{t.greek}</i><b>{t.word}</b></span>
       ))}
-    </h1>
+    </p>
 
     {lead && (
       <article class="lead">

@@ -32,6 +32,8 @@ export const ui = {
   en: {
     title: 'Information, energy and ecology',
     description: 'Articles, essays and research projects by Rémi Paccou on information, energy and ecology.',
+    // The large title of the home page: the core of the research, in one sentence.
+    heading: 'What the digitalisation of the economy does to energy systems and climate trajectories',
     triad: ['Information', 'Energy', 'Ecology'],
     articles: 'Articles', essays: 'Essays', projects: 'Research projects', talks: 'Talks', about: 'About',
     notices: 'Notices', themes: 'Fields', follow: 'Follow', more: 'More', rss: 'RSS feed',
@@ -52,6 +54,7 @@ export const ui = {
   fr: {
     title: 'Information, énergie et écologie',
     description: "Articles, essais et projets de recherche de Rémi Paccou sur l'information, l'énergie et l'écologie.",
+    heading: "Ce que la numérisation de l'économie fait aux systèmes énergétiques et aux trajectoires climatiques",
     triad: ['Information', 'Énergie', 'Écologie'],
     articles: 'Articles', essays: 'Essais', projects: 'Projets de recherche', talks: 'Interventions', about: 'À propos',
     notices: 'Actualités', themes: 'Domaines', follow: 'Suivre', more: 'Lire la suite', rss: 'Flux RSS',
