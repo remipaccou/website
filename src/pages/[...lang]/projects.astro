@@ -19,11 +19,9 @@ const byTheme = themes.map((th) => ({ th, items: projects.filter((p) => p.theme 
       </section>
     )}
     {byTheme.map(({ th, items }) => (
-      <section class="band">
-        <h2 class="band-label">{th[lang]}</h2>
-        <div class="band-main">
-          <ul class="list">{items.map((item) => <ProjectItem item={item} />)}</ul>
-        </div>
+      <section class="project-group">
+        <h2 class="meta">{th[lang]}</h2>
+        <ul class="list">{items.map((item) => <ProjectItem item={item} />)}</ul>
       </section>
     ))}
   </div>

@@ -1,14 +1,21 @@
 ---
 import type { Project } from '../data/projects';
+import { href } from '../lib/url';
 import { langOf } from '../i18n';
 interface Props { item: Project }
 const { item } = Astro.props;
 const lang = langOf(Astro.url.pathname);
 ---
-<li class="pub">
+<li class="pub project">
   <span class="pub-year">{item.period}</span>
   <div class="pub-body">
     <p class="pub-title">{item.url ? <a href={item.url} target="_blank" rel="noopener">{item.title[lang]}</a> : item.title[lang]}</p>
     <p class="pub-meta">{item.text[lang]}</p>
   </div>
+  {item.figure && (
+    <figure class="project-figure">
+      <a href={href(item.figure.src)} target="_blank" rel="noopener"><img src={href(item.figure.src)} alt={item.figure.alt[lang]} loading="lazy" /></a>
+      {item.figure.caption && <figcaption>{item.figure.caption[lang]}</figcaption>}
+    </figure>
+  )}
 </li>
