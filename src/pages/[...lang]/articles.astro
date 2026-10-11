@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Publication from '../../components/Publication.astro';
+import { publicationsByGroup } from '../../lib/publications';
+import { langOf, langPaths, ui } from '../../i18n';
+export const getStaticPaths = langPaths;
+const t = ui[langOf(Astro.url.pathname)];
+---
+<Base title={t.articles}>
+  <div class="wrap">
+    <PageHead title={t.articles} />
+    {publicationsByGroup.map(({ group, items }) => (
+      <section class="band">
+        <h2 class="band-label">{t.groups[group as keyof typeof t.groups] ?? group}</h2>
+        <div class="band-main">
+          <ul class="list">
+            {items.map((item) => <Publication item={item} />)}
+          </ul>
+        </div>
+      </section>
+    ))}
+  </div>
+</Base>

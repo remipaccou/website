@@ -2,6 +2,7 @@
 title: "The Californian Ideology: Utopias, Disillusions, and Digital Power"
 date: 2025-11-10
 topic: Energy
+theme: history
 description: "Many processes that initially appear open-ended or exponential eventually encounter limiting factors—whether in technology, society, or natural systems. This article explores how the optimistic visions of the Californian counterculture contributed to the rise of digital platforms, and why, despite early hopes, structural and ecological boundaries have always shaped technological growth."
 cover: ./cover.jpg
 coverAlt: "Black-and-white photograph of a researcher drawing a curve on a blackboard."

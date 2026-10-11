@@ -19,8 +19,8 @@ export const pathOf = (essay: Essay) => {
   return `/${year}/${month}/${day}/${slugOf(essay)}/`;
 };
 
-export const longDate = (date: Date) =>
-  date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+export const longDate = (date: Date, lang: 'en' | 'fr' = 'en') =>
+  date.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 export const isoDate = (date: Date) => date.toISOString().slice(0, 10);
 

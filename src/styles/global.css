@@ -90,9 +90,14 @@ p { margin: 0; }
 .site-header { padding-top: 2.4rem; text-align: center; }
 .site-name { display: inline-flex; flex-direction: column; align-items: center; gap: 1rem; font-size: 1.05rem; font-weight: 500; color: var(--ink); text-decoration: none; text-transform: uppercase; letter-spacing: 0.22em; }
 .site-mark { width: 2.6rem; height: 2.6rem; fill: none; stroke: var(--sun); stroke-width: 3.4; stroke-linecap: round; }
-.site-header nav { margin-top: 2rem; border-block: 1px solid var(--rule); }
-.site-header nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 2.6rem; }
-.site-header nav a { display: block; padding-block: 0.85rem; font-size: 0.7rem; letter-spacing: 0.26em; color: var(--ink); text-decoration: none; }
+.site-header nav { margin-top: 2rem; border-block: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; }
+.site-header nav ul + ul { margin-left: 1.5rem; padding-left: 1.5rem; border-left: 1px solid var(--rule); }
+.site-header nav .lang-switch { gap: 0 0.7rem; }
+.site-header nav .lang-switch a { color: var(--muted); }
+.site-header nav .lang-switch a[aria-current] { color: var(--ink); }
+.essay-note { margin-top: 0.3rem; font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
+.site-header nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 1.7rem; }
+.site-header nav a { display: block; padding-block: 0.85rem; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--ink); text-decoration: none; }
 .site-header nav a:hover, .site-header nav a[aria-current='page'] { color: var(--accent); }
 
 .site-footer { margin-top: 6rem; border-top: 1px solid var(--rule); padding-block: 1.6rem 2.4rem; color: var(--muted); }
@@ -366,4 +371,10 @@ sub { bottom: -0.2em; }
 .edge { display: none; }
 @media (min-width: 88rem) {
   .edge { display: block; position: fixed; left: 2.2rem; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--muted); }
+}
+
+@media (max-width: 62rem) {
+  .site-header nav { flex-direction: column; padding-block: 0.4rem; }
+  .site-header nav ul + ul { margin-left: 0; padding-left: 0; border-left: 0; }
+  .site-header nav a { padding-block: 0.4rem; }
 }

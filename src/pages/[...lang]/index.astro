@@ -1,0 +1,94 @@
+---
+// Home page, built as a register:
+//   0. triad    the three words of the title under their Greek roots
+//   1. lead     the latest essay, text first, its image beside it
+//   2. notices  dated register of everything new, with a narrow side column
+//   4. footer   (in the layout)
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import Seal from '../../components/Seal.astro';
+import { site } from '../../site';
+import { href } from '../../lib/url';
+import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
+import { scriptsToHtml } from '../../lib/typography.mjs';
+import { publications } from '../../lib/publications';
+import { getNotices } from '../../lib/notices';
+import { projects } from '../../data/projects';
+import { langOf, langPaths, lp, themes, ui } from '../../i18n';
+export const getStaticPaths = langPaths;
+const lang = langOf(Astro.url.pathname);
+const t = ui[lang];
+
+const essays = await getEssays();
+const lead = essays[0];
+// The three words of the title, each under the Greek word it comes from.
+const triad = ['μορφή', 'ἐνέργεια', 'οἶκος'].map((greek, i) => ({ greek, word: t.triad[i] }));
+const count = (id: string) =>
+  essays.filter((e) => e.data.theme === id).length + publications.filter((p) => p.theme === id).length + projects.filter((p) => p.theme === id).length;
+const notices = await getNotices(lang);
+---
+<Base>
+  <p class="edge" aria-hidden="true">{t.title}</p>
+  <div class="wrap home">
+    <h1 class="triad">
+      {triad.map((t) => (
+        <span><i lang="grc">{t.greek}</i><b>{t.word}</b></span>
+      ))}
+    </h1>
+
+    {lead && (
+      <article class="lead">
+        <div class="lead-text">
+          <p class="meta"><time datetime={isoDate(lead.data.date)}>{longDate(lead.data.date, lang)}</time></p>
+          <h2 class="lead-title"><a href={href(pathOf(lead))} lang="en">{lead.data.title}</a></h2>
+          <p class="lead-desc" lang="en" set:html={scriptsToHtml(lead.data.description)} />
+          <p class="more"><a href={href(pathOf(lead))}>{t.readEssay}</a></p>
+        </div>
+        {lead.data.cover && (
+          <a class="lead-image" href={href(pathOf(lead))} tabindex="-1" aria-hidden="true">
+            <Image src={lead.data.cover} alt="" widths={[480, 800, 1200]} sizes="(max-width: 54rem) 100vw, 26rem" loading="eager" />
+          </a>
+        )}
+      </article>
+    )}
+
+    <section class="block">
+      <SectionHead title={t.notices} />
+      <div class="with-side">
+        <ul class="notices">
+          {notices.map((n) => (
+            <li>
+              <span class="meta">{n.label}</span>
+              <span class="meta">{n.kind}</span>
+              <p>
+                {n.url ? <a href={n.url}>{n.text}</a> : n.text}
+                {n.detail && <cite>{n.detail}</cite>}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <aside class="side">
+          <h3 class="side-head">{t.about}</h3>
+          <p>{t.aboutLine}</p>
+          <p><a href={lp(lang, '/about/')}>{t.more}</a></p>
+          <h3 class="side-head">{t.themes}</h3>
+          <ul>
+            {themes.map((th) => <li><a href={lp(lang, `/${th.id}/`)}>{th[lang]}</a> <span>{count(th.id)}</span></li>)}
+          </ul>
+          <h3 class="side-head">{t.follow}</h3>
+          <ul>
+            {site.links.github && <li><a href={site.links.github}>GitHub</a></li>}
+            <li><a href={href('/rss.xml')}>{t.rss}</a></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <blockquote class="epigraph">
+      <p>{t.epigraph}</p>
+      <footer>Werner Heisenberg</footer>
+      <Seal />
+    </blockquote>
+  </div>
+</Base>

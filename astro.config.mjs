@@ -19,7 +19,9 @@ export default defineConfig({
   integrations: [sitemap()],
   // Addresses that existed on the former WordPress site.
   redirects: {
-    '/category/energy': `${prefix}/writing/`,
+    '/category/energy': `${prefix}/essays/`,
+    '/writing': `${prefix}/essays/`,
+    '/publications': `${prefix}/articles/`,
   },
   markdown: {
     processor: unified({

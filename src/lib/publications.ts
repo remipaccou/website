@@ -13,7 +13,7 @@ export interface Publication {
   note?: string;
   link?: string;
   linkLabel?: string;
-  selected: boolean;
+  theme?: string;
 }
 
 const GROUPS: Record<string, string> = {
@@ -47,7 +47,7 @@ export const publications: Publication[] = records
       link: doi ? `https://doi.org/${doi}` : r.URL,
       // A DOI is shown in full; any other link by its site name only.
       linkLabel: doi ? `doi:${doi}` : r.URL?.replace(/^https?:\/\/(www\.)?/, '').replace(/^([^/]+)\/.{40,}$/, '$1'),
-      selected: String(r.keyword ?? '').split(/[,;]\s*/).includes('selected'),
+      theme: String(r.keyword ?? '').split(/[,;]\s*/).find((k) => ['history', 'economics', 'biophysics'].includes(k)),
     };
   })
   .sort((a, b) => b.year - a.year);

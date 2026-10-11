@@ -1,17 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
 import EssayItem from '../../components/EssayItem.astro';
 import { getEssays } from '../../lib/writing';
+import { langOf, langPaths, ui } from '../../i18n';
+export const getStaticPaths = langPaths;
+const t = ui[langOf(Astro.url.pathname)];
 const essays = await getEssays();
 ---
-<Base title="Essays" description="Essays by Rémi Paccou on information, energy and ecology.">
+<Base title={t.essays}>
   <div class="wrap">
-    <header class="page-head band">
-      <div class="band-label" aria-hidden="true"></div>
-      <div class="band-main">
-        <h1 class="page-title">Essays</h1>
-      </div>
-    </header>
+    <PageHead title={t.essays} />
     <ul class="list">
       {essays.map((essay) => <EssayItem essay={essay} />)}
     </ul>

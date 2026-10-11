@@ -2,11 +2,10 @@
 title: "The Thermodynamic Limits of Terrestrial Computational Intelligence"
 date: 2025-12-12
 topic: Energy
+theme: biophysics
 description: "Exponential curves in AI scaling projections rarely show where they end. This article examines the thermodynamic constraints on terrestrial intelligence—solar radiation, heat dissipation, Landauer's principle, and light-speed latency. The analysis suggests GPT-9 (10³⁶ FLOP) marks a realistic ceiling without planetary sacrifice; GPT-11 would require climate destabilization. A negentropic alternative proposes scaling intelligence through organizational diversity rather than energy accumulation."
 cover: ./cover.jpg
 coverAlt: "Rolf Landauer at his desk, black-and-white photograph."
-lead: ./figure-1-compute-projection.png
-leadAlt: "Chart of training compute from 2025 to 2040 on a logarithmic scale, rising through bands labelled feasible, climate sacrifice, planet destructive and impossible."
 ---
 
 Projections of AI compute typically depict an exponential curve rising indefinitely—training requirements climbing from $10^{25}$ to $10^{30}$ to $10^{40}$ FLOP with no visible ceiling.

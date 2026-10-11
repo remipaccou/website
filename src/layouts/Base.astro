@@ -10,6 +10,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../site';
 import { href } from '../lib/url';
+import { langOf, bare, lp, ui } from '../i18n';
 
 interface Props {
   title?: string;
@@ -20,13 +21,15 @@ interface Props {
   theme?: string;
   noindex?: boolean;
 }
-const { title, description = site.description, image, type = 'website', published, theme, noindex } = Astro.props;
-const fullTitle = title ? `${title} | ${site.author}` : `${site.author} | ${site.title}`;
+const lang = langOf(Astro.url.pathname);
+const t = ui[lang];
+const { title, description = t.description, image, type = 'website', published, theme, noindex } = Astro.props;
+const fullTitle = title ? `${title} | ${site.author}` : `${site.author} | ${t.title}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image ?? href('/og.jpg'), Astro.site);
 ---
 <!doctype html>
-<html lang="en" data-theme={theme}>
+<html lang={lang} data-theme={theme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,7 +43,7 @@ const ogImage = new URL(image ?? href('/og.jpg'), Astro.site);
     <link rel="alternate" type="application/rss+xml" title={`${site.author}: writing`} href={href('/rss.xml')} />
     <link rel="sitemap" href={href('/sitemap-index.xml')} />
     <meta property="og:site_name" content={site.author} />
-    <meta property="og:title" content={title ?? site.title} />
+    <meta property="og:title" content={title ?? t.title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />

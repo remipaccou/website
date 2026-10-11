@@ -1,0 +1,14 @@
+---
+import type { Project } from '../data/projects';
+import { langOf } from '../i18n';
+interface Props { item: Project }
+const { item } = Astro.props;
+const lang = langOf(Astro.url.pathname);
+---
+<li class="pub">
+  <span class="pub-year">{item.period}</span>
+  <div class="pub-body">
+    <p class="pub-title">{item.url ? <a href={item.url}>{item.title[lang]}</a> : item.title[lang]}</p>
+    <p class="pub-meta">{item.text[lang]}</p>
+  </div>
+</li>

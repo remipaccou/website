@@ -1,19 +1,38 @@
 ---
 import { site } from '../site';
-import { href } from '../lib/url';
 import { talks } from '../data/talks';
-const nav = site.nav.filter((item) => item.path !== '/talks/' || talks.length > 0);
-const here = Astro.url.pathname;
-const isCurrent = (path: string) => here.startsWith(href(path));
+import { langOf, bare, lp, themes, ui } from '../i18n';
+const lang = langOf(Astro.url.pathname);
+const here = bare(Astro.url.pathname);
+const t = ui[lang];
+// The menu, in three groups: the fields, the kinds of work, the person.
+const groups = [
+  themes.map((th) => ({ label: th[lang], path: `/${th.id}/` })),
+  [
+    { label: t.articles, path: '/articles/' },
+    { label: t.essays, path: '/essays/' },
+    { label: t.projects, path: '/projects/' },
+    ...(talks.length > 0 ? [{ label: t.talks, path: '/talks/' }] : []),
+  ],
+  [{ label: t.about, path: '/about/' }],
+];
+const known = groups.flat().some((i) => i.path === here) || here === '/';
+// Essays exist in one language only: from one of them, the switch leads to the list.
 ---
 <header class="site-header">
   <div class="wrap">
-    <a class="site-name" href={href('/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>
+    <a class="site-name" href={lp(lang, '/')}><svg class="site-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" /></svg><span>{site.author}</span></a>
     <nav aria-label="Main">
-      <ul>
-        {nav.map((item) => (
-          <li><a href={href(item.path)} aria-current={isCurrent(item.path) ? 'page' : undefined}>{item.label}</a></li>
-        ))}
+      {groups.map((group) => (
+        <ul>
+          {group.map((item) => (
+            <li><a href={lp(lang, item.path)} aria-current={here === item.path ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+      ))}
+      <ul class="lang-switch" aria-label="Language">
+        <li><a href={known ? lp('en', here) : Astro.url.pathname} lang="en" hreflang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a></li>
+        <li><a href={lp('fr', known ? here : '/essays/')} lang="fr" hreflang="fr" aria-current={lang === 'fr' ? 'true' : undefined}>FR</a></li>
       </ul>
     </nav>
   </div>

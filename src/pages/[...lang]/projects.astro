@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ProjectItem from '../../components/ProjectItem.astro';
+import { projects } from '../../data/projects';
+import { langOf, langPaths, themes, ui } from '../../i18n';
+export const getStaticPaths = langPaths;
+const lang = langOf(Astro.url.pathname);
+const t = ui[lang];
+const byTheme = themes.map((th) => ({ th, items: projects.filter((p) => p.theme === th.id) })).filter((g) => g.items.length > 0);
+---
+<Base title={t.projects}>
+  <div class="wrap">
+    <PageHead title={t.projects} />
+    {projects.length === 0 && (
+      <section class="band">
+        <div class="band-label" aria-hidden="true"></div>
+        <div class="band-main"><p>{t.none}</p></div>
+      </section>
+    )}
+    {byTheme.map(({ th, items }) => (
+      <section class="band">
+        <h2 class="band-label">{th[lang]}</h2>
+        <div class="band-main">
+          <ul class="list">{items.map((item) => <ProjectItem item={item} />)}</ul>
+        </div>
+      </section>
+    ))}
+  </div>
+</Base>

@@ -12,11 +12,10 @@ const writing = defineCollection({
       date: z.coerce.date(),
       description: z.string(),
       topic: z.string().optional(),
+      // The field the essay is filed under: history, economics or biophysics.
+      theme: z.enum(['history', 'economics', 'biophysics']).optional(),
       cover: image().optional(),
       coverAlt: z.string().default(''),
-      // Optional figure shown with the essay when it leads the home page.
-      lead: image().optional(),
-      leadAlt: z.string().default(''),
       draft: z.boolean().default(false),
       responses: z
         .array(z.object({ author: z.string(), date: z.coerce.date(), body: z.string() }))
