@@ -31,7 +31,7 @@ const notices = await getNotices(lang);
 ---
 <Base>
   <div class="wrap home">
-    <h1 class="hero-title">{t.heading}</h1>
+    <h1 class="hero-title">{t.heading} <em>{t.headingSub}</em></h1>
     <p class="triad">
       {triad.map((t) => (
         <span lang="grc" title={t.word}>{t.greek}</span>
