@@ -24,8 +24,8 @@ export const projects: Project[] = [
     theme: 'history',
     period: '2024–2027',
     figure: {
-      // The English drawing is still to come: until then both pages show the French one.
-      src: { en: '/figures/2026-10-11-three-functions.svg', fr: '/figures/2026-10-11-three-functions.svg' },
+      // The English drawing is made from the French one by scripts/timeline-en.py.
+      src: { en: '/figures/2026-10-11-three-functions.en.svg', fr: '/figures/2026-10-11-three-functions.svg' },
       alt: {
         en: 'Timeline of information techniques from 1790 to 2025, arranged by function: transmit, store, compute.',
         fr: "Frise des techniques de l'information de 1790 à 2025, rangées par fonction : transmettre, stocker, calculer.",
