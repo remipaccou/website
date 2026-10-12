@@ -486,3 +486,6 @@ sub { bottom: -0.2em; }
 @keyframes sigil-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes sigil-redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes line-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.cover-photo { margin: 0; width: 17rem; max-width: 100%; }
+.cover-photo img { width: 100%; height: auto; box-shadow: 0 1.2rem 2.4rem -0.8rem rgb(20 18 16 / 0.4), 0 0.15rem 0.5rem rgb(20 18 16 / 0.18); }
