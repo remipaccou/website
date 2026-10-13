@@ -1,19 +1,13 @@
 ---
 import Sigil from './Sigil.astro';
-// 'line', when given, becomes the large heading and the title a small label above it.
+// 'line', when given, is a quiet sentence under the title that says what the page holds.
 interface Props { title: string; sigil?: 'history' | 'economics' | 'biophysics' | 'climate'; line?: string }
 const { title, sigil, line } = Astro.props;
 ---
 <header class="page-head band">
   <div class="band-label page-sigil">{sigil && <Sigil name={sigil} />}</div>
   <div class="band-main">
-    {line ? (
-      <>
-        <p class="meta page-kicker">{title}</p>
-        <h1 class="page-title page-line">{line}</h1>
-      </>
-    ) : (
-      <h1 class="page-title">{title}</h1>
-    )}
+    <h1 class="page-title">{title}</h1>
+    {line && <p class="page-lead page-line">{line}</p>}
   </div>
 </header>

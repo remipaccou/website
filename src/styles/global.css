@@ -490,6 +490,5 @@ sub { bottom: -0.2em; }
 .cover-photo { margin: 0; width: 17rem; max-width: 100%; }
 .cover-photo img { width: 100%; height: auto; box-shadow: 0 1.2rem 2.4rem -0.8rem rgb(20 18 16 / 0.4), 0 0.15rem 0.5rem rgb(20 18 16 / 0.18); }
 
-/* Field pages open on one sentence; the field's name sits small above it. */
-.page-kicker { margin-bottom: 0.9rem; }
-.page-line { font-size: clamp(1.7rem, 3.4vw, 2.6rem); line-height: 1.15; max-width: 40rem; text-wrap: balance; }
+/* Field pages: a quiet sentence under the title. */
+.page-line { margin-top: 1rem; max-width: 34rem; font-size: 1.15rem; line-height: 1.55; font-style: italic; color: var(--muted); }

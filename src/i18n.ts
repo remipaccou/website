@@ -20,12 +20,12 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
 // The fields the work is filed under, each with the Greek word it comes from
-// and the one sentence that opens its page.
+// and the sentence that introduces its page.
 export const themes = [
-  { id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία', line: { en: 'Every information technique has had to find someone to pay for it.', fr: "Chaque technique de l'information a dû trouver qui la paierait." } },
-  { id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία', line: { en: 'Information is changing what electricity is worth.', fr: "L'information change ce que vaut l'électricité." } },
-  { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις', line: { en: 'Every bit has a heat cost, and the planet sets the ceiling.', fr: 'Chaque bit a un coût en chaleur, et la planète fixe le plafond.' } },
-  { id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα', line: { en: 'Computing now draws on the same atmosphere as everything else.', fr: 'Le calcul puise désormais dans la même atmosphère que tout le reste.' } },
+  { id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία', line: { en: 'How the techniques that transmit, store and compute found their place in the economy, and who came to pay for them.', fr: "Comment les techniques qui transmettent, conservent et calculent ont trouvé leur place dans l'économie, et qui a fini par les payer." } },
+  { id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία', line: { en: 'What computing does to the price and to the value of electricity.', fr: "Ce que le calcul fait au prix et à la valeur de l'électricité." } },
+  { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις', line: { en: 'The energy and the heat that information requires, and the limits the Earth sets to them.', fr: "L'énergie et la chaleur que demande l'information, et les limites que la Terre leur fixe." } },
+  { id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα', line: { en: 'Where digital infrastructures meet the trajectories of the climate.', fr: 'Là où les infrastructures numériques rencontrent les trajectoires du climat.' } },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
 
