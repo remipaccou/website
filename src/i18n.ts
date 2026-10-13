@@ -19,12 +19,13 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 // For getStaticPaths of pages under src/pages/[...lang]/.
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
-// The fields the work is filed under, each with the Greek word it comes from.
+// The fields the work is filed under, each with the Greek word it comes from
+// and the one sentence that opens its page.
 export const themes = [
-  { id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία' },
-  { id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία' },
-  { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις' },
-  { id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα' },
+  { id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία', line: { en: 'Every information technique has had to find someone to pay for it.', fr: "Chaque technique de l'information a dû trouver qui la paierait." } },
+  { id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία', line: { en: 'Information is changing what electricity is worth.', fr: "L'information change ce que vaut l'électricité." } },
+  { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις', line: { en: 'Every bit has a heat cost, and the planet sets the ceiling.', fr: 'Chaque bit a un coût en chaleur, et la planète fixe le plafond.' } },
+  { id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα', line: { en: 'Computing now draws on the same atmosphere as everything else.', fr: 'Le calcul puise désormais dans la même atmosphère que tout le reste.' } },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
 
