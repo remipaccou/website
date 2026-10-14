@@ -3,6 +3,7 @@ title: "Measured in Kilowatts: Norbert Wiener and the Energy of Information"
 date: 2026-10-14
 topic: Energy
 theme: biophysics
+draft: true
 description: "The best-known sentence of Norbert Wiener’s Cybernetics, “Information is information, not matter or energy”, belongs to a paragraph about heat: the kilowatts of the ENIAC, the cooling it required, the fever of an overheated machine. Read with that paragraph, the sentence separates two quantities; it does not release information from matter. The separation was sound, and it also sorted what would be counted. The energy of computing, written into engineering specifications from 1946, entered official accounts in 2007."
 ---
 
