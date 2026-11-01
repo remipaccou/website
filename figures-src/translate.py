@@ -146,7 +146,24 @@ def english(src: str, pairs, caption=None) -> str:
             print(f'  left in French? line {i}: {code.strip()[:120]}')
     return out
 
+# The site's layout, applied to both languages: the confluence is drawn wide
+# and flat for the page of a thesis; on a screen it gets more height (its
+# vertical unit from 0.8 to 1.45 cm; the letters keep their size).
+LAYOUT = {'confluence': [('y=0.8cm,', 'y=1.45cm,')], 'transmit': []}
+
+def layout(name: str, tex: str) -> str:
+    for a, b in LAYOUT[name]:
+        if a not in tex:
+            sys.exit(f'layout: not found in {name}: {a}')
+        tex = tex.replace(a, b)
+    return tex
+
+(HERE / 'build').mkdir(exist_ok=True)
 for name, pairs, cap in [('transmit', TRANSMIT, None), ('confluence', CONFLUENCE, (CAPTION_FR, CAPTION_EN))]:
     src = (HERE / f'{name}.fr.tex').read_text()
-    (HERE / f'{name}.en.tex').write_text(english(src, pairs, cap))
-    print(f'{name}.en.tex written')
+    en = english(src, pairs, cap)
+    (HERE / f'{name}.en.tex').write_text(en)
+    # What build.sh compiles: both languages with the site's layout.
+    (HERE / 'build' / f'{name}.fr.tex').write_text(layout(name, src))
+    (HERE / 'build' / f'{name}.en.tex').write_text(layout(name, en))
+    print(f'{name}: English written; both languages laid out for the site')

@@ -5,7 +5,6 @@
 const SVGNS = 'http://www.w3.org/2000/svg';
 type Region = { y0: number; y1: number; stops: number[][] };
 type Cal = { w: number; h: number; regions: Region[] };
-let count = 0;
 
 // Year to x in a band, linear between its stops.
 const xOf = (r: Region, year: number) => {
@@ -21,15 +20,10 @@ export function mountFrise(fig: HTMLElement) {
   const svg = fig.querySelector<SVGSVGElement>('.frise-now')!;
   const img = fig.querySelector<HTMLImageElement>('img')!;
   const reds = [...svg.querySelectorAll<SVGGElement>('.fr-red')];
-  const rects = [...svg.querySelectorAll<SVGRectElement>('.fr-clip-rect')];
+  const wins = [...svg.querySelectorAll<SVGSVGElement>('.fr-win')];
   const dotLayer = svg.querySelector<SVGGElement>('.fr-dots')!;
   const now = svg.querySelector<SVGGElement>('.fr-now')!;
   const label = svg.querySelector<SVGTextElement>('.fr-year')!;
-  const n = ++count;
-  rects.forEach((r, i) => {
-    r.parentElement!.id = `fr${n}-${i}`;
-    reds[i].setAttribute('clip-path', `url(#fr${n}-${i})`);
-  });
   const first = cal.regions[0].stops[0][0];
   const last = Math.max(...cal.regions.map((r) => r.stops[r.stops.length - 1][0]));
   const tracks: { region: Region; xs: number[]; ys: number[]; dots: SVGCircleElement[] }[] = [];
@@ -40,7 +34,9 @@ export function mountFrise(fig: HTMLElement) {
     cal.regions.forEach((r, i) => {
       const end = r.stops[r.stops.length - 1][0];
       // At the end of its time a band is red to the edge, its last years included.
-      rects[i].setAttribute('width', y >= Math.min(end, last) ? String(cal.w) : y <= r.stops[0][0] ? '0' : Math.max(0, xOf(r, y)).toFixed(2));
+      const w = y >= Math.min(end, last) ? cal.w : y <= r.stops[0][0] ? 0.01 : Math.max(0.01, xOf(r, y));
+      wins[i].setAttribute('width', w.toFixed(2));
+      wins[i].setAttribute('viewBox', `0 ${r.y0} ${w.toFixed(2)} ${r.y1 - r.y0}`);
     });
     for (const tr of tracks) {
       const fx = xOf(tr.region, y);

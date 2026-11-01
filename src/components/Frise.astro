@@ -21,8 +21,11 @@ const axis = cal.regions[0].y1 - 3;
     <div class="frise-wrap">
       <img src={src} alt={f.alt[lang]} loading="lazy" />
       <svg class="frise-now" viewBox={`0 0 ${cal.w} ${cal.h}`} aria-hidden="true">
-        <defs>{cal.regions.map((r) => <clipPath><rect class="fr-clip-rect" x="0" y={r.y0} width="0" height={r.y1 - r.y0} /></clipPath>)}</defs>
-        {cal.regions.map(() => <g class="fr-red"></g>)}
+        {/* One window per band, opened up to the present year (a nested svg rather than a clip
+            path: Safari repaints a resized window, not always an edited clip). */}
+        {cal.regions.map((r) => (
+          <svg class="fr-win" x="0" y={r.y0} width="0.01" height={r.y1 - r.y0} viewBox={`0 ${r.y0} 0.01 ${r.y1 - r.y0}`} preserveAspectRatio="none" overflow="hidden"><g class="fr-red"></g></svg>
+        ))}
         <g class="fr-dots"></g>
         <g class="fr-now" opacity="0">
           <circle class="fr-dot" cx="0" cy={axis} r="2.2" />
