@@ -5,7 +5,7 @@ import { notices as manual } from '../data/notices';
 import { href } from './url';
 import { ui, type Lang } from '../i18n';
 
-export interface Notice { sort: number; label: string; kind: string; text: string; detail?: string; url?: string }
+export interface Notice { sort: number; label: string; kind: string; text: string; detail?: string; url?: string; theme?: string }
 
 // 'YYYY-MM' or 'YYYY-MM-DD' gives a sort key; the label is the year, as for papers.
 const parse = (date: string) => {
@@ -19,6 +19,7 @@ export async function getNotices(lang: Lang = 'en', limit = 7): Promise<Notice[]
     kind: ui[lang].essayKind,
     text: e.data.title,
     url: href(pathOf(e)),
+    theme: e.data.theme,
   }));
   // Papers carry a year only: they sort at the start of that year.
   const papers = publications.map((p) => ({
@@ -27,6 +28,7 @@ export async function getNotices(lang: Lang = 'en', limit = 7): Promise<Notice[]
     text: p.title,
     detail: p.venue ?? p.note,
     url: p.link,
+    theme: p.theme,
   }));
   const spoken = talks.map((t) => ({
     ...parse(t.date),

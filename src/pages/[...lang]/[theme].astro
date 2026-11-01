@@ -35,13 +35,13 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
     {essays.length > 0 && (
       <section class="band">
         <h2 class="band-label">{t.essays}</h2>
-        <div class="band-main"><ul class="list">{essays.map((essay) => <EssayItem essay={essay} />)}</ul></div>
+        <div class="band-main"><ul class="list">{essays.map((essay) => <EssayItem essay={essay} sign={false} />)}</ul></div>
       </section>
     )}
     {articles.length > 0 && (
       <section class="band">
         <h2 class="band-label">{t.articles}</h2>
-        <div class="band-main"><ul class="list">{articles.map((item) => <Publication item={item} />)}</ul></div>
+        <div class="band-main"><ul class="list">{articles.map((item) => <Publication item={item} sign={false} />)}</ul></div>
       </section>
     )}
     {mine.length > 0 && (

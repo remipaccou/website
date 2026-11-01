@@ -1,10 +1,12 @@
 ---
 import type { Publication } from '../lib/publications';
-interface Props { item: Publication }
-const { item } = Astro.props;
+import Sigil from './Sigil.astro';
+interface Props { item: Publication; sign?: boolean }
+const { item, sign = true } = Astro.props;
+const theme = sign ? (item.theme as 'history' | 'economics' | 'biophysics' | 'climate' | undefined) : undefined;
 ---
 <li class="pub">
-  <span class="pub-year">{item.year}</span>
+  <span class="pub-year">{item.year}{theme && <Sigil name={theme} class="item-sign" />}</span>
   <div class="pub-body">
     <p class="pub-title">{item.title}</p>
     <p class="pub-meta">

@@ -55,7 +55,7 @@ const notices = await getNotices(lang);
       <ul class="notices">
           {notices.map((n) => (
             <li>
-              <span class="meta">{n.label}</span>
+              <span class="meta notice-year">{n.label}{n.theme && <Sigil name={n.theme as any} class="item-sign" />}</span>
               <span class="meta">{n.kind}</span>
               <p>
                 {n.url ? <a href={n.url} target={/^https?:/.test(n.url) ? '_blank' : undefined} rel="noopener">{n.text}</a> : n.text}

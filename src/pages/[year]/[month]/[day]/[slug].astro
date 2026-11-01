@@ -4,6 +4,7 @@ import 'computer-modern/cmu-serif.css';
 import { render } from 'astro:content';
 import { getImage, Image } from 'astro:assets';
 import Base from '../../../../layouts/Base.astro';
+import Sigil from '../../../../components/Sigil.astro';
 import { site } from '../../../../site';
 import { scriptsToHtml } from '../../../../lib/typography.mjs';
 import { getEssays, dateParts, slugOf, longDate, isoDate } from '../../../../lib/writing';
@@ -18,7 +19,7 @@ export async function getStaticPaths() {
 
 const { essay } = Astro.props;
 const { Content } = await render(essay);
-const { title, description, date, topic, cover, coverAlt } = essay.data;
+const { title, description, date, topic, cover, coverAlt, theme } = essay.data;
 const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'jpg' })).src : undefined;
 ---
 <Base title={title} description={description} image={shareImage} type="article" published={date}>
@@ -29,6 +30,7 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
       <h1>{title}</h1>
       <p class="paper-author">{site.author}</p>
       <p class="paper-date"><time datetime={isoDate(date)}>{longDate(date)}</time></p>
+      {theme && <Sigil name={theme} class="paper-seal" />}
     </header>
 
     <section class="paper-abstract">
@@ -45,5 +47,6 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
     <div class="prose paper-body">
       <Content />
     </div>
+    <Sigil name="enso" class="paper-end" />
   </article>
 </Base>
