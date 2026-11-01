@@ -15,7 +15,7 @@ export const projects: Project[] = [
   {
     title: {
       en: 'Transmit, store, compute: timelines of information techniques, 1790–2025',
-      fr: "Transmettre, stocker, calculer : frises des techniques de l'information, 1790-2025",
+      fr: "Transmettre, stocker, calculer : frises des techniques de l'information, 1790–2025",
     },
     text: {
       en: 'Work in progress.',

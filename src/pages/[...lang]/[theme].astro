@@ -55,10 +55,10 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
         <h2 class="band-label">{t.books}</h2>
         <div class="band-main"><ul class="list">{myBooks.map((b) => (
           <li class="pub">
-            <span class="pub-year">{b.status[lang]}</span>
+            <span class="pub-year"></span>
             <div class="pub-body">
               <p class="pub-title"><a href={lp(lang, '/books/')}>{b.title[lang]}</a></p>
-              <p class="pub-meta">{b.subtitle[lang]}</p>
+              <p class="pub-meta">{b.subtitle[lang]}. {b.status[lang]}.</p>
             </div>
           </li>
         ))}</ul></div>
