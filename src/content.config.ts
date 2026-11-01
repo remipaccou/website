@@ -17,6 +17,9 @@ const writing = defineCollection({
       cover: image().optional(),
       coverAlt: z.string().default(''),
       draft: z.boolean().default(false),
+      // Corrections made after publication, shown at the end of the essay; the
+      // paragraphs concerned carry a mark (<span class="mend">) and a red seam.
+      revisions: z.array(z.object({ date: z.coerce.date(), note: z.string() })).default([]),
     }),
 });
 

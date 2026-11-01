@@ -17,9 +17,32 @@ const links = [
 <footer class="site-footer">
   <Sigil name="enso" class="footer-mark" />
   <div class="wrap site-footer-inner">
-    <p>© {new Date().getFullYear()} {site.author}. {t.views}</p>
+    <p>© {new Date().getFullYear()} {site.author}. {t.views} <span class="page-weight" hidden data-label={t.weight}></span></p>
     <ul>
       {links.map((l) => <li><a href={l.url} target={/^https?:/.test(l.url) ? '_blank' : undefined} rel="noopener">{l.label}</a></li>)}
     </ul>
   </div>
 </footer>
+
+<script>
+  // What this page weighs: the bytes the server sent for it, as the browser
+  // counts them (the page, its styles, scripts, fonts and images), updated as
+  // late images arrive. A weight, not an estimate of energy.
+  const out = document.querySelector<HTMLElement>('.page-weight');
+  if (out && 'performance' in window) {
+    const lang = document.documentElement.lang;
+    const total = () => {
+      const entries = [...performance.getEntriesByType('navigation'), ...performance.getEntriesByType('resource')] as PerformanceResourceTiming[];
+      return entries.reduce((sum, e) => sum + (e.encodedBodySize || e.transferSize || 0), 0);
+    };
+    const show = () => {
+      const kb = Math.max(1, Math.round(total() / 1000));
+      out.textContent = (out.dataset.label ?? '').replace('{n}', kb.toLocaleString(lang === 'fr' ? 'fr-FR' : 'en-GB'));
+      out.hidden = false;
+    };
+    addEventListener('load', () => {
+      show();
+      try { new PerformanceObserver(show).observe({ type: 'resource', buffered: false }); } catch {}
+    });
+  }
+</script>

@@ -277,9 +277,23 @@ sub { bottom: -0.2em; }
 .essay-cover img { width: auto; max-width: 100%; max-height: 28rem; border-radius: 3px; }
 
 
+/* Printed (or saved as PDF), an essay becomes an article page: the text alone on A4, with
+   the margins of a LaTeX article, page numbers where the browser can, and no menu, footer,
+   brush or button. Other pages keep their content without the furniture. */
 @media print {
-  .site-header nav, .site-footer ul, .skip { display: none; }
-  body { background: #fff; color: #000; }
+  @page { size: A4; margin: 2.4cm 2.6cm 2.6cm; @bottom-center { content: counter(page); font-family: 'CMU Serif', serif; font-size: 9.5pt; } }
+  :root { --paper: #fff; --ink: #000; --muted: #333; --rule: #bbb; }
+  html, body { background: #fff; color: #000; }
+  .site-header, .site-footer, .skip, .read-brush, .paper-cite, .sidenote, .cv-toggle, .convergence, .swirl, .greek, .epigraph { display: none !important; }
+  .paper { padding-top: 0; font-size: 10.5pt; line-height: 1.42; }
+  .paper > * { max-width: none; }
+  .paper .prose h2, .paper .prose h3 { break-after: avoid; }
+  .paper .prose figure, .paper .prose table, .katex-display, .paper-abstract { break-inside: avoid; }
+  .paper .prose p { orphans: 3; widows: 3; }
+  .paper .prose a { text-decoration: none; }
+  .paper .prose figure img { max-height: 10cm; }
+  .paper-revisions { break-inside: avoid; }
+  .sigil path { animation: none !important; stroke-dashoffset: 0 !important; }
 }
 
 /* Worked derivations (appendices): left-aligned on a tinted panel. */
@@ -305,6 +319,54 @@ sub { bottom: -0.2em; }
 /* The field of the essay, as a seal under its date; an open circle where the text ends. */
 .paper > .paper-head .paper-seal { display: block; width: 1.7rem; height: 1.7rem; margin: 1.3rem auto 0; stroke-width: 2.8; }
 .paper > .paper-end { display: block; width: 1.5rem; height: 1.5rem; margin: 3.2rem auto 0; stroke-width: 3; transform: rotate(-150deg); }
+
+/* Notes in the margin: the reference called, level with its line, on wide screens. */
+.sidenote { display: none; }
+@media (min-width: 76rem) {
+  .paper .prose .has-sidenote { position: relative; }
+  .sidenote { display: block; position: absolute; left: calc(100% + 2.6rem); width: 13.5rem; font-family: var(--cm); font-size: 0.72em; line-height: 1.38; text-align: left; hyphens: none; color: var(--muted); overflow-wrap: anywhere; }
+  .sidenote-num { color: var(--sun); }
+  .sidenote em { font-style: italic; }
+}
+
+/* Mended passages: a corrected paragraph keeps a thin red seam in its margin, the way a
+   mended bowl keeps its seam, and the date of the repair beside it on wide screens. */
+.paper .prose :is(p, li):has(> .mend) { position: relative; }
+.mend { position: absolute; top: 0.35em; bottom: 0.35em; left: -1.1rem; width: 1.5px; background: linear-gradient(transparent, var(--sun) 18%, var(--sun) 82%, transparent); }
+.paper .prose li > .mend { left: -2.6rem; }
+@media (max-width: 40rem) { .paper .prose p > .mend { left: -0.6rem; } }
+@media (min-width: 76rem) {
+  .mend::after { content: attr(data-label); position: absolute; top: 0; right: 0.9rem; width: 9rem; text-align: right; font-family: var(--sans); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sun); line-height: 1.4; }
+}
+.paper-revisions { margin-top: 2.8rem; padding-left: 1.1rem; border-left: 1.5px solid var(--sun); font-size: 0.92em; line-height: 1.45; }
+.paper-revisions h2 { font-size: 1em; font-weight: 700; margin-bottom: 0.4rem; }
+.paper-revisions p + p { margin-top: 0.5rem; }
+
+/* Citing the essay. */
+.paper-cite { margin-top: 2.4rem; font-size: 0.9em; }
+.paper-cite summary { cursor: pointer; font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); list-style: none; }
+.paper-cite summary::-webkit-details-marker { display: none; }
+.paper-cite summary::before { content: '+ '; color: var(--sun); }
+.paper-cite[open] summary::before { content: '− '; }
+.paper-cite summary:hover { color: var(--sun); }
+.cite-apa { margin-top: 1rem; overflow-wrap: anywhere; }
+.cite-bib { margin-top: 0.8rem; padding: 0.9rem 1rem; background: var(--panel); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.78em; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cite-copy { margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; align-items: baseline; }
+.cite-copy button { padding: 0; background: none; border: 0; cursor: pointer; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--rule); }
+.cite-copy button:hover, .cite-copy button:focus-visible { color: var(--sun); border-color: var(--sun); }
+.cite-done { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--sun); }
+
+/* The reading brush: a red line at the top of the window that grows with the reading and
+   closes on the open circle at the end. */
+.read-brush { position: fixed; inset: 0 0 auto 0; height: 0; z-index: 20; pointer-events: none; }
+.read-line { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--sun); transform-origin: left; transform: scaleX(var(--read, 0)); opacity: 0.85; }
+.read-mark { position: absolute; top: 5px; right: 10px; width: 14px; height: 14px; stroke-width: 4.2; opacity: 0; transform: rotate(-150deg); transition: opacity 0.4s ease; }
+.read-mark path { animation: none; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s cubic-bezier(0.6, 0, 0.2, 1); }
+.read-brush.is-done .read-mark { opacity: 1; }
+.read-brush.is-done .read-mark path { stroke-dashoffset: 0; }
+
+/* The weight of the page, in the footer. */
+.page-weight { white-space: nowrap; }
 .paper-abstract { margin-top: 2.6rem; padding-inline: clamp(0rem, 5vw, 2.4rem); font-size: 0.94em; text-align: justify; hyphens: auto; }
 .paper-abstract h2 { font-size: 1em; font-weight: 700; text-align: center; margin-bottom: 0.6rem; }
 .paper-cover { margin-top: 2.6rem; margin-bottom: 0; }
