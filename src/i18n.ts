@@ -43,6 +43,8 @@ export const ui = {
     convergence: {
       transmit: 'transmit', compute: 'compute', store: 'store',
       loop: 'a capital that reproduces itself',
+      play: 'set in motion',
+      pause: 'stop the motion',
       economy: 'economy', energy: 'energy', climate: 'climate',
       alt: 'Three functions of information, transmitting, computing and storing, converge into one capital, which feeds its own growth and reaches the meeting point of the economy, energy and the climate.',
     },
@@ -72,6 +74,8 @@ export const ui = {
     convergence: {
       transmit: 'transmettre', compute: 'calculer', store: 'stocker',
       loop: 'un capital qui se reproduit',
+      play: 'mettre en mouvement',
+      pause: 'arrêter le mouvement',
       economy: 'économie', energy: 'énergie', climate: 'climat',
       alt: "Trois fonctions de l’information, transmettre, calculer et stocker, convergent en un seul capital, qui nourrit sa propre croissance et atteint le point où se rencontrent l’économie, l’énergie et le climat.",
     },

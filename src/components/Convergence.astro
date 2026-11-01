@@ -167,4 +167,31 @@ const N = (() => {
       {L.labels.map((l) => <text class="cv-label cv-field" x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
     </svg>
   ))}
+  <button class="cv-toggle" type="button" hidden data-play={t.play} data-pause={t.pause}>{t.pause}</button>
 </figure>
+
+<script>
+  // The drawing moves unless the reader has asked the system for less motion;
+  // either way, one click sets it in motion or stops it.
+  const fig = document.querySelector<HTMLElement>('.convergence');
+  const btn = fig?.querySelector<HTMLButtonElement>('.cv-toggle');
+  if (fig && btn) {
+    const svgs = [...fig.querySelectorAll('svg')];
+    let moving = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const set = (on: boolean, clicked = false) => {
+      moving = on;
+      fig.classList.toggle('is-moving', on);
+      svgs.forEach((s) => {
+        if (on) {
+          // The first dot leaves at 3.2 s; a reader who clicks should not wait for it.
+          if (clicked && s.getCurrentTime() < 3) s.setCurrentTime(3);
+          s.unpauseAnimations();
+        } else s.pauseAnimations();
+      });
+      btn.textContent = on ? btn.dataset.pause! : btn.dataset.play!;
+    };
+    set(moving);
+    btn.hidden = false;
+    btn.addEventListener('click', () => set(!moving, true));
+  }
+</script>

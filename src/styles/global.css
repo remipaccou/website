@@ -399,7 +399,10 @@ sub { bottom: -0.2em; }
 .cv-root.l1 { stroke-width: 0.75; }
 .cv-link { fill: none; stroke: var(--sun); stroke-width: 0.8; stroke-linecap: round; stroke-opacity: 0.32; stroke-dasharray: 0.004 0.016; }
 .cv-node { fill: var(--sun); }
-@media (prefers-reduced-motion: reduce) { .cv-flow { display: none; } }
+@media (prefers-reduced-motion: reduce) { .convergence:not(.is-moving) .cv-flow, .convergence.is-moving .cv-still { display: none; } }
+.cv-toggle { display: block; margin: 0.3rem 0 0 auto; padding: 0.3rem 0; background: none; border: 0; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); cursor: pointer; }
+.cv-toggle:hover, .cv-toggle:focus-visible { color: var(--sun); }
+.cv-toggle[hidden] { display: none; }
 @media (prefers-reduced-motion: no-preference) {
   .cv-circles { animation: cv-fade 1.2s ease-out both; }
   .cv-strand path { stroke-dasharray: 1; animation: sigil-draw 1.3s cubic-bezier(0.5, 0, 0.2, 1) both; animation-delay: calc(0.25s + var(--i) * 0.18s); }
