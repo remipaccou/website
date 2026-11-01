@@ -423,6 +423,23 @@ sub { bottom: -0.2em; }
 @media (prefers-reduced-motion: no-preference) { .cv-still { display: none; } }
 @keyframes cv-fade { from { opacity: 0; } to { opacity: 1; } }
 
+/* The same drawing, smaller, on a field page: the part that field looks at is lit, the rest
+   stays pale; the red dots keep flowing through all of it. Nodes and links fade in by their
+   opacity, so they are dimmed through fill and stroke instead. */
+.cv-mini { margin: 0; }
+.cv-mini .cv-label { font-size: 19px; }
+.cv-mini .cv-field { font-size: 20px; }
+.cv-mini .cv-note { font-size: 26px; }
+@media (max-width: 40rem) { .convergence.cv-mini .cv-narrow { max-width: 17rem; } .cv-mini .cv-narrow .cv-label { font-size: 15px; } .cv-mini .cv-narrow .cv-field { font-size: 16px; } .cv-mini .cv-narrow .cv-note { font-size: 20px; } }
+.cv-focus :is(.cv-strand, .cv-trunk, .cv-loop, .cv-note, .cv-circles circle, .cv-field, .cv-root) { opacity: 0.22; }
+.cv-focus .cv-node { fill-opacity: 0.25; }
+.cv-focus .cv-link { stroke-opacity: 0.1; }
+.convergence.cv-focus-history .part-history, .convergence.cv-focus-economics .part-economics, .convergence.cv-focus-biophysics .part-biophysics, .convergence.cv-focus-climate .part-climate { opacity: 1; fill-opacity: 1; }
+.convergence.cv-focus-economics .cv-circles .part-economics, .convergence.cv-focus-biophysics .cv-circles .part-biophysics, .convergence.cv-focus-climate .cv-circles .part-climate { fill: var(--sun); fill-opacity: 0.07; stroke: var(--sun); stroke-opacity: 0.75; stroke-width: 1.3; }
+.convergence.cv-focus-history .cv-trunk { opacity: 0.6; }
+.cv-focus .cv-field:is(.part-economics, .part-biophysics, .part-climate) { fill: var(--ink); }
+.cv-focus-economics .cv-field.part-economics, .cv-focus-biophysics .cv-field.part-biophysics, .cv-focus-climate .cv-field.part-climate { fill: var(--sun); }
+
 /* Two sentences under the title of the home page: what the site is about. */
 .hero-lead { max-width: 46rem; margin-bottom: clamp(2.8rem, 6vw, 4rem); font-size: 1.2rem; line-height: 1.6; color: var(--muted); }
 

@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import EssayItem from '../../components/EssayItem.astro';
+import Convergence from '../../components/Convergence.astro';
 import Publication from '../../components/Publication.astro';
 import ProjectItem from '../../components/ProjectItem.astro';
 import { getEssays } from '../../lib/writing';
@@ -26,6 +27,11 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
 <Base title={th[lang]}>
   <div class="wrap">
     <PageHead title={th[lang]} sigil={th.id} line={th.line[lang]} />
+    {/* The home-page drawing, smaller, with the part this field looks at lit. */}
+    <section class="band cv-band">
+      <div class="band-label" aria-hidden="true"></div>
+      <div class="band-main"><Convergence focus={th.id} mini /></div>
+    </section>
     {empty && (
       <section class="band">
         <div class="band-label" aria-hidden="true"></div>

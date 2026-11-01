@@ -5,8 +5,18 @@
 // reaches the heart of three circles, the economy, energy and the climate.
 // Ink and one red, drawn as the signs of the site are. Two layouts: wide
 // (left to right) and narrow (top to bottom) for phones.
+//
+// On a field page the same drawing comes back smaller (mini), with the part
+// that field looks at lit and the rest left pale: history, the three functions
+// arriving; economics, the capital that turns and the circle of the economy;
+// biophysics, the circle of energy; climate, the circle of the climate.
 import { langOf, ui } from '../i18n';
+type Field = 'history' | 'economics' | 'biophysics' | 'climate';
+interface Props { focus?: Field; mini?: boolean }
+const { focus, mini = false } = Astro.props;
 const t = ui[langOf(Astro.url.pathname)].convergence;
+// The circles in their order: economy, energy, climate.
+const circlePart: Field[] = ['economics', 'biophysics', 'climate'];
 const words = t.loop.split(' ');
 const half = Math.ceil(words.length / 2);
 const noteLines = [words.slice(0, half).join(' '), words.slice(half).join(' ')];
@@ -72,13 +82,13 @@ const W = (() => {
     trunk: `M${C.x} ${C.y}L${V.x} ${V.y}`,
     loop: `M${a.x.toFixed(1)} ${a.y.toFixed(1)}A${loop.r} ${loop.r} 0 1 0 ${b.x.toFixed(1)} ${b.y.toFixed(1)}`,
     tail: `L${loop.x} ${V.y}A${loop.r} ${loop.r} 0 0 0 ${loop.x} ${V.y - 2 * loop.r}A${loop.r} ${loop.r} 0 0 0 ${loop.x} ${V.y}L${V.x} ${V.y}`,
-    note: { x: loop.x, y: V.y + 30, anchor: 'middle', split: false },
+    note: { x: loop.x, y: V.y + (mini ? 44 : 30), anchor: 'middle', split: false },
     labels: [
       { x: eco.x - 0.72 * r, y: eco.y - 0.72 * r, anchor: 'end', text: t.economy },
       { x: ene.x + 0.72 * r, y: ene.y - 0.72 * r, anchor: 'start', text: t.energy },
       { x: cli.x, y: cli.y + r + 26, anchor: 'middle', text: t.climate },
     ],
-    labelDy: -13,
+    labelDy: mini ? -20 : -13,
   };
 })();
 
@@ -107,17 +117,15 @@ const N = (() => {
       { x: ene.x + 24, y: ene.y - r - 12, anchor: 'middle', text: t.energy },
       { x: cli.x, y: cli.y + r + 24, anchor: 'middle', text: t.climate },
     ],
-    labelDy: -12,
+    labelDy: mini ? -16 : -12,
   };
 })();
 ---
-<figure class="convergence">
+<figure class:list={['convergence', mini && 'cv-mini', focus && `cv-focus cv-focus-${focus}`]}>
   {[{ L: { ...W, id: 'cvw' }, cls: 'cv-wide' }, { L: { ...N, id: 'cvn' }, cls: 'cv-narrow' }].map(({ L, cls }) => (
     <svg class={cls} viewBox={L.box} role="img" aria-label={t.alt}>
       <g class="cv-circles">
-        <circle cx={L.eco.x} cy={L.eco.y} r={L.r} />
-        <circle cx={L.ene.x} cy={L.ene.y} r={L.r} />
-        <circle cx={L.cli.x} cy={L.cli.y} r={L.r} />
+        {[L.eco, L.ene, L.cli].map((c, i) => <circle class={`part-${circlePart[i]}`} cx={c.x} cy={c.y} r={L.r} />)}
       </g>
       <g class="cv-web" aria-hidden="true">
         <g class="cv-still">{[0.34, 0.62, 0.9].map((k) => <circle class="cv-ring" cx={L.V.x} cy={L.V.y} r={k * L.web.R} />)}</g>
@@ -128,19 +136,19 @@ const N = (() => {
           </circle>
         ))}</g>
         {L.web.links.map((d) => <path class="cv-link" d={d} pathLength="1" />)}
-        {L.web.roots.map((p) => <path class={`cv-root l${p.lvl}`} d={p.d} pathLength="1" style={`--i:${p.i}`} />)}
+        {L.web.roots.map((p) => <path class={`cv-root l${p.lvl} part-${circlePart[p.i]}`} d={p.d} pathLength="1" style={`--i:${p.i}`} />)}
       </g>
       {L.strands.map((s, i) => (
-        <g class="cv-strand" style={`--i:${i}`}>
+        <g class="cv-strand part-history" style={`--i:${i}`}>
           <path d={s.d} pathLength="1" />
           <circle cx={s.x} cy={s.y} r="3.2" />
           <text x={s.x} y={s.y + L.labelDy} text-anchor={cls === 'cv-narrow' ? 'middle' : 'start'} class="cv-label">{s.label}</text>
         </g>
       ))}
       <path class="cv-trunk" d={L.trunk} pathLength="1" />
-      <path class="cv-loop" d={L.loop} pathLength="1" />
-      <text class="cv-note" x={L.note.x} y={L.note.y} text-anchor={L.note.anchor}>
-        {L.note.split ? noteLines.map((line, i) => <tspan x={L.note.x} dy={i === 0 ? 0 : 20}>{line}</tspan>) : t.loop}
+      <path class="cv-loop part-economics" d={L.loop} pathLength="1" />
+      <text class="cv-note part-economics" x={L.note.x} y={L.note.y} text-anchor={L.note.anchor}>
+        {L.note.split ? noteLines.map((line, i) => <tspan x={L.note.x} dy={i === 0 ? 0 : mini ? 26 : 20}>{line}</tspan>) : t.loop}
       </text>
       <g class="cv-flow" aria-hidden="true">
         <circle class="cv-beat" cx={L.V.x} cy={L.V.y} r="5" opacity="0">
@@ -163,8 +171,8 @@ const N = (() => {
         ))}
       </g>
       <circle class="cv-heart" cx={L.V.x} cy={L.V.y} r="5" />
-      {L.web.tips.map((t, n) => <circle class="cv-node" cx={t.x} cy={t.y} r="2.1" style={`--n:${n}`} />)}
-      {L.labels.map((l) => <text class="cv-label cv-field" x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
+      {L.web.tips.map((t, n) => <circle class={`cv-node part-${circlePart[Math.floor(n / 2)]}`} cx={t.x} cy={t.y} r="2.1" style={`--n:${n}`} />)}
+      {L.labels.map((l, i) => <text class={`cv-label cv-field part-${circlePart[i]}`} x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
     </svg>
   ))}
   <button class="cv-toggle" type="button" hidden data-play={t.play} data-pause={t.pause}>{t.pause}</button>
