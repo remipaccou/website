@@ -6,12 +6,15 @@ theme: history
 description: "Many processes that initially appear open-ended or exponential eventually encounter limiting factors—whether in technology, society, or natural systems. This article explores how the optimistic visions of the Californian counterculture contributed to the rise of digital platforms, and why, despite early hopes, structural and ecological boundaries have always shaped technological growth."
 cover: ./cover.jpg
 coverAlt: "Black-and-white photograph of a researcher drawing a curve on a blackboard."
+frise: californian
 revisions:
   - date: 2026-11-01
     note: "The origin of ARPANET corrected: the network able to survive a nuclear attack was Paul Baran’s idea at RAND, not the purpose ARPANET was funded for. Reference 14 replaced by the 1966 study it stands for. The Whole Earth Catalog caption now credits the Portola Institute; an uncredited photograph was removed."
 ---
 
 The historical phenomenon that demands our attention here is not simply a sequence of events or a collection of biographies, but rather a profound transformation in how technological imagination became entangled with political hope—and how this entanglement, far from being accidental or superficial, was made possible by specific intellectual, social, and material conditions that converged in Northern California during the late 1960s and early 1970s. What occurred was not merely the influence of one cultural sphere upon another, but an active hybridization: the grafting of countercultural ideals of autonomy, decentralization, and communal self-organization onto the emerging practices and infrastructures of personal computing and networked communication. This grafting succeeded—if that is the right word for a process whose outcomes remain so contested—because both worlds shared a common set of conceptual resources, chief among them the language and logic of cybernetics<sup><a href="#ref-1">1</a></sup> and systems thinking<sup><a href="#ref-2">2</a></sup>. Yet the success of this graft also ensured that the emancipatory impulses of the counterculture would be channeled into technological and entrepreneurial forms, effectively depoliticizing them and rendering them compatible with emerging neoliberal arrangements of power. The question we must pursue is not whether this hybridization happened—it clearly did—but rather why it was possible, what made it intellectually and socially coherent, and what its consequences have been for the way we understand technology, economy, and collective life today.
+
+<div class="frise-slot" data-frise="californian"></div>
 
 ## The Intellectual Architecture of Hybridization: Cybernetics as Common Ground
 

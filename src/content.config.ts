@@ -20,6 +20,9 @@ const writing = defineCollection({
       // Corrections made after publication, shown at the end of the essay; the
       // paragraphs concerned carry a mark (<span class="mend">) and a red seam.
       revisions: z.array(z.object({ date: z.coerce.date(), note: z.string() })).default([]),
+      // A timeline of the essay (an id of src/data/frises.ts), set where the text
+      // holds <div class="frise-slot" data-frise="id"></div>, else after the text.
+      frise: z.enum(['californian']).optional(),
     }),
 });
 

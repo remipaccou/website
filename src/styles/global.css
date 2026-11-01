@@ -284,7 +284,7 @@ sub { bottom: -0.2em; }
   @page { size: A4; margin: 2.4cm 2.6cm 2.6cm; @bottom-center { content: counter(page); font-family: 'CMU Serif', serif; font-size: 9.5pt; } }
   :root { --paper: #fff; --ink: #000; --muted: #333; --rule: #bbb; }
   html, body { background: #fff; color: #000; }
-  .site-header, .site-footer, .skip, .read-brush, .paper-cite, .sidenote, .cv-toggle, .convergence, .swirl, .greek, .epigraph { display: none !important; }
+  .site-header, .site-footer, .skip, .read-brush, .paper-cite, .sidenote, .cv-toggle, .convergence, .swirl, .greek, .epigraph, .frise-now, .frise-hint, .frise-open { display: none !important; }
   .paper { padding-top: 0; font-size: 10.5pt; line-height: 1.42; }
   .paper > * { max-width: none; }
   .paper .prose h2, .paper .prose h3 { break-after: avoid; }
@@ -546,6 +546,12 @@ sub { bottom: -0.2em; }
 .frise-hint { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.8rem; }
 .frise figcaption p + p { margin-top: 0.6rem; }
 .frise-open { font-family: var(--sans); font-size: 0.8rem; }
+/* A timeline in an essay: wider than the text and centred on it; the caption keeps the measure. */
+.paper .prose .paper-frise { width: min(100vw - 2rem, 64rem); max-width: none; margin-inline: calc(50% - min(50vw - 1rem, 32rem)); }
+.paper .prose .paper-frise img { max-height: none; }
+.paper .prose .paper-frise .frise-hint { margin-bottom: 0.9rem; }
+.paper .prose .paper-frise figcaption { max-width: var(--measure); margin: 1rem auto 0; text-align: justify; hyphens: auto; }
+.paper .prose .paper-frise .frise-open { font-family: inherit; font-size: inherit; }
 .sw-heart { fill: var(--sun); }
 .swirl figcaption { margin: 0; }
 .sw-key { font-style: italic; font-size: 1.02rem; line-height: 1.6; color: var(--muted); }

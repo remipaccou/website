@@ -5,6 +5,7 @@ import { render } from 'astro:content';
 import { getImage, Image } from 'astro:assets';
 import Base from '../../../../layouts/Base.astro';
 import Sigil from '../../../../components/Sigil.astro';
+import Frise from '../../../../components/Frise.astro';
 import { site } from '../../../../site';
 import { scriptsToHtml } from '../../../../lib/typography.mjs';
 import { getEssays, dateParts, slugOf, longDate, isoDate, pathOf } from '../../../../lib/writing';
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
 
 const { essay } = Astro.props;
 const { Content } = await render(essay);
-const { title, description, date, topic, cover, coverAlt, theme, revisions } = essay.data;
+const { title, description, date, topic, cover, coverAlt, theme, revisions, frise } = essay.data;
 
 // How to cite the essay: BibTeX and APA, built here so that they match the page.
 // The lasting address: the domain, whatever host serves this build (the path is the same).
@@ -62,6 +63,20 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
 
     <div class="prose paper-body">
       <Content />
+      {frise && (
+        <Fragment>
+          <Frise id={frise} paper />
+          {/* Into its place in the text, before the page is drawn; without scripts it stays here. */}
+          <script is:inline>
+            (() => {
+              const s = document.currentScript, f = s.previousElementSibling;
+              const slot = f && document.querySelector('.frise-slot[data-frise="' + f.dataset.id + '"]');
+              if (slot) slot.replaceWith(f);
+              s.remove();
+            })();
+          </script>
+        </Fragment>
+      )}
     </div>
     {revisions.length > 0 && (
       <section class="paper-revisions">
@@ -78,4 +93,5 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
     <Sigil name="enso" class="paper-end" />
   </article>
   <script>import '../../../../scripts/paper';</script>
+  <script>import '../../../../scripts/frises';</script>
 </Base>

@@ -1,6 +1,8 @@
-// The thesis timelines shown on the site, each with its two languages and where
-// the years fall in it (see figures-src/: build.sh draws the confluence and
-// transmit files from the thesis sources, calibrate.py measures them).
+// The timelines shown on the site, each with its two languages and where the
+// years fall in it (see figures-src/: build.sh draws the confluence and
+// transmit files from the thesis sources and the timeline of the essay on the
+// Californian ideology from gen_californian.py; calibrate.py measures them).
+// An essay's timeline is in the essay's language only, and carries its caption.
 import measured from './frises.json';
 
 type Lang = 'en' | 'fr';
@@ -11,12 +13,13 @@ export interface Frise {
   cal: Record<Lang, Cal>;
   title: Record<Lang, string>;
   alt: Record<Lang, string>;
+  caption?: Record<Lang, string>;
 }
 
 // The first timeline only had its letters replaced in English: same geometry.
 const tree: Cal = { w: 781.746, h: 433.283, regions: [{ y0: 0, y1: 362, stops: [[1790, 87.95], [2030, 665.15]] }] };
 
-export const frises: Record<'tree' | 'confluence' | 'transmit', Frise> = {
+export const frises: Record<'tree' | 'confluence' | 'transmit' | 'californian', Frise> = {
   tree: {
     src: { fr: '/figures/2026-10-11-three-functions.svg', en: '/figures/2026-10-11-three-functions.en.svg' },
     cal: { fr: tree, en: tree },
@@ -48,6 +51,19 @@ export const frises: Record<'tree' | 'confluence' | 'transmit', Frise> = {
     alt: {
       en: 'Timeline of transmitting from 1835 to 1932: telegraph, telephone, radio and broadcasting, with the forms, substrates and problems that pass from one lineage to another.',
       fr: "Frise de la transmission de 1835 à 1932 : télégraphe, téléphone, radio et radiodiffusion, avec les formes, les substrats et les problèmes qui passent d’une lignée à l’autre.",
+    },
+  },
+  californian: {
+    src: { fr: '/figures/2025-11-10-californian.en.svg', en: '/figures/2025-11-10-californian.en.svg' },
+    cal: measured.californian as Record<Lang, Cal>,
+    title: { en: '', fr: '' },
+    alt: {
+      en: 'Timeline from 1940 to 2026. Cybernetics lends one language to two lineages, the counterculture and Cold War computing; they meet in Northern California between the late 1960s and the mid-1970s, are gathered by the Homebrew Computer Club in 1975, and part in 1976 into knowledge as a commons (Apple I, the WELL, GNU/Linux, Wikipedia) and knowledge as property (the Open Letter to Hobbyists, then platforms). The diagnoses follow from 1995: Barbrook and Cameron, Turner, Srnicek, Zuboff, Durand, Morozov.',
+      fr: 'Frise de 1940 à 2026, en anglais comme l’essai : la cybernétique prête une langue à deux lignées, la contre-culture et l’informatique de la guerre froide, qui se rejoignent en Californie du Nord, puis se séparent en 1976 entre savoir commun et savoir approprié ; les diagnostics suivent à partir de 1995.',
+    },
+    caption: {
+      en: 'The essay as a timeline. Cybernetics lends one language to two lineages, the counterculture and the computing paid for by the Cold War; they meet in Northern California, and the Homebrew Computer Club gathers them. The Open Letter to Hobbyists of 1976 opens the fork between knowledge as a commons and knowledge as property, a battle the essay says continues today; the diagnoses come a generation later.',
+      fr: 'L’essai en frise. La cybernétique prête une langue à deux lignées, la contre-culture et l’informatique payée par la guerre froide ; elles se rejoignent en Californie du Nord, et le Homebrew Computer Club les réunit. La lettre ouverte de 1976 ouvre la fourche entre savoir commun et savoir approprié ; les diagnostics viennent une génération plus tard.',
     },
   },
 };

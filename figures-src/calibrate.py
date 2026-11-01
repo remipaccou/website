@@ -66,5 +66,14 @@ for lang, suffix in [('fr', ''), ('en', '.en')]:
             {'y0': round(trunk[2] - 6, 2), 'y1': round(trunk[2] + 6, 2), 'stops': [[1969, X(2.0)], [2025, X(30.0)]]},
         ],
     }
+# The essay on the Californian ideology (English only): one axis from 1940 (0 cm)
+# to 2026 (25.26 cm), in three scales (gen_californian.py, STOPS).
+svg = (FIG / '2025-11-10-californian.en.svg').read_text()
+W, H = size(svg)
+axis = [l for l in horizontal(lines(svg), 300) if l[4] < 0.6][0]
+STOPS = [(1940, 0.0), (1962, 3.0), (1977, 13.5), (2026, 25.26)]
+cm = (axis[1] - axis[0]) / STOPS[-1][1]
+cal = {'w': W, 'h': H, 'regions': [{'y0': 0, 'y1': round(axis[2] + 3, 2), 'stops': [[y, round(axis[0] + c * cm, 2)] for y, c in STOPS]}]}
+data['californian'] = {'en': cal, 'fr': cal}
 (HERE.parent / 'src/data/frises.json').write_text(json.dumps(data, indent=1))
 print(json.dumps(data))

@@ -2,21 +2,25 @@
 // A thesis timeline, alive: its black lines turn red behind small red dots that
 // run along them, all at the same year; the year shows on the axis, and the
 // reader can take it in hand (src/scripts/frise-core.ts). With 'sync', the year
-// is the one of the threads above it (history page).
+// is the one of the threads above it (history page). With 'paper', it is a
+// numbered figure of an essay: the hint above the drawing, the caption alone in
+// the figcaption (the essay's style puts 'Figure n:' before it).
 import { frises } from '../data/frises';
 import { href } from '../lib/url';
 import { langOf, ui } from '../i18n';
-interface Props { id: keyof typeof frises; sync?: boolean; caption?: string; hint?: string }
-const { id, sync = false, caption, hint } = Astro.props;
+interface Props { id: keyof typeof frises; sync?: boolean; caption?: string; hint?: string; paper?: boolean }
+const { id, sync = false, hint, paper = false } = Astro.props;
 const lang = langOf(Astro.url.pathname);
 const t = ui[lang].swirl;
 const f = frises[id];
+const caption = Astro.props.caption ?? f.caption?.[lang];
 const cal = f.cal[lang];
 const src = href(f.src[lang]);
 const axis = cal.regions[0].y1 - 3;
 ---
-<figure class="project-figure frise" data-sync={sync ? '' : undefined} data-cal={JSON.stringify(cal)}>
-  {f.title[lang] && <p class="frise-title">{f.title[lang]}</p>}
+<figure class:list={[!paper && 'project-figure', 'frise', paper && 'paper-frise']} data-id={id} data-sync={sync ? '' : undefined} data-cal={JSON.stringify(cal)}>
+  {!paper && f.title[lang] && <p class="frise-title">{f.title[lang]}</p>}
+  {paper && <p class="frise-hint">{hint ?? t.friseSolo}</p>}
   <div class="frise-scroll">
     <div class="frise-wrap">
       <img src={src} alt={f.alt[lang]} loading="lazy" />
@@ -34,9 +38,13 @@ const axis = cal.regions[0].y1 - 3;
       </svg>
     </div>
   </div>
-  <figcaption>
-    <p class="frise-hint">{hint ?? t.frise}</p>
-    {caption && <p>{caption}</p>}
-    <p class="frise-open"><a href={src} target="_blank" rel="noopener">{t.open}</a></p>
-  </figcaption>
+  {paper ? (
+    <figcaption>{caption} <a class="frise-open" href={src} target="_blank" rel="noopener">{t.open}.</a></figcaption>
+  ) : (
+    <figcaption>
+      <p class="frise-hint">{hint ?? t.frise}</p>
+      {caption && <p>{caption}</p>}
+      <p class="frise-open"><a href={src} target="_blank" rel="noopener">{t.open}</a></p>
+    </figcaption>
+  )}
 </figure>
