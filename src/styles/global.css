@@ -282,6 +282,10 @@ sub { bottom: -0.2em; }
 .response-by b { color: var(--ink); font-weight: 600; }
 .response p + p { margin-top: 0.9em; }
 .response { font-size: 0.98rem; line-height: 1.62; }
+.comments { margin-top: 4.5rem; padding-top: 2.2rem; border-top: 1px solid var(--rule); }
+.comments h2 { font-size: 1.3rem; }
+.comments-note { margin: 0.5rem 0 1.6rem; font-family: var(--sans); font-size: 0.85rem; color: var(--muted); }
+.giscus, .giscus-frame { width: 100%; }
 
 @media print {
   .site-header nav, .site-footer ul, .skip { display: none; }
@@ -355,6 +359,7 @@ sub { bottom: -0.2em; }
 .paper .references p { padding-left: 1.5em; text-indent: -1.5em; text-align: left; }
 .paper .derivations .katex-display { background: none; padding: 0; margin-block: 0.8rem; }
 .paper .responses { font-family: var(--cm); }
+.paper .comments h2 { font-family: var(--cm); }
 .paper .response-by { font-family: inherit; }
 .paper .prose .katex-display { overflow-x: auto; overflow-y: hidden; }
 @media (max-width: 40rem) {

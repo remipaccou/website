@@ -4,6 +4,7 @@ import 'computer-modern/cmu-serif.css';
 import { render } from 'astro:content';
 import { getImage, Image } from 'astro:assets';
 import Base from '../../../../layouts/Base.astro';
+import Comments from '../../../../components/Comments.astro';
 import { site } from '../../../../site';
 import { scriptsToHtml } from '../../../../lib/typography.mjs';
 import { getEssays, dateParts, slugOf, longDate, isoDate } from '../../../../lib/writing';
@@ -61,5 +62,7 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
         ))}
       </section>
     )}
+
+    <Comments term={essay.id} />
   </article>
 </Base>
