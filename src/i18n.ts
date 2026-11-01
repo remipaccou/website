@@ -45,7 +45,7 @@ export const ui = {
       loop: 'a capital that reproduces itself',
       play: 'set in motion',
       pause: 'stop the motion',
-      economy: 'economy', energy: 'biophysics', climate: 'climate',
+      economy: 'economics', energy: 'biophysics', climate: 'climate',
       alt: 'Three functions of information, transmitting, computing and storing, converge into one capital, which feeds its own growth and reaches the meeting point of the economy, the biophysical world and the climate.',
     },
     swirl: {
