@@ -1,9 +1,9 @@
 ---
 // Home page, built as a register:
 //   0. title    the heading, its hairline, the four fields in Greek
-//   1. fields   the four fields, each with the sentence that says what it covers
+//   1. lead-in  two sentences on what the site is about
 //   2. lead     the latest essay, in words only
-//   3. notices  dated register of everything new, with a narrow side column
+//   3. notices  dated register of everything new
 //   4. footer   (in the layout)
 import Base from '../../layouts/Base.astro';
 import SectionHead from '../../components/SectionHead.astro';
@@ -34,15 +34,7 @@ const notices = await getNotices(lang);
       {themes.map((th) => <a href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
     </p>
 
-    <section class="fields-intro" aria-label={t.fields}>
-      {themes.map((th) => (
-        <a class="field-card" href={lp(lang, `/${th.id}/`)}>
-          <Sigil name={th.id} />
-          <h2>{th[lang]}</h2>
-          <p>{th.line[lang]}</p>
-        </a>
-      ))}
-    </section>
+    <p class="hero-lead">{t.homeLead}</p>
 
     {lead && (
       <article class="lead">
@@ -57,8 +49,7 @@ const notices = await getNotices(lang);
 
     <section class="block">
       <SectionHead title={t.notices} />
-      <div class="with-side">
-        <ul class="notices">
+      <ul class="notices">
           {notices.map((n) => (
             <li>
               <span class="meta">{n.label}</span>
@@ -69,13 +60,7 @@ const notices = await getNotices(lang);
               </p>
             </li>
           ))}
-        </ul>
-        <aside class="side">
-          <h3 class="side-head">{t.about}</h3>
-          <p>{t.aboutLine}</p>
-          <p><a href={lp(lang, '/about/')}>{t.more}</a></p>
-        </aside>
-      </div>
+      </ul>
     </section>
   </div>
 </Base>
