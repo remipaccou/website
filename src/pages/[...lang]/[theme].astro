@@ -31,10 +31,11 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
   <div class="wrap">
     <PageHead title={th[lang]} sigil={th.id} line={th.line[lang]} />
     {/* History has its own drawing, the thread that winds in towards today; the other fields
-        bring back the home-page drawing, smaller, with the part they look at lit. */}
+        bring back the home-page drawing, smaller, with the part they look at lit; philosophy
+        looks at the whole, all of it lit. */}
     <section class="band cv-band">
       <div class="band-label" aria-hidden="true"></div>
-      <div class="band-main">{th.id === 'history' ? <HistorySwirl /> : <Convergence focus={th.id} mini />}</div>
+      <div class="band-main">{th.id === 'history' ? <HistorySwirl /> : th.id === 'philosophy' ? <Convergence mini /> : <Convergence focus={th.id} mini />}</div>
     </section>
     {/* The thesis timelines: under the threads on the history page, the map of the three functions
         (its year tied to the threads) and the one of transmitting; on the economics page, the

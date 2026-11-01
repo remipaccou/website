@@ -16,7 +16,7 @@ const main = [
   ...(talks.length > 0 ? [{ label: t.talks, path: '/talks/' }] : []),
   { label: t.about, path: '/about/' },
 ];
-const fields = themes.map((th) => ({ id: th.id, label: th[lang], path: `/${th.id}/` }));
+const fields = themes.map((th) => ({ id: th.id, label: th[lang], path: `/${th.id}/`, apart: 'apart' in th }));
 const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
 ---
 <header class="site-header" id="site-menu">
@@ -47,7 +47,7 @@ const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
       <span>{t.fields}</span>
       <ul>
         {fields.map((item) => (
-          <li><a href={lp(lang, item.path)} aria-current={here === item.path ? 'page' : undefined}><Sigil name={item.id} />{item.label}</a></li>
+          <li class:list={[item.apart && 'is-apart']}><a href={lp(lang, item.path)} aria-current={here === item.path ? 'page' : undefined}><Sigil name={item.id} />{item.label}</a></li>
         ))}
       </ul>
     </nav>

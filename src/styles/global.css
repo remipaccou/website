@@ -699,6 +699,11 @@ sub { bottom: -0.2em; }
 .field-nav li:nth-child(2) .sigil { --live: 0.35s; }
 .field-nav li:nth-child(3) .sigil { --live: 0.7s; }
 .field-nav li:nth-child(4) .sigil { --live: 1.05s; }
+.field-nav li:nth-child(5) .sigil { --live: 1.4s; }
+/* Philosophy, after the four fields: set apart by a thin rule, in red. */
+.field-nav li.is-apart { padding-left: 1.7rem; border-left: 1px solid var(--rule); }
+.site-header .field-nav li.is-apart a { color: var(--sun); }
+.greek a.is-apart { color: var(--sun); margin-inline-start: 0.8rem; }
 .field-nav .sigil path { animation: sigil-draw 1.5s cubic-bezier(0.6, 0, 0.2, 1) var(--p) both, sigil-live 5s ease-in-out calc(3s + var(--live, 0s) + var(--p)) infinite; }
 .site-mark { animation: enso-sway 7s ease-in-out infinite alternate; }
 .site-mark path { animation: sigil-draw 1.9s cubic-bezier(0.6, 0, 0.2, 1) both, sigil-live-slow 10s ease-in-out 4s infinite; }

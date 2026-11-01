@@ -1,7 +1,7 @@
 ---
 import Sigil from './Sigil.astro';
 // 'line', when given, is a quiet sentence under the title that says what the page holds.
-interface Props { title: string; sigil?: 'history' | 'economics' | 'biophysics' | 'climate'; line?: string }
+interface Props { title: string; sigil?: 'history' | 'economics' | 'biophysics' | 'climate' | 'philosophy'; line?: string }
 const { title, sigil, line } = Astro.props;
 ---
 <header class="page-head band">

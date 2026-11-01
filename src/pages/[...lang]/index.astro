@@ -31,9 +31,10 @@ const notices = await getNotices(lang);
       <span class="hero-line" aria-hidden="true"></span>
       <Sigil name="enso" class="hero-mark" />
     </p>
-    {/* The four fields under their Greek names: down the left edge on wide screens, in a row otherwise. */}
+    {/* The fields under their Greek names: down the left edge on wide screens, in a row otherwise;
+        philosophy last, set apart, in red. */}
     <p class="greek">
-      {themes.map((th) => <a href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
+      {themes.map((th) => <a class:list={['apart' in th && 'is-apart']} href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
     </p>
 
     <Convergence />

@@ -20,12 +20,14 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
 // The fields the work is filed under, each with the Greek word it comes from
-// and the sentence that introduces its page.
+// and the sentence that introduces its page. Philosophy comes after the four,
+// set apart and in red: it looks at the whole rather than at a part.
 export const themes = [
   { id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία', line: { en: 'How the techniques that transmit, store and compute found their place in the economy, and who came to pay for them.', fr: "Comment les techniques qui transmettent, conservent et calculent ont trouvé leur place dans l’économie, et qui a fini par les payer." } },
   { id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία', line: { en: 'What computing does to the price and to the value of electricity.', fr: "Ce que le calcul fait au prix et à la valeur de l’électricité." } },
   { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις', line: { en: 'The energy and the heat that information requires, and the limits the Earth sets to them.', fr: "L’énergie et la chaleur que demande l’information, et les limites que la Terre leur fixe." } },
   { id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα', line: { en: 'Where digital infrastructures meet the trajectories of the climate.', fr: 'Là où les infrastructures numériques rencontrent les trajectoires du climat.' } },
+  { id: 'philosophy', en: 'Philosophy', fr: 'Philosophie', greek: 'τέχνη', apart: true, line: { en: 'Thinking about technics, with Simondon, Stiegler and Yuk Hui.', fr: 'Penser la technique, avec Simondon, Stiegler et Yuk Hui.' } },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
 
