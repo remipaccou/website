@@ -1,101 +1,105 @@
 ---
 // The history page: the thread of history winds in towards today, as the
 // three commas of a mitsudomoe. One thread for each function of information.
-// A thread is in ink while its function works without electricity and turns
-// red from the year it becomes electric (transmitting 1837, computing 1890,
-// storing 1898, the dates of chapter 1 of the thesis). The threads tighten
-// between 1975 and 2007, when the three functions compose on one substrate,
-// and end in a small red knot: today. Babbage stays a hollow dot: a capacity
-// that never became an infrastructure.
+// The stroke says what electricity does in it, as in the figures of chapter 1
+// of the thesis (§1.11, fig:ch1-frise-regimes): dotted while the function works
+// without any constitutive dependence on electricity; thin from the year
+// electricity makes the operation or holds a state (the signal in 1837,
+// execution in 1946, working memory in 1970); thick from the year energy is
+// held continuously for the service to stay available (the central battery of
+// the telephone in 1895, SAGE's hot standby in 1958, the web server in 1991).
+// The two series follow the same order but answer different criteria; a date
+// marks a first architecture, not the regime of all that is installed. The
+// threads tighten between 1975 and 2007, when the three functions compose on
+// one substrate, and end in a small red knot: today. Babbage stays a hollow
+// dot: a capacity that never became an infrastructure.
 //
-// The spiral is built so that its length grows with time at a steady rate
-// (the angle turns faster as the radius shrinks), so a line drawn at a steady
-// speed keeps the calendar: the three threads draw themselves together, year
-// by year.
+// The threads are in ink; a red copy of each stroke follows the present year
+// (src/scripts/history.ts), which the timeline below shares.
 import { langOf, ui } from '../i18n';
-import { Y0, Y1, M0, geometry, thread } from '../lib/swirl';
+import { Y0, M0, geometry, segments, thread } from '../lib/swirl';
 const lang = langOf(Astro.url.pathname);
 const c = ui[lang].convergence;
 const t = ui[lang].swirl;
-const SEC = 7 / (Y1 - Y0); // seconds of drawing per year
+const SEC = 7 / (2026 - Y0); // seconds of the first run per year
 
-type Ev = { y: number; en: string; fr: string; hollow?: boolean; mark?: boolean };
-const threads: { label: string; base: number; elec: number; events: Ev[] }[] = [
-  {
-    label: c.transmit, base: geometry[0].base, elec: geometry[0].elec,
-    events: [
-      { y: 1794, en: 'Chappe’s optical telegraph', fr: 'le télégraphe optique de Chappe' },
-      { y: 1837, en: 'Morse’s electric telegraph', fr: 'le télégraphe électrique de Morse', mark: true },
-      { y: 1876, en: 'the telephone', fr: 'le téléphone' },
-      { y: 1969, en: 'ARPANET', fr: 'ARPANET' },
-      { y: 1991, en: 'the Web', fr: 'le Web' },
-    ],
-  },
-  {
-    label: c.compute, base: geometry[1].base, elec: geometry[1].elec,
-    events: [
-      { y: 1834, en: 'Babbage’s analytical engine, never built', fr: 'la machine analytique de Babbage, jamais construite', hollow: true },
-      { y: 1890, en: 'Hollerith’s tabulating machine, US census', fr: 'la machine de Hollerith, recensement américain', mark: true },
-      { y: 1946, en: 'ENIAC', fr: 'ENIAC' },
-      { y: 1971, en: 'the microprocessor', fr: 'le microprocesseur' },
-    ],
-  },
-  {
-    label: c.store, base: geometry[2].base, elec: geometry[2].elec,
-    events: [
-      { y: 1804, en: 'Jacquard’s punched cards', fr: 'les cartes perforées de Jacquard' },
-      { y: 1898, en: 'Poulsen’s magnetic recording', fr: 'l’enregistrement magnétique de Poulsen', mark: true },
-      { y: 1956, en: 'the hard disk', fr: 'le disque dur' },
-      { y: 1970, en: 'DRAM, a memory kept by current', fr: 'la DRAM, une mémoire tenue par le courant' },
-    ],
-  },
+// `op` and `avail` mark the two dates of each thread.
+// `lo`: how far out its year sits, when the next turn of a thread is close.
+type Ev = { y: number; en: string; fr: string; hollow?: boolean; mark?: 'op' | 'avail'; lo?: number };
+const events: Ev[][] = [
+  [
+    { y: 1794, en: 'Chappe’s optical telegraph', fr: 'le télégraphe optique de Chappe' },
+    { y: 1837, en: 'Morse’s telegraph: the current is the signal', fr: 'le télégraphe de Morse : le courant constitue le signal', mark: 'op' },
+    { y: 1866, en: 'the transatlantic cable', fr: 'le câble transatlantique' },
+    { y: 1876, en: 'Bell’s telephone', fr: 'le téléphone de Bell' },
+    { y: 1895, en: 'the central battery of the telephone: the exchange stands ready', fr: 'la batterie centrale du téléphone : la veille du central', mark: 'avail' },
+    { y: 1983, en: 'TCP/IP', fr: 'TCP/IP' },
+  ],
+  [
+    { y: 1791, en: 'Prony’s bureau: tables computed by a division of labour', fr: 'le bureau de Prony : des tables calculées par division du travail' },
+    { y: 1834, en: 'Babbage’s analytical engine, never built', fr: 'la machine analytique de Babbage, jamais construite', hollow: true },
+    { y: 1890, en: 'Hollerith’s tabulators: relays and motors, their consumption counts for little', fr: 'les tabulatrices de Hollerith : relais et moteurs, sans que leur consommation compte' },
+    { y: 1946, en: 'ENIAC: execution becomes electronic', fr: 'l’ENIAC : l’exécution devient électronique', mark: 'op' },
+    { y: 1958, en: 'SAGE: computers kept in hot standby', fr: 'SAGE : la veille chaude permanente', mark: 'avail' },
+    { y: 1971, en: 'the microprocessor (Intel 4004)', fr: 'le microprocesseur (Intel 4004)' },
+  ],
+  [
+    { y: 1804, en: 'Jacquard’s punched cards', fr: 'les cartes perforées de Jacquard' },
+    { y: 1898, en: 'Poulsen’s telegraphone: magnetic, kept without current', fr: 'le télégraphone de Poulsen : magnétique, conservé hors tension' },
+    { y: 1956, en: 'the RAMAC disk, kept without current', fr: 'le disque RAMAC, conservé hors tension' },
+    { y: 1970, en: 'DRAM: working memory refreshed without pause', fr: 'la DRAM : la mémoire de travail se rafraîchit sans cesse', mark: 'op' },
+    { y: 1991, en: 'the Web: a file reachable at any hour, while its server runs', fr: 'le Web : un fichier accessible à toute heure, tant que son serveur tourne', mark: 'avail', lo: 7 },
+  ],
 ];
+const labels = [c.transmit, c.compute, c.store];
 
 const f = (n: number) => n.toFixed(1);
+const out = (x: number, y: number, by: number) => {
+  const l = Math.hypot(x, y);
+  return { x: (x / l) * (l + by), y: (y / l) * (l + by) };
+};
 
-const drawn = threads.map((th) => {
-  const g = thread(th.base);
-  const start = th.events[0].y;
-  const s = g.at(start);
-  const len = Math.hypot(s.x, s.yy);
+const drawn = geometry.map((g, k) => {
+  const th = thread(g.base);
+  const s = th.at(g.start);
+  const lab = out(s.x, s.yy, 18);
   return {
-    ...th,
-    start,
-    ink: g.path(start, th.elec),
-    red: g.path(th.elec, Y1),
-    // The label sits outside the start of the thread, along its radius.
-    lab: { x: (s.x / len) * (len + 18), y: (s.yy / len) * (len + 18), anchor: s.x > 20 ? 'start' : s.x < -20 ? 'end' : 'middle' },
-    dots: th.events.map((e) => {
-      const p = g.at(e.y);
-      const l = Math.hypot(p.x, p.yy);
-      return { ...e, x: p.x, y2: p.yy, yl: { x: (p.x / l) * (l + 13), y: (p.yy / l) * (l + 13) + 4 } };
+    k,
+    label: labels[k],
+    start: g.start,
+    segs: segments(g).map(([kind, a, b]) => ({ kind, a, b, d: th.path(a, b) })),
+    lab: { ...lab, anchor: s.x > 20 ? 'start' : s.x < -20 ? 'end' : 'middle' },
+    dots: events[k].map((e) => {
+      const p = th.at(e.y);
+      const yl = out(p.x, p.yy, e.lo ?? 13);
+      return { ...e, x: p.x, y2: p.yy, yl: { x: yl.x, y: yl.y + 4 } };
     }),
   };
 });
 const delay = (y: number) => ((y - Y0) * SEC).toFixed(2);
-const dur = (a: number, b: number) => ((b - a) * SEC).toFixed(2);
+const say = (e: Ev) => (lang === 'fr' ? e.fr : e.en);
 ---
 <figure class="swirl">
   <svg viewBox="-300 -250 600 500" role="img" aria-label={t.alt}>
     {drawn.map((th) => (
       <g class="sw-thread">
-        <path class="sw-ink" d={th.ink} pathLength="1" style={`animation-delay:${delay(th.start)}s;animation-duration:${dur(th.start, th.elec)}s`} />
-        <path class="sw-red" d={th.red} pathLength="1" style={`animation-delay:${delay(th.elec)}s;animation-duration:${dur(th.elec, Y1)}s`} />
+        {th.segs.map((s) => <path class={`sw-ink sw-${s.kind}`} d={s.d} />)}
+        {th.segs.map((s) => <path class={`sw-run sw-${s.kind}`} d="" data-k={th.k} data-from={s.a} data-to={s.b} />)}
         <text class="sw-label" x={f(th.lab.x)} y={f(th.lab.y)} text-anchor={th.lab.anchor} style={`animation-delay:${delay(th.start)}s`}>{th.label}</text>
       </g>
     ))}
     {drawn.map((th) =>
       th.dots.map((d) => (
-        <g class:list={['sw-ev', d.hollow && 'is-hollow', d.mark && 'is-mark', d.y >= th.elec && 'is-red']} tabindex="0" data-label={`${d.y} · ${lang === 'fr' ? d.fr : d.en}`} aria-label={`${d.y}, ${lang === 'fr' ? d.fr : d.en}`} style={`animation-delay:${delay(d.y)}s`}>
+        <g class:list={['sw-ev', d.hollow && 'is-hollow', d.mark && 'is-mark']} data-y={d.y} tabindex="0" data-label={`${d.y} · ${say(d)}`} aria-label={`${d.y}, ${say(d)}`} style={`animation-delay:${delay(d.y)}s`}>
           <circle class="sw-hit" cx={f(d.x)} cy={f(d.y2)} r="11" />
-          <circle class="sw-dot" cx={f(d.x)} cy={f(d.y2)} r={d.mark ? 3.6 : 2.6} />
-          {d.mark && <text class="sw-year" x={f(d.yl.x)} y={f(d.yl.y)} text-anchor={d.yl.x > 0 ? 'start' : 'end'}>{d.y}</text>}
+          <circle class="sw-dot" cx={f(d.x)} cy={f(d.y2)} r={d.mark ? 3.4 : 2.5} />
+          {d.mark && <text class:list={['sw-year', d.mark === 'avail' && 'is-avail']} x={f(d.yl.x)} y={f(d.yl.y)} text-anchor={d.yl.x > 0 ? 'start' : 'end'}>{d.y}</text>}
         </g>
       )),
     )}
     {/* The present year, shared with the timeline below: one dot on each thread (placed by the script). */}
     <g class="sw-now" aria-hidden="true">
-      {geometry.map((g, k) => <circle class="sw-now-dot" data-k={k} cx="0" cy="0" r="4.2" opacity="0" />)}
+      {geometry.map((_, k) => <circle class="sw-now-dot" data-k={k} cx="0" cy="0" r="4.2" opacity="0" />)}
       <circle class="sw-ring" cx="0" cy="0" r="7" opacity="0" />
     </g>
     <g class="sw-ev sw-core" tabindex="0" data-label={t.core} aria-label={t.core} style={`animation-delay:${delay(M0)}s`}>
@@ -103,8 +107,17 @@ const dur = (a: number, b: number) => ((b - a) * SEC).toFixed(2);
       <circle class="sw-heart" cx="0" cy="0" r="3" />
     </g>
   </svg>
+  <noscript><style>{'.swirl .sw-ink { opacity: 1; }'}</style></noscript>
   <figcaption>
     <p class="sw-key">{t.key}</p>
+    <ul class="sw-legend">
+      {(['hors', 'oper', 'dispo'] as const).map((kind, i) => (
+        <li>
+          <svg viewBox="0 0 34 8" aria-hidden="true"><path class={`sw-${kind}`} d="M2 4H32" /></svg>
+          <span>{t.legend[i]}</span>
+        </li>
+      ))}
+    </ul>
     <p class="sw-line" aria-live="polite" data-hint={t.hint}>{t.hint}</p>
   </figcaption>
 </figure>

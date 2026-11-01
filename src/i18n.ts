@@ -49,8 +49,13 @@ export const ui = {
       alt: 'Three functions of information, transmitting, computing and storing, converge into one capital, which feeds its own growth and reaches the meeting point of the economy, the biophysical world and the climate.',
     },
     swirl: {
-      alt: 'Three threads, one for each function of information, wind in towards today. Each thread turns red when its function becomes electric: transmitting in 1837, computing in 1890, storing in 1898. Between 1975 and 2007 the three tighten into one knot.',
-      key: 'The three functions wind in towards today. Each thread turns red when its function becomes electric; between 1975 and 2007 the three tighten into one knot, on a common substrate.',
+      alt: 'Three threads, one for each function of information, wind in towards today. The stroke says what electricity does in each: dotted while the function works without depending on it; thin once electricity makes the operation or holds a state (transmitting in 1837, computing in 1946, the working memory of storing in 1970); thick once energy is held continuously for the service to stay available (1895, 1958, 1991). Between 1975 and 2007 the three tighten into one knot, on a common substrate.',
+      key: 'The three functions wind in towards today; between 1975 and 2007 they compose on one substrate. The stroke says what electricity does in each. A date marks a first architecture, not the regime of all that is installed.',
+      legend: [
+        'no constitutive dependence on electricity',
+        'electricity makes the operation or holds a state: 1837, 1946, 1970',
+        'energy held continuously for availability: 1895, 1958, 1991',
+      ],
       hint: 'Point at a dot to read it.',
       core: '1975–2007 · the three functions compose on a common digital substrate',
       frise: 'Move along the timeline to travel through time: the threads above follow.',
@@ -90,8 +95,13 @@ export const ui = {
       alt: "Trois fonctions de l’information, transmettre, calculer et stocker, convergent en un seul capital, qui nourrit sa propre croissance et atteint le point où se rencontrent l’économie, le monde biophysique et le climat.",
     },
     swirl: {
-      alt: "Trois fils, un par fonction de l’information, s’enroulent vers aujourd’hui. Chaque fil rougit quand sa fonction devient électrique : transmettre en 1837, calculer en 1890, stocker en 1898. Entre 1975 et 2007, les trois se resserrent en un seul nœud.",
-      key: "Les trois fonctions s’enroulent vers aujourd’hui. Chaque fil rougit quand sa fonction devient électrique ; entre 1975 et 2007, les trois se resserrent en un seul nœud, sur un même substrat.",
+      alt: "Trois fils, un par fonction de l’information, s’enroulent vers aujourd’hui. Le trait dit ce que l’électricité y fait : pointillé tant que la fonction n’en dépend pas ; fin quand l’électricité fait l’opération ou maintient un état (transmettre en 1837, calculer en 1946, la mémoire de travail du stockage en 1970) ; épais quand l’énergie est tenue en continu pour que le service reste disponible (1895, 1958, 1991). Entre 1975 et 2007, les trois se resserrent en un seul nœud, sur un même substrat.",
+      key: "Les trois fonctions s’enroulent vers aujourd’hui ; entre 1975 et 2007, elles se composent sur un même substrat. Le trait dit ce que l’électricité fait dans chacune. Une date marque une première architecture, non le régime de tout le parc installé.",
+      legend: [
+        'hors dépendance électrique constitutive',
+        'l’électricité fait l’opération ou maintient un état : 1837, 1946, 1970',
+        'énergie tenue en continu pour la disponibilité : 1895, 1958, 1991',
+      ],
       hint: 'Survoler un point pour le lire.',
       core: '1975–2007 · les trois fonctions se composent sur un même substrat numérique',
       frise: 'Parcourir la frise pour voyager dans le temps : les fils, au-dessus, suivent.',
