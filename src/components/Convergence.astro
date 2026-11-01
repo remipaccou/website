@@ -121,7 +121,7 @@ const N = (() => {
       </g>
       <g class="cv-web" aria-hidden="true">
         <g class="cv-still">{[0.34, 0.62, 0.9].map((k) => <circle class="cv-ring" cx={L.V.x} cy={L.V.y} r={k * L.web.R} />)}</g>
-        <g class="cv-flow">{dots.map((p) => (
+        <g class="cv-waves">{dots.map((p) => (
           <circle class="cv-ring" cx={L.V.x} cy={L.V.y} r="0" opacity="0">
             <animate attributeName="r" values={`3;${L.web.R}`} dur="5s" begin={`${L.id}p${p.n}a.end`} keySplines="0.2 0.6 0.35 1" calcMode="spline" keyTimes="0;1" fill="freeze" />
             <animate attributeName="opacity" values="0.3;0" dur="5s" begin={`${L.id}p${p.n}a.end`} fill="freeze" />
@@ -171,27 +171,21 @@ const N = (() => {
 </figure>
 
 <script>
-  // The drawing moves unless the reader has asked the system for less motion;
-  // either way, one click sets it in motion or stops it.
+  // The drawing always moves; one click stops it or sets it going again. A
+  // reader who asked the system for less motion keeps the dots, which move
+  // slowly along the lines, but loses the rings and the beat (see the CSS);
+  // nothing is drawn stroke by stroke for that reader, so the dots leave at once.
   const fig = document.querySelector<HTMLElement>('.convergence');
   const btn = fig?.querySelector<HTMLButtonElement>('.cv-toggle');
   if (fig && btn) {
     const svgs = [...fig.querySelectorAll('svg')];
-    let moving = !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const set = (on: boolean, clicked = false) => {
-      moving = on;
-      fig.classList.toggle('is-moving', on);
-      svgs.forEach((s) => {
-        if (on) {
-          // The first dot leaves at 3.2 s; a reader who clicks should not wait for it.
-          if (clicked && s.getCurrentTime() < 3) s.setCurrentTime(3);
-          s.unpauseAnimations();
-        } else s.pauseAnimations();
-      });
-      btn.textContent = on ? btn.dataset.pause! : btn.dataset.play!;
-    };
-    set(moving);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) svgs.forEach((s) => s.setCurrentTime(3));
+    let moving = true;
+    btn.addEventListener('click', () => {
+      moving = !moving;
+      svgs.forEach((s) => (moving ? s.unpauseAnimations() : s.pauseAnimations()));
+      btn.textContent = moving ? btn.dataset.pause! : btn.dataset.play!;
+    });
     btn.hidden = false;
-    btn.addEventListener('click', () => set(!moving, true));
   }
 </script>
