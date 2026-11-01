@@ -334,7 +334,10 @@ sub { bottom: -0.2em; }
 .paper .prose :is(p, li):has(> .mend) { position: relative; }
 .mend { position: absolute; top: 0.35em; bottom: 0.35em; left: -1.1rem; width: 1.5px; background: linear-gradient(transparent, var(--sun) 18%, var(--sun) 82%, transparent); }
 .paper .prose li > .mend { left: -2.6rem; }
-@media (max-width: 40rem) { .paper .prose p > .mend { left: -0.6rem; } }
+@media (max-width: 40rem) { .paper .prose p > .mend { left: -0.6rem; } .paper .prose li > .mend { left: -1.55rem; } }
+/* Long words in headings break rather than push the page sideways on narrow phones. */
+.paper .prose :is(h2, h3), .paper-head h1 { overflow-wrap: break-word; hyphens: auto; }
+@media (max-width: 30rem) { article.paper .prose h2 { font-size: 1.2em; } article.paper .prose h3 { font-size: 1.06em; } }
 @media (min-width: 76rem) {
   .mend::after { content: attr(data-label); position: absolute; top: 0; right: 0.9rem; width: 9rem; text-align: right; font-family: var(--sans); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sun); line-height: 1.4; }
 }
