@@ -13,26 +13,16 @@
 // speed keeps the calendar: the three threads draw themselves together, year
 // by year.
 import { langOf, ui } from '../i18n';
+import { Y0, Y1, M0, geometry, thread } from '../lib/swirl';
 const lang = langOf(Astro.url.pathname);
 const c = ui[lang].convergence;
 const t = ui[lang].swirl;
-
-const Y0 = 1790, Y1 = 2026, M0 = 1975, M1 = 2007;
-const R0 = 190, RC = 7, V = 6.05; // radii in px; V: length of thread per year
 const SEC = 7 / (Y1 - Y0); // seconds of drawing per year
-
-// Radius: a slow, steady shrink, then a fast one as 2007 nears (about two thirds
-// of the way in by 1975), then the knot. Smooth, so the turns show no corner.
-const radius = (y: number) => {
-  if (y >= M1) return RC;
-  const u = (y - Y0) / (M1 - Y0);
-  return RC + (R0 - RC) * (1 - (0.55 * u + 0.45 * u ** 6));
-};
 
 type Ev = { y: number; en: string; fr: string; hollow?: boolean; mark?: boolean };
 const threads: { label: string; base: number; elec: number; events: Ev[] }[] = [
   {
-    label: c.transmit, base: -90, elec: 1837,
+    label: c.transmit, base: geometry[0].base, elec: geometry[0].elec,
     events: [
       { y: 1794, en: 'Chappe’s optical telegraph', fr: 'le télégraphe optique de Chappe' },
       { y: 1837, en: 'Morse’s electric telegraph', fr: 'le télégraphe électrique de Morse', mark: true },
@@ -42,7 +32,7 @@ const threads: { label: string; base: number; elec: number; events: Ev[] }[] = [
     ],
   },
   {
-    label: c.compute, base: 30, elec: 1890,
+    label: c.compute, base: geometry[1].base, elec: geometry[1].elec,
     events: [
       { y: 1834, en: 'Babbage’s analytical engine, never built', fr: 'la machine analytique de Babbage, jamais construite', hollow: true },
       { y: 1890, en: 'Hollerith’s tabulating machine, US census', fr: 'la machine de Hollerith, recensement américain', mark: true },
@@ -51,7 +41,7 @@ const threads: { label: string; base: number; elec: number; events: Ev[] }[] = [
     ],
   },
   {
-    label: c.store, base: 150, elec: 1898,
+    label: c.store, base: geometry[2].base, elec: geometry[2].elec,
     events: [
       { y: 1804, en: 'Jacquard’s punched cards', fr: 'les cartes perforées de Jacquard' },
       { y: 1898, en: 'Poulsen’s magnetic recording', fr: 'l’enregistrement magnétique de Poulsen', mark: true },
@@ -61,24 +51,10 @@ const threads: { label: string; base: number; elec: number; events: Ev[] }[] = [
   },
 ];
 
-// One thread: integrate the angle year by year (step 0.25 year).
 const f = (n: number) => n.toFixed(1);
-function build(base: number) {
-  const pts: { y: number; x: number; yy: number }[] = [];
-  let a = (base * Math.PI) / 180;
-  for (let y = Y0; y <= Y1 + 1e-9; y += 0.25) {
-    const r = radius(y);
-    pts.push({ y, x: r * Math.cos(a), yy: r * Math.sin(a) });
-    a += (V * 0.25) / r;
-  }
-  const at = (y: number) => pts[Math.round((y - Y0) / 0.25)];
-  const path = (from: number, to: number) =>
-    pts.filter((p) => p.y >= from - 1e-9 && p.y <= to + 1e-9).map((p, i) => `${i ? 'L' : 'M'}${f(p.x)} ${f(p.yy)}`).join('');
-  return { at, path };
-}
 
 const drawn = threads.map((th) => {
-  const g = build(th.base);
+  const g = thread(th.base);
   const start = th.events[0].y;
   const s = g.at(start);
   const len = Math.hypot(s.x, s.yy);
@@ -117,17 +93,10 @@ const dur = (a: number, b: number) => ((b - a) * SEC).toFixed(2);
         </g>
       )),
     )}
-    <g class="sw-flow" aria-hidden="true">
-      {drawn.map((th, k) => (
-        <circle class="sw-spark" r="2.4" opacity="0">
-          <animateMotion id={`sw${k}`} path={th.red} dur={`${((Y1 - th.elec) * 0.04).toFixed(2)}s`} begin={`${8 + 1.6 * k}s;sw${k}.end+${(3 + k * 0.7).toFixed(1)}s`} fill="freeze" />
-          <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.06;0.9;1" dur={`${((Y1 - th.elec) * 0.04).toFixed(2)}s`} begin={`sw${k}.begin`} fill="freeze" />
-        </circle>
-      ))}
-      <circle class="sw-ring" cx="0" cy="0" r="7" opacity="0">
-        <animate attributeName="r" values="7;22" dur="1.2s" begin={drawn.map((_, k) => `sw${k}.end`).join(';')} fill="freeze" />
-        <animate attributeName="opacity" values="0.55;0" dur="1.2s" begin={drawn.map((_, k) => `sw${k}.end`).join(';')} fill="freeze" />
-      </circle>
+    {/* The present year, shared with the timeline below: one dot on each thread (placed by the script). */}
+    <g class="sw-now" aria-hidden="true">
+      {geometry.map((g, k) => <circle class="sw-now-dot" data-k={k} cx="0" cy="0" r="4.2" opacity="0" />)}
+      <circle class="sw-ring" cx="0" cy="0" r="7" opacity="0" />
     </g>
     <g class="sw-ev sw-core" tabindex="0" data-label={t.core} aria-label={t.core} style={`animation-delay:${delay(M0)}s`}>
       <circle class="sw-hit" cx="0" cy="0" r="26" />

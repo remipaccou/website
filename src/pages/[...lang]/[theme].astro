@@ -5,6 +5,7 @@ import PageHead from '../../components/PageHead.astro';
 import EssayItem from '../../components/EssayItem.astro';
 import Convergence from '../../components/Convergence.astro';
 import HistorySwirl from '../../components/HistorySwirl.astro';
+import HistoryFrise from '../../components/HistoryFrise.astro';
 import Publication from '../../components/Publication.astro';
 import ProjectItem from '../../components/ProjectItem.astro';
 import { getEssays } from '../../lib/writing';
@@ -34,6 +35,12 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
       <div class="band-label" aria-hidden="true"></div>
       <div class="band-main">{th.id === 'history' ? <HistorySwirl /> : <Convergence focus={th.id} mini />}</div>
     </section>
+    {th.id === 'history' && (
+      <section class="frise-band">
+        <HistoryFrise />
+        <script>import '../../scripts/history';</script>
+      </section>
+    )}
     {empty && (
       <section class="band">
         <div class="band-label" aria-hidden="true"></div>

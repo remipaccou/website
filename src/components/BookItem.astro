@@ -3,11 +3,16 @@
 import BookCover from './BookCover.astro';
 import type { Book } from '../data/books';
 import Sigil from './Sigil.astro';
-import { langOf, themes } from '../i18n';
+import { langOf, themes, ui } from '../i18n';
 interface Props { book: Book; level?: 'h2' | 'h3' }
 const { book, level = 'h3' } = Astro.props;
 const Title = level;
 const lang = langOf(Astro.url.pathname);
+const c = ui[lang].convergence;
+// The red thread under the notice: the three verbs of the title on one line,
+// which runs on, dotted, to an open circle: the book is still being written.
+const marks = [c.transmit, c.store, c.compute].map((label, i) => ({ label, x: 18 + i * 92 }));
+const solid = 'M2 14H214', open = 'M214 14H258';
 ---
 <section class="book band">
   <p class="band-label book-label">
@@ -15,11 +20,31 @@ const lang = langOf(Astro.url.pathname);
     <span>{book.status[lang]}</span>
   </p>
   <div class="band-main book-main">
-    <BookCover book={book} />
+    <div class="book-cover-wrap">
+      <BookCover book={book} />
+      {/* A ribbon marker, hanging from between the pages. */}
+      <svg class="book-ribbon" viewBox="0 0 10 86" aria-hidden="true"><path d="M2 0H8V86L5 79L2 86Z" /></svg>
+    </div>
     <div class="book-text">
       <Title class="book-title">{book.url ? <a href={book.url}>{book.title[lang]}</a> : book.title[lang]}</Title>
       <p class="book-subtitle">{book.subtitle[lang]}</p>
       {book.text && <p class="book-desc">{book.text[lang]}</p>}
+      <svg class="book-thread" viewBox="0 0 300 40" aria-hidden="true">
+        <path class="bt-line" d={solid} pathLength="1" />
+        <path class="bt-open" d={open} />
+        {marks.map((m, i) => (
+          <g class="bt-mark" style={`--i:${i}`}>
+            <circle cx={m.x + 20} cy="14" r="3" />
+            <text x={m.x + 20} y="34" text-anchor="middle">{m.label}</text>
+          </g>
+        ))}
+        <circle class="bt-dot" r="2.2" opacity="0">
+          <animateMotion path={solid} dur="5s" begin="3s;bt.end+4s" id="bt" fill="freeze" />
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="5s" begin="bt.begin" fill="freeze" />
+        </circle>
+        {/* The open circle of the site where the thread ends. */}
+        <g class="sigil bt-enso" transform="translate(255 2) scale(0.5) rotate(-150 24 24)"><path d="M33.5 7.6A19 19 0 1 0 41.6 17" pathLength="1" /></g>
+      </svg>
     </div>
   </div>
 </section>
