@@ -5,7 +5,7 @@ import PageHead from '../../components/PageHead.astro';
 import EssayItem from '../../components/EssayItem.astro';
 import Convergence from '../../components/Convergence.astro';
 import HistorySwirl from '../../components/HistorySwirl.astro';
-import HistoryFrise from '../../components/HistoryFrise.astro';
+import Frise from '../../components/Frise.astro';
 import Publication from '../../components/Publication.astro';
 import ProjectItem from '../../components/ProjectItem.astro';
 import { getEssays } from '../../lib/writing';
@@ -20,6 +20,7 @@ export function getStaticPaths() {
 const lang = langOf(Astro.url.pathname);
 const t = ui[lang];
 const th = themes.find((x) => x.id === Astro.params.theme)!;
+const historyCaption = projects.find((p) => p.theme === 'history' && p.figure)?.figure?.caption?.[lang];
 const essays = (await getEssays()).filter((e) => e.data.theme === th.id);
 const articles = publications.filter((p) => p.theme === th.id);
 const mine = projects.filter((p) => p.theme === th.id);
@@ -35,12 +36,22 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
       <div class="band-label" aria-hidden="true"></div>
       <div class="band-main">{th.id === 'history' ? <HistorySwirl /> : <Convergence focus={th.id} mini />}</div>
     </section>
+    {/* The thesis timelines: under the threads on the history page, the map of the three functions
+        (its year tied to the threads) and the one of transmitting; on the economics page, the
+        confluence of the techniques into one stock of capital. */}
     {th.id === 'history' && (
       <section class="frise-band">
-        <HistoryFrise />
-        <script>import '../../scripts/history';</script>
+        <Frise id="tree" sync caption={historyCaption} />
+        <Frise id="transmit" hint={t.swirl.friseSolo} />
       </section>
     )}
+    {th.id === 'economics' && (
+      <section class="frise-band">
+        <Frise id="confluence" hint={t.swirl.friseSolo} />
+      </section>
+    )}
+    <script>import '../../scripts/history';</script>
+    <script>import '../../scripts/frises';</script>
     {empty && (
       <section class="band">
         <div class="band-label" aria-hidden="true"></div>

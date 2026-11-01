@@ -1,0 +1,148 @@
+% La fonction transmettre, 1835-1932 : les lignées et ce qui passe entre elles (esquisse, non insérée).
+% Même convention que l'arborescence du 9 octobre : noir et gris, \scriptsize, police du document ;
+% abscisse en années (1 an = 0,21 cm ; origine 1835 par décalage du repère) ; ordonnée : 1 unité = 0,85 cm.
+% Ce que la figure ajoute à l'arborescence : les trois relations entre lignées, typées selon les axes du chapitre
+% (un substrat repris, une forme transférée, un problème posé), et la tige qui va du brevet à l'arrangement.
+% Les trois nourrisseurs de Van der Kooij (système antérieur, marché, science) sont ici le substrat et le problème ;
+% la forme n'a pas d'équivalent chez lui. Dates : §1.2, §1.5, §1.6 du manuscrit.
+\begin{tikzpicture}[x=0.21cm, y=0.85cm, font=\scriptsize,
+  hors/.style={line width=1pt, dash pattern=on 0pt off 1.8pt, line cap=round},
+  oper/.style={line width=0.6pt},
+  dispo/.style={line width=2pt},
+  mort/.style={draw=black!38},
+  attente/.style={draw=black!50, line width=0.7pt, dash pattern=on 1pt off 1.6pt, line cap=round},
+  halo/.style={preaction={draw=white, line width=#1, solid, -}},
+  halo/.default=4pt,
+  forme/.style={draw=black!70, line width=0.5pt, dash pattern=on 2.2pt off 1.4pt,
+                -{Stealth[length=3.6pt,width=2.8pt]}},
+  substrat/.style={draw=black!45, line width=0.9pt, -{Stealth[length=4pt,width=3.6pt, open]}},
+  probleme/.style={draw=black, line width=0.5pt, dash pattern=on 0.5pt off 1.1pt, line cap=round,
+                   -{Circle[length=2.6pt,width=2.6pt]}},
+  lab/.style={align=left, inner sep=1pt, font=\scriptsize},
+  labr/.style={align=right, inner sep=1pt, font=\scriptsize},
+  rel/.style={align=left, inner sep=1pt, font=\tiny\itshape, text=black!60},
+  relr/.style={align=right, inner sep=1pt, font=\tiny\itshape, text=black!60},
+  morte/.style={font=\scriptsize\itshape, text=black!50, inner sep=1pt},
+  seuil/.style={font=\tiny\bfseries, inner sep=1pt},
+  fonction/.style={anchor=east, font=\footnotesize\scshape, inner sep=2pt},
+  fin/.style={anchor=west, font=\scriptsize, inner sep=2pt, align=left}]
+
+\def\nd#1#2{\filldraw[fill=black, draw=white, line width=0.6pt] (#1,#2) circle (1.9pt);}
+\def\nb#1#2{\filldraw[fill=white, draw=black, line width=0.5pt] (#1,#2) circle (1.7pt);}
+\def\cx#1#2{\node[anchor=west, inner sep=0.5pt] at (#1,#2) {\textdagger};}
+
+\begin{scope}[xshift=-385.35cm]
+
+% ---------- repères verticaux et axe ----------
+\foreach \a in {1850,1875,1900,1925}
+  \draw[black!8, line width=0.4pt] (\a,0.2) -- (\a,9.6);
+\draw[line width=0.5pt] (1835,0.2) -- (1932,0.2);
+\foreach \a in {1835,1840,...,1930} \draw[line width=0.4pt] (\a,0.2) -- (\a,0.08);
+\foreach \a in {1850,1875,1900,1925} \node[anchor=north, inner sep=2pt] at (\a,0.06) {\a};
+
+\node[fonction] at ([xshift=-2mm]1835,4.0) {transmit};
+\node[fonction, text=black!55] at ([xshift=-2mm]1835,0.6) {to compute};
+
+% ======================= LES LIGNÉES =======================
+% sémaphore : lignée éteinte, entrée par la gauche
+\draw[hors] (1835,6.0) -- (1852,6.0);
+\cx{1852}{6.0}
+\node[morte, anchor=south] at (1843.5,6.08) {French semaphore};
+% télégraphe : le tronc jusqu'en 1879, puis la branche qui décline
+\draw[hors] (1835,4.0) -- (1837,4.0);
+\draw[oper] (1837,4.0) -- (1879,4.0);
+\draw[oper] (1879,4.0) to[out=0,in=180] (1884,5.4) -- (1932,5.4);
+% block system : proposé en 1842, obligatoire en 1889
+\draw[attente] (1842,4.0) to[out=-90,in=180] (1845,2.9) -- (1889,2.9);
+% téléphone : le tronc à partir de 1877 ; batterie centrale en 1895
+\draw[oper]  (1877,4.0) -- (1895,4.0);
+\draw[dispo] (1895,4.0) -- (1932,4.0);
+% central automatique : rameau des indépendants, absorbé en 1919
+\draw[oper] (1891,4.0) to[out=-90,in=180] (1894,2.0) -- (1915.5,2.0) to[out=0,in=180] (1919.5,4.0);
+% sans fil : né du télégraphe
+\draw[oper] (1896,5.4) to[out=0,in=180] (1900,6.9) -- (1932,6.9);
+% radiodiffusion : née du sans fil
+\draw[dispo] (1920,6.9) to[out=0,in=180] (1923,8.4) -- (1932,8.4);
+% vers calculer
+\draw[hors] (1835,0.6) -- (1932,0.6);
+
+% ======================= LES NŒUDS =======================
+% télégraphe
+\nb{1837}{4.0} \nd{1844}{4.0}
+\node[lab, anchor=south west] at (1836.5,4.1) {1837 Morse, Cooke patents\\1844 \emph{Washington--Baltimore line,}\\\emph{public commission}};
+\nd{1866}{4.0} \node[labr, anchor=south east] at (1866,4.1) {1866 Western Union\\\emph{first private monopoly}};
+\nd{1870}{4.0} \node[labr, anchor=north east] at (1872,3.9) {1870 Post Office\\\emph{nationalisation}};
+\node[fin] at (1932,5.4) {telegraph: traffic declines,\\\emph{its assets are leased to the telephone}};
+% block system
+\nb{1842}{2.9} \nd{1889}{2.9}
+\node[rel, anchor=north west] at (1846,2.82) {\emph{block system} proposed: the technique exists, the payer is missing};
+\node[labr, anchor=north east] at (1888.5,2.82) {1889 mandatory\\\emph{after Armagh}};
+% téléphone
+\nb{1876}{4.0} \nd{1877.5}{4.0}
+\node[lab, anchor=north west] at (1877.8,3.9) {1876 patent; 1877 Bell:\\\emph{leasing, franchises}};
+\nd{1879.5}{4.0}
+\node[lab, anchor=south west] at (1884.5,5.48) {1879 Western Union agreement:\\\emph{two separate industries}};
+\nd{1894}{4.0} \node[lab, anchor=north west] at (1894,3.9) {1894 patents expire\\\emph{6,000 independents}};
+\node[seuil, anchor=south] at (1895,4.08) {1895};
+\nd{1913}{4.0} \node[labr, anchor=south east] at (1912.5,4.1) {1913 Kingsbury\\\emph{negotiated regulation}};
+\nb{1915}{4.0}
+\nd{1919.5}{4.0} \node[lab, anchor=north west] at (1919.5,3.9) {1919 automatic\\switching adopted};
+\node[fin] at (1932,4.0) {telephony: the Bell\\network reconsolidated};
+% central automatique
+\nb{1891}{2.0}
+\node[lab, anchor=north west] at (1894.5,1.92) {1891 Strowger; 1892 La Porte:\\\emph{automatic exchanges for independents}};
+% sans fil
+\nb{1896}{5.4} \nd{1897.5}{6.9}
+\node[lab, anchor=south west] at (1897,6.98) {1896 patent; 1897 Marconi: \emph{patents,}\\\emph{leasing, refusal to interoperate}};
+\nd{1912}{6.9} \node[labr, anchor=north east] at (1914.5,6.8) {1912 \emph{Titanic}: the radio watch\\\emph{made compulsory}};
+\nd{1919}{6.9} \node[lab, anchor=north west] at (1923,6.8) {1919 RCA: \emph{monopoly undone}\\\emph{and remade by the State}};
+\node[fin] at (1932,6.9) {point-to-point radio};
+% radiodiffusion
+\nd{1921.5}{7.65}
+\node[labr, anchor=south east] at (1921,7.82) {1920 KDKA: \emph{broadcasting}\\\emph{to sell receivers}};
+\nd{1923}{8.4} \node[labr, anchor=south east] at (1922.5,8.72) {1922 WEAF: \emph{audience}\\\emph{sold to the advertiser}};
+\nd{1927}{8.4} \node[lab, anchor=north west] at (1924.5,8.3) {1927 Radio Act:\\\emph{public-interest licences}};
+\node[fin] at (1932,8.4) {broadcasting};
+
+% ======================= CE QUI PASSE ENTRE LES LIGNÉES =======================
+% un problème posé : la saturation des lignes télégraphiques appelle le multiplexage, d'où le téléphone
+\draw[probleme, halo=3pt] (1868,4.0) to[out=90,in=160] (1875.6,4.12);
+\node[rel, anchor=south west] at (1867.5,4.5) {line saturation:\\multiplexing (1870--74)};
+% un problème posé : l'affaiblissement de l'interurbain appelle le tube amplificateur, qui passe à la radiodiffusion
+\draw[probleme, halo=3pt] (1915,4.08) to[out=60,in=-110] (1921.3,7.5);
+\node[relr, anchor=north east] at (1914.5,5.98) {long distance calls for amplification:\\Pupin 1900, audion 1906, repeater 1915};
+% un problème posé : la commutation, du calcul dans le réseau
+\draw[probleme, halo=3pt] (1916,2.05) to[out=-90,in=90] (1916.3,0.68);
+\node[rel, anchor=west] at (1916.8,1.2) {switching: computation\\inside the network ($N(N-1)/2$)};
+% un substrat repris : poteaux, droits de passage, ateliers, ingénieurs du télégraphe
+\draw[substrat, halo=3pt] (1884.5,5.32) to[out=-90,in=90] (1886,4.08);
+\node[rel, anchor=west] at (1886.5,4.6) {poles, rights of way,\\workshops (Western Electric 1882)};
+% un substrat repris : opérateurs, code, service du télégramme
+% une forme transférée : la location de l'appareil, du téléphone à Marconi et à la tabulatrice
+\draw[forme, halo=3pt] (1878.5,4.1) to[out=100,in=-175] (1896.3,6.78);
+\node[rel, anchor=north west] at (1884.5,6.62) {leasing the set};
+\draw[forme, halo=3pt] (1889.8,3.9) to[out=-90,in=90] (1890.5,0.68);
+\node[relr, anchor=east] at (1889.3,1.3) {lease + consumable:\\the tabulator (1890)};
+% une forme transférée : la cabine payante devient le toll broadcasting
+\draw[forme, halo=3pt] (1919.2,4.1) to[out=80,in=-100] (1922.8,8.28);
+\node[rel, anchor=west] at (1923.5,7.2) {the pay station\\becomes the \emph{toll}};
+
+\end{scope}
+
+% ======================= LÉGENDE =======================
+\begin{scope}[x=1cm, shift={(0,-0.95)}]
+  \draw[hors] (0,0) -- (0.6,0);      \node[fin] at (0.65,0) {no constitutive dependence on electricity};
+  \draw[oper] (7.0,0) -- (7.6,0);    \node[fin] at (7.65,0) {electricity constitutive of the operation};
+  \draw[dispo] (14.0,0) -- (14.6,0); \node[fin] at (14.65,0) {energy drawn continuously for availability};
+\end{scope}
+\begin{scope}[x=1cm, shift={(0,-1.45)}]
+  \nb{0.3}{0} \node[fin] at (0.65,0) {patent or demonstration};
+  \nd{7.3}{0} \node[fin] at (7.65,0) {economic form retained; from one to the other, the stem};
+  \draw[attente] (14.0,0) -- (14.6,0); \node[fin] at (14.65,0) {capacity awaiting a payer};
+\end{scope}
+\begin{scope}[x=1cm, shift={(0,-1.95)}]
+  \draw[substrat] (0,0) -- (0.6,0);   \node[fin] at (0.65,0) {a substrate taken over (land, workshops, staff)};
+  \draw[forme] (7.0,0) -- (7.6,0);    \node[fin] at (7.65,0) {a form transferred (who pays, on what terms)};
+  \draw[probleme] (14.0,0) -- (14.6,0); \node[fin] at (14.65,0) {a problem handed to the next lineage};
+\end{scope}
+\end{tikzpicture}

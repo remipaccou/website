@@ -1,0 +1,291 @@
+% Des techniques situées au capital mondial : les émergences réunies, 1790-2025. Figure générée par gen_confluence.py ; ne pas éditer à la main.
+% Ce que la figure montre : à gauche, des techniques situées (un lieu, un payeur, une forme, une date de mise en service) ;
+% vers la droite, leurs confluences, datées et nommées par les mots du chapitre 1 ; à droite, un seul fonds, la technologie-capital,
+% mondiale par sa chaîne de fabrication, nationale par ses règles. Les lignées éteintes (†) et les capacités écartées († gris)
+% montrent que cette branche n'était pas la seule possible : c'est celle qui s'est formée. Le bandeau du bas suit le fonds
+% de 1969 à 2025, à sa propre échelle. Deux échelles de temps sur l'axe principal (×2,5 après 1935), marquées.
+% Grammaire du skill « frise » : point plein = première mise en service sous un arrangement ; épaisseur = régime électrique ;
+% tireté = forme ou principe transféré ; flèche grise ouverte = substrat repris.
+\begin{tikzpicture}[x=1cm, y=0.8cm, font=\scriptsize,
+  hors/.style={line width=1pt, dash pattern=on 0pt off 1.8pt, line cap=round},
+  oper/.style={line width=0.6pt},
+  dispo/.style={line width=1.9pt},
+  tronc/.style={line width=3.2pt, line cap=round},
+  mort/.style={draw=black!40},
+  reseau/.style={draw=black!28, line width=2.4pt},
+  halo/.style={preaction={draw=white, line width=#1, solid, -}},
+  halo/.default=4pt,
+  forme/.style={draw=black!70, line width=0.5pt, dash pattern=on 2.2pt off 1.4pt, -{Stealth[length=3.6pt,width=2.8pt]}},
+  substrat/.style={draw=black!45, line width=0.9pt, -{Stealth[length=4pt,width=3.6pt, open]}},
+  lab/.style={align=left, inner sep=1pt, font=\scriptsize},
+  labr/.style={align=right, inner sep=1pt, font=\scriptsize},
+  conf/.style={align=left, inner sep=1pt, font=\tiny\itshape, text=black!65},
+  confr/.style={align=right, inner sep=1pt, font=\tiny\itshape, text=black!65},
+  morte/.style={font=\scriptsize\itshape, text=black!50, inner sep=1pt},
+  seuil/.style={font=\tiny\bfseries, inner sep=1pt},
+  yr/.style={font=\tiny, text=black!60, inner sep=0.8pt},
+  racc/.style={font=\tiny, text=black!55, inner sep=0.8pt},
+  titre/.style={font=\footnotesize\scshape, inner sep=2pt},
+  fin/.style={anchor=west, font=\scriptsize, inner sep=2pt, align=left}]
+\def\nd#1#2{\filldraw[fill=black, draw=white, line width=0.6pt] (#1,#2) circle (1.9pt);}
+\def\nb#1#2{\filldraw[fill=white, draw=black, line width=0.5pt] (#1,#2) circle (1.7pt);}
+\def\cx#1#2{\node[anchor=west, inner sep=0.5pt] at (#1,#2) {\textdagger};}
+\def\cxg#1#2#3{\node[anchor=west, inner sep=0.5pt, text=black!45] at (#1,#2) {\textdagger\,\emph{#3}};}
+
+\draw[line width=0.5pt] (0.000,0.6) -- (28.925,0.6);
+\draw[line width=0.4pt] (0.000,0.6) -- (0.000,0.48);
+\draw[line width=0.4pt] (0.750,0.6) -- (0.750,0.48);
+\draw[line width=0.4pt] (1.500,0.6) -- (1.500,0.48);
+\draw[line width=0.4pt] (2.250,0.6) -- (2.250,0.48);
+\draw[line width=0.4pt] (3.000,0.6) -- (3.000,0.48);
+\draw[line width=0.4pt] (3.750,0.6) -- (3.750,0.48);
+\draw[line width=0.4pt] (4.500,0.6) -- (4.500,0.48);
+\draw[line width=0.4pt] (5.250,0.6) -- (5.250,0.48);
+\draw[line width=0.4pt] (6.000,0.6) -- (6.000,0.48);
+\draw[line width=0.4pt] (6.750,0.6) -- (6.750,0.48);
+\draw[line width=0.4pt] (7.500,0.6) -- (7.500,0.48);
+\draw[line width=0.4pt] (8.250,0.6) -- (8.250,0.48);
+\draw[line width=0.4pt] (9.000,0.6) -- (9.000,0.48);
+\draw[line width=0.4pt] (9.750,0.6) -- (9.750,0.48);
+\draw[line width=0.4pt] (10.500,0.6) -- (10.500,0.48);
+\draw[line width=0.4pt] (10.875,0.6) -- (10.875,0.48);
+\draw[line width=0.4pt] (11.825,0.6) -- (11.825,0.48);
+\draw[line width=0.4pt] (12.775,0.6) -- (12.775,0.48);
+\draw[line width=0.4pt] (13.725,0.6) -- (13.725,0.48);
+\draw[line width=0.4pt] (14.675,0.6) -- (14.675,0.48);
+\draw[line width=0.4pt] (15.625,0.6) -- (15.625,0.48);
+\draw[line width=0.4pt] (16.575,0.6) -- (16.575,0.48);
+\draw[line width=0.4pt] (17.525,0.6) -- (17.525,0.48);
+\draw[line width=0.4pt] (18.475,0.6) -- (18.475,0.48);
+\draw[line width=0.4pt] (19.425,0.6) -- (19.425,0.48);
+\draw[line width=0.4pt] (20.375,0.6) -- (20.375,0.48);
+\draw[line width=0.4pt] (21.325,0.6) -- (21.325,0.48);
+\draw[line width=0.4pt] (22.275,0.6) -- (22.275,0.48);
+\draw[line width=0.4pt] (23.225,0.6) -- (23.225,0.48);
+\draw[line width=0.4pt] (24.175,0.6) -- (24.175,0.48);
+\draw[line width=0.4pt] (25.125,0.6) -- (25.125,0.48);
+\draw[line width=0.4pt] (26.075,0.6) -- (26.075,0.48);
+\draw[line width=0.4pt] (27.025,0.6) -- (27.025,0.48);
+\draw[line width=0.4pt] (27.975,0.6) -- (27.975,0.48);
+\draw[line width=0.4pt] (28.925,0.6) -- (28.925,0.48);
+\node[anchor=north, inner sep=2pt] at (0.750,0.45999999999999996) {1800};
+\node[anchor=north, inner sep=2pt] at (4.500,0.45999999999999996) {1850};
+\node[anchor=north, inner sep=2pt] at (8.250,0.45999999999999996) {1900};
+\node[anchor=north, inner sep=2pt] at (10.875,0.45999999999999996) {1935};
+\node[anchor=north, inner sep=2pt] at (13.725,0.45999999999999996) {1950};
+\node[anchor=north, inner sep=2pt] at (18.475,0.45999999999999996) {1975};
+\node[anchor=north, inner sep=2pt] at (23.225,0.45999999999999996) {2000};
+\node[anchor=north, inner sep=2pt] at (27.975,0.45999999999999996) {2025};
+\draw[black!8, line width=0.4pt] (0.750,0.6) -- (0.750,14.2);
+\draw[black!8, line width=0.4pt] (4.500,0.6) -- (4.500,14.2);
+\draw[black!8, line width=0.4pt] (8.250,0.6) -- (8.250,14.2);
+\draw[black!8, line width=0.4pt] (13.725,0.6) -- (13.725,14.2);
+\draw[black!8, line width=0.4pt] (23.225,0.6) -- (23.225,14.2);
+\draw[black!50, line width=0.6pt] (10.795,0.39999999999999997) -- (10.955,0.8); \draw[black!50, line width=0.6pt] (10.895,0.39999999999999997) -- (11.055,0.8);
+\node[yr, anchor=north west] at (11.065,0.09999999999999998) {time scale stretched 2.5 times after 1935};
+\node[titre, anchor=south west] at (0.000,14.3) {situated techniques};
+\node[titre, anchor=south east] at (28.925,14.3) {a capital technology, worldwide};
+\draw[hors] (0.300,13.4) -- (4.650,13.4);
+\cx{4.650}{13.4}
+\nd{0.300}{13.4}
+\node[lab, anchor=south west] at (0.300,13.48) {1794 Chappe · France\\\emph{state monopoly}};
+\draw[oper] (4.050,12.6) -- (13.725,12.6);
+\draw[oper] (13.725,12.6) to[out=0,in=180] (19.235,11.8);
+\nd{4.050}{12.6}
+\node[lab, anchor=south west] at (4.050,12.68) {1844 Morse · United States\\\emph{public commission, then monopolies}};
+\node[conf, anchor=south west] at (13.915,12.66) {1950-1979 \emph{assets reused by the telephone}};
+\draw[oper] (6.750,11.8) -- (7.875,11.8);
+\draw[dispo] (7.875,11.8) -- (21.705,11.8);
+\draw[dispo] (21.705,11.8) to[out=0,in=180] (22.845,8.6);
+\nd{6.750}{11.8}
+\node[lab, anchor=south west] at (6.750,11.88) {1880 Bell · United States\\\emph{leasing of the set}};
+\node[seuil, anchor=north] at (7.875,11.72) {1895};
+\node[confr, anchor=north east] at (21.610,11.72) {1990s: \emph{the digital network}\\\emph{reuses the telephone copper}};
+\draw[dispo] (19.235,11.8) to[out=0,in=180] (19.805,12.3);
+\draw[dispo] (19.805,12.3) -- (25.505,12.3);
+\cx{25.505}{12.3}
+\nd{19.805}{12.3}
+\node[lab, anchor=south west] at (19.995,12.38) {1982 Minitel · France\\\emph{integrated national service}};
+\draw[oper] (8.250,11.0) -- (9.750,11.0);
+\draw[dispo] (9.750,11.0) -- (24.935,11.0);
+\draw[dispo] (24.935,11.0) to[out=0,in=180] (26.265,8.6);
+\nd{8.250}{11.0}
+\node[labr, anchor=north east] at (8.190,10.92) {1900 Marconi · United Kingdom\\\emph{leasing, refusal to interconnect}};
+\nd{9.675}{11.0}
+\nd{9.900}{11.0}
+\node[lab, anchor=north west] at (10.200,10.92) {1919 RCA: \emph{the Navy}; 1920 KDKA · United States\\\emph{broadcasting to sell receivers}; 1922 \emph{audience sold}};
+\node[conf, anchor=north west] at (26.455,10.2) {2009 \emph{analogue television switched off}\\\emph{(United States), 2011 (France)}};
+\draw[oper, mort] (17.905,9.2) -- (19.045,9.2);
+\cxg{19.045}{9.2}{Cyclades (France)}
+\draw[forme, halo=3pt] (19.235,9.1) to[out=-30,in=160] (19.919,8.75);
+\draw[dispo] (20.755,10.2) -- (24.175,10.2);
+\draw[dispo] (24.175,10.2) to[out=0,in=180] (24.745,8.6);
+\nd{20.755}{10.2}
+\node[labr, anchor=south east] at (20.622,10.28) {1987 GSM · Europe\\\emph{operators' commitment}};
+\draw[forme, halo=3pt] (9.938,10.88) to[out=-70,in=180] (13.725,9.45) -- (21.325,9.45) to[out=0,in=150] (23.092,8.8);
+\node[conf, anchor=south west] at (13.915,9.5) {\emph{audience sold}};
+\draw[tronc] (17.335,8.6) -- (28.735,8.6);
+\draw[black, line width=3.2pt, -{Stealth[length=6pt,width=6pt]}] (28.355,8.6) -- (29.115,8.6);
+\nd{17.335}{8.6}
+\nd{19.995}{8.6}
+\nd{21.895}{8.6}
+\nd{22.275}{8.6}
+\nd{23.225}{8.6}
+\nd{24.365}{8.6}
+\nd{24.555}{8.6}
+\nd{24.745}{8.6}
+\nd{25.505}{8.6}
+\nd{27.405}{8.6}
+\nd{27.785}{8.6}
+\node[yr, anchor=south] at (17.335,8.72) {1969};
+\node[yr, anchor=south] at (19.995,8.72) {1983};
+\node[yr, anchor=south] at (22.085,8.72) {1993 · 1995};
+\node[yr, anchor=north] at (23.225,8.48) {2000};
+\node[yr, anchor=south] at (24.555,8.72) {2006-08};
+\node[yr, anchor=south] at (25.505,8.72) {2012};
+\node[yr, anchor=south] at (27.405,8.72) {2022};
+\node[yr, anchor=north] at (27.785,8.48) {2024};
+\node[conf, anchor=north west] at (18.000,8.45) {1969 ARPANET: \emph{the State pays, the users write}};
+\node[fin, anchor=west] at (29.495,8.6) {\textbf{a single stock}: computation, storage, transmission,\\\emph{leased capacity}; formed in the United States,\\China apart; national or regional rules};
+\node[conf, anchor=south west] at (26.455,9.0) {the stock, 1969-2025:\\\emph{see the band below}};
+\draw[hors] (0.075,7.8) -- (1.125,7.8);
+\nd{0.075}{7.8}
+\node[lab, anchor=south west] at (0.075,7.88) {1791 Prony · France\\\emph{computing office, public commission}};
+\draw[hors, mort] (2.475,7.8) -- (3.900,7.8);
+\nb{2.475}{7.8}
+\cxg{3.900}{7.8}{Babbage, \emph{a payer without demand} (UK)}
+\draw[oper] (12.965,7.8) -- (15.245,7.8);
+\draw[dispo] (15.245,7.8) -- (16.765,7.8);
+\draw[dispo] (16.765,7.8) to[out=0,in=180] (17.905,8.6);
+\nd{12.965}{7.8}
+\node[lab, anchor=south west] at (12.395,7.88) {1943-46 ENIAC · United States\\\emph{mission order}};
+\node[seuil, anchor=south] at (15.245,7.88) {1958};
+\draw[oper, mort] (12.585,8.6) -- (12.775,8.6);
+\cxg{12.775}{8.6}{Colossus (UK)}
+\nd{16.385}{7.8}
+\node[conf, anchor=north west] at (15.150,7.7) {1952 transistor \emph{under licence} (Bell); 1956 \emph{compulsory licensing};\\1964 System/360; 1969 \emph{software under licence}};
+\draw[hors] (7.500,7.0) -- (13.725,7.0);
+\draw[hors] (13.725,7.0) to[out=0,in=180] (14.865,7.8);
+\nd{7.500}{7.0}
+\node[lab, anchor=south west] at (7.500,7.08) {1890 Hollerith · United States\\\emph{leasing and exclusive cards}};
+\node[conf, anchor=north west] at (13.440,6.92) {1953 IBM~701: \emph{leased machine}};
+\draw[hors, mort] (8.325,6.6) -- (11.825,6.6);
+\cxg{11.825}{6.6}{classi-compteurs (France)}
+\draw[oper, mort] (16.005,7.0) -- (17.525,7.0);
+\cxg{17.525}{7.0}{OGAS (USSR)}
+\draw[oper, mort] (17.715,6.6) -- (18.095,6.6);
+\cxg{18.095}{6.6}{Cybersyn (Chile)}
+\draw[hors] (4.575,6.2) -- (17.905,6.2);
+\cx{17.905}{6.2}
+\nd{4.575}{6.2}
+\node[lab, anchor=south west] at (4.575,6.28) {1851 arithmometer · France\\\emph{sale}};
+\node[morte, anchor=south east] at (17.715,6.28) {mechanical calculator*};
+\draw[oper] (19.615,6.2) -- (21.325,6.2);
+\draw[oper] (21.325,6.2) to[out=0,in=180] (22.275,8.6);
+\nb{18.475}{6.2}
+\nd{19.615}{6.2}
+\node[lab, anchor=north west] at (18.475,6.12) {1975 Altair, 1981 PC · United States\\\emph{published interfaces}};
+\nb{21.135}{7.8}
+\draw[dispo] (21.515,7.8) -- (21.705,7.8);
+\draw[dispo] (21.705,7.8) to[out=0,in=180] (22.465,8.6);
+\node[labr, anchor=north east] at (21.420,7.35) {1989 CERN\\\emph{scattered documents}};
+\draw[hors] (1.050,5.4) -- (7.500,5.4);
+\draw[hors] (7.500,5.4) to[out=0,in=180] (7.950,7.0);
+\nd{1.050}{5.4}
+\node[lab, anchor=south west] at (1.050,5.48) {1804 Jacquard · France};
+\nd{7.500}{5.4}
+\node[lab, anchor=north west] at (7.350,5.32) {1890 punched card\\\emph{exclusive consumable}};
+\draw[hors] (7.275,4.6) -- (23.035,4.6);
+\draw[hors] (23.035,4.6) to[out=0,in=180] (23.985,8.6);
+\nd{7.275}{4.6}
+\node[lab, anchor=north west] at (7.275,4.52) {1887 gramophone\\\emph{sale of the medium}};
+\node[confr, anchor=north east] at (22.940,4.52) {1999 MP3, Napster: \emph{the copy parted from the medium};\\\emph{then access to the catalogue}};
+\draw[oper] (13.155,3.4) -- (28.735,3.4);
+\nb{13.155}{3.4}
+\nd{14.105}{3.4}
+\nd{18.665}{3.4}
+\nd{25.505}{3.4}
+\node[lab, anchor=south west] at (13.155,3.48) {1947 transistor (Bell); 1958 integrated circuit; 1965 \emph{roadmap}};
+\node[lab, anchor=north west] at (18.285,3.32) {1976 VLSI · Japan; 1987 TSMC* · Taiwan; 1997 EUV, ASML* · Netherlands};
+\node[labr, anchor=south east] at (25.372,3.48) {2012 \emph{competing customers}\\\emph{fund the upstream} (ASML)};
+\draw[substrat, halo=3pt] (25.505,3.55) -- (25.505,8.3);
+\node[fin, text=black!60, anchor=west] at (29.115,3.4) {manufacturing: Taiwan, Korea,\\the Netherlands, Japan, United States};
+\draw[reseau] (6.900,1.6) -- (28.735,1.6);
+\nd{6.900}{1.6}
+\node[lab, anchor=south west] at (6.900,1.7) {1882 Pearl Street: \emph{lighting sold}; 1892 \emph{load factor}*; 1907 \emph{regulated monopoly}};
+\draw[black!45, line width=0.6pt] (7.875,1.48) -- (7.875,1.72);
+\node[racc, anchor=north] at (7.875,1.45) {1895};
+\draw[black!45, line width=0.6pt] (9.750,1.48) -- (9.750,1.72);
+\node[racc, anchor=north] at (9.750,1.45) {1920};
+\draw[black!45, line width=0.6pt] (12.965,1.48) -- (12.965,1.72);
+\node[racc, anchor=north] at (12.965,1.45) {1946};
+\draw[black!45, line width=0.6pt] (17.525,1.48) -- (17.525,1.72);
+\node[racc, anchor=north] at (17.525,1.45) {1970};
+\draw[black!45, line width=0.6pt] (21.515,1.48) -- (21.515,1.72);
+\node[racc, anchor=north] at (21.515,1.45) {1991};
+\draw[black!45, line width=0.6pt] (24.365,1.48) -- (24.365,1.72);
+\node[racc, anchor=north] at (24.365,1.45) {2006};
+\node[racc, anchor=north west] at (8.025,1.3) {\emph{connections: the telephone, radio, computing, memory, the Web, the cloud}};
+\draw[substrat, halo=3pt] (27.785,1.75) -- (27.785,7.3);
+\node[confr, anchor=south east] at (27.690,1.95) {2024 \emph{the stock contracts}\\\emph{its load}: PPA};
+\node[fin, text=black!60, anchor=west] at (29.115,1.6) {electric grid};
+\node[titre, anchor=east, text=black!55] at (-0.250,11.8) {transmit};
+\node[titre, anchor=east, text=black!55] at (-0.250,7.0) {compute};
+\node[titre, anchor=east, text=black!55] at (-0.250,5.0) {store};
+\node[titre, anchor=east, text=black!55] at (-0.250,3.4) {components};
+\node[titre, anchor=east, text=black!55] at (-0.250,1.6) {electricity};
+\node[titre, anchor=east] at (1.650,-1.6) {the stock, 1969-2025};
+\draw[tronc] (2.000,-1.6) -- (30.000,-1.6);
+\draw[black, line width=3.2pt, -{Stealth[length=6pt,width=6pt]}] (29.750,-1.6) -- (30.500,-1.6);
+\draw[white, line width=0.5pt] (2.500,-1.7200000000000002) -- (2.500,-1.48);
+\node[yr, anchor=north] at (2.500,-1.7000000000000002) {1970};
+\draw[white, line width=0.5pt] (5.000,-1.7200000000000002) -- (5.000,-1.48);
+\node[yr, anchor=north] at (5.000,-1.7000000000000002) {1975};
+\draw[white, line width=0.5pt] (7.500,-1.7200000000000002) -- (7.500,-1.48);
+\node[yr, anchor=north] at (7.500,-1.7000000000000002) {1980};
+\draw[white, line width=0.5pt] (10.000,-1.7200000000000002) -- (10.000,-1.48);
+\node[yr, anchor=north] at (10.000,-1.7000000000000002) {1985};
+\draw[white, line width=0.5pt] (12.500,-1.7200000000000002) -- (12.500,-1.48);
+\node[yr, anchor=north] at (12.500,-1.7000000000000002) {1990};
+\draw[white, line width=0.5pt] (15.000,-1.7200000000000002) -- (15.000,-1.48);
+\node[yr, anchor=north] at (15.000,-1.7000000000000002) {1995};
+\draw[white, line width=0.5pt] (17.500,-1.7200000000000002) -- (17.500,-1.48);
+\node[yr, anchor=north] at (17.500,-1.7000000000000002) {2000};
+\draw[white, line width=0.5pt] (20.000,-1.7200000000000002) -- (20.000,-1.48);
+\node[yr, anchor=north] at (20.000,-1.7000000000000002) {2005};
+\draw[white, line width=0.5pt] (22.500,-1.7200000000000002) -- (22.500,-1.48);
+\node[yr, anchor=north] at (22.500,-1.7000000000000002) {2010};
+\draw[white, line width=0.5pt] (25.000,-1.7200000000000002) -- (25.000,-1.48);
+\node[yr, anchor=north] at (25.000,-1.7000000000000002) {2015};
+\draw[white, line width=0.5pt] (27.500,-1.7200000000000002) -- (27.500,-1.48);
+\node[yr, anchor=north] at (27.500,-1.7000000000000002) {2020};
+\draw[white, line width=0.5pt] (30.000,-1.7200000000000002) -- (30.000,-1.48);
+\node[yr, anchor=north] at (30.000,-1.7000000000000002) {2025};
+\nd{2.000}{-1.6}
+\node[lab, anchor=south west] at (1.950,-1.46) {1969 ARPANET:\\\emph{the State pays, the users write}};
+\nd{9.000}{-1.6}
+\node[lab, anchor=north west] at (8.950,-1.9400000000000002) {1983 TCP/IP:\\\emph{open interface}};
+\nd{14.000}{-1.6}
+\node[lab, anchor=south west] at (13.950,-1.46) {1993 Web: \emph{public domain};\\\emph{software, a fixed asset} (SNA)};
+\nd{15.000}{-1.6}
+\node[lab, anchor=north west] at (14.950,-1.9400000000000002) {1995 NSFNET:\\\emph{commercialisation}};
+\nd{17.500}{-1.6}
+\node[lab, anchor=south west] at (17.450,-1.46) {2000 AdWords:\\\emph{audience sold,}\\\emph{individual attribution}};
+\nd{20.500}{-1.6}
+\node[lab, anchor=north west] at (20.450,-1.9400000000000002) {2006 S3, EC2:\\\emph{leased capacity, 99.99\%}};
+\nd{21.000}{-1.6}
+\node[lab, anchor=south west] at (20.950,-1.46) {2007 \emph{digital: telecom 99.9\%,}\\\emph{storage 94\%}; the handset;\\61~TWh \emph{counted} (EPA)};
+\nd{21.500}{-1.6}
+\draw[black!40, line width=0.4pt] (21.500,-1.7000000000000002) -- (21.500,-2.75);
+\node[lab, anchor=north west] at (21.450,-2.75) {2008 App Store: \emph{controlled channel};\\2009 Alibaba (China); 2010 Azure};
+\nd{23.500}{-1.6}
+\node[lab, anchor=north west] at (23.450,-1.9400000000000002) {2012 \emph{competing customers}\\\emph{fund the upstream} (ASML)};
+\nd{28.500}{-1.6}
+\node[lab, anchor=north west] at (28.450,-1.9400000000000002) {2022 ChatGPT: \emph{the token}};
+\nd{29.500}{-1.6}
+\node[lab, anchor=south west] at (29.450,-1.46) {2024 PPA: \emph{load under contract}; 415~TWh};
+\node[anchor=north west, align=left, inner sep=1pt, text width=27cm, font=\tiny] at (-2.3,-3.9) {%
+Each line is a situated technique: a place, a payer, a form, at the date of its first entry into service (filled dot; hollow circle: patent or proposal). The lines join at the dates and for the reasons that chapter~1 documents (in grey italics); the thick line is the stock they form from 1969, a single one in 2006, followed in the band below at its own scale.
+Line weight: dotted, no constitutive dependence on electricity; thin, electricity performs the operation; thick, energy held continuously for availability (thresholds 1895, 1958). \textdagger~lineage extinct after serving; \textcolor{black!45}{\textdagger}~capacity set aside, never put into service: the branches history did not keep.
+Dashed: a form transferred (the audience sold, from the antenna to the platform; the principle of Cyclades in TCP/IP). Open grey arrow: a substrate taken over (components, electricity). *~date outside the register, to be checked.};
+\end{tikzpicture}

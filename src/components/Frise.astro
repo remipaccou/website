@@ -1,0 +1,39 @@
+---
+// A thesis timeline, alive: its black lines turn red behind small red dots that
+// run along them, all at the same year; the year shows on the axis, and the
+// reader can take it in hand (src/scripts/frise-core.ts). With 'sync', the year
+// is the one of the threads above it (history page).
+import { frises } from '../data/frises';
+import { href } from '../lib/url';
+import { langOf, ui } from '../i18n';
+interface Props { id: keyof typeof frises; sync?: boolean; caption?: string; hint?: string }
+const { id, sync = false, caption, hint } = Astro.props;
+const lang = langOf(Astro.url.pathname);
+const t = ui[lang].swirl;
+const f = frises[id];
+const cal = f.cal[lang];
+const src = href(f.src[lang]);
+const axis = cal.regions[0].y1 - 3;
+---
+<figure class="project-figure frise" data-sync={sync ? '' : undefined} data-cal={JSON.stringify(cal)}>
+  {f.title[lang] && <p class="frise-title">{f.title[lang]}</p>}
+  <div class="frise-scroll">
+    <div class="frise-wrap">
+      <img src={src} alt={f.alt[lang]} loading="lazy" />
+      <svg class="frise-now" viewBox={`0 0 ${cal.w} ${cal.h}`} aria-hidden="true">
+        <defs>{cal.regions.map((r) => <clipPath><rect class="fr-clip-rect" x="0" y={r.y0} width="0" height={r.y1 - r.y0} /></clipPath>)}</defs>
+        {cal.regions.map(() => <g class="fr-red"></g>)}
+        <g class="fr-dots"></g>
+        <g class="fr-now" opacity="0">
+          <circle class="fr-dot" cx="0" cy={axis} r="2.2" />
+          <text class="fr-year" x="4" y={axis - 5}>{cal.regions[0].stops[0][0]}</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <figcaption>
+    <p class="frise-hint">{hint ?? t.frise}</p>
+    {caption && <p>{caption}</p>}
+    <p class="frise-open"><a href={src} target="_blank" rel="noopener">{t.open}</a></p>
+  </figcaption>
+</figure>
