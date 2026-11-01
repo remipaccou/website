@@ -225,7 +225,7 @@ h2.band-label { font-weight: 400; }
 .group-title { font-size: 1.3rem; font-weight: 500; margin-bottom: 1.6rem; }
 /* The sign of its field under the date of an essay, the year of a paper or of a notice. */
 .item-sign { display: block; width: 1.05rem; height: 1.05rem; margin-top: 0.45rem; stroke-width: 3.3; }
-@media (max-width: 54rem) { .essay-date .item-sign { display: inline-block; vertical-align: -0.2em; margin: 0 0 0 0.55rem; } }
+@media (max-width: 54rem) { .essay-date .item-sign, .book-label .item-sign { display: inline-block; vertical-align: -0.2em; margin: 0 0 0 0.55rem; } }
 .group + .group { margin-top: 3.6rem; }
 
 /* Running text: research and about pages, essays */
@@ -492,7 +492,7 @@ sub { bottom: -0.2em; }
 .book-title a { color: var(--ink); text-decoration: none; }
 .book-subtitle { margin-top: 0.5rem; font-style: italic; font-size: 1.15rem; color: var(--muted); }
 .book-desc { margin-top: 1.4rem; }
-@media (max-width: 54rem) { .book-label { flex-direction: row; gap: 0 1.2rem; } }
+@media (max-width: 54rem) { .book-label { flex-direction: row; align-items: baseline; gap: 0 1.2rem; } }
 @media (max-width: 44rem) { .book-main { grid-template-columns: minmax(0, 1fr); row-gap: 2.4rem; } .book-main .cover-photo, .book-main .cover { max-width: 17rem; } }
 
 .cover { --night: #12233b; --page-white: #f7f5f0; --u: 0.17rem; width: 17rem; max-width: 100%; margin: 0; aspect-ratio: 2 / 3; display: grid; grid-template-rows: 56% 44%; background: var(--page-white); color: var(--night); box-shadow: 0 1.2rem 2.4rem -0.8rem rgb(11 22 38 / 0.4), 0 0.15rem 0.5rem rgb(11 22 38 / 0.18); }

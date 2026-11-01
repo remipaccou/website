@@ -1,0 +1,23 @@
+---
+// The books, each in its own band: field and status in the margin, cover and notice beside.
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import BookItem from '../../components/BookItem.astro';
+import { books } from '../../data/books';
+import { langOf, langPaths, ui } from '../../i18n';
+export const getStaticPaths = langPaths;
+const lang = langOf(Astro.url.pathname);
+const t = ui[lang];
+---
+<Base title={t.books}>
+  <div class="wrap">
+    <PageHead title={t.books} />
+    {books.length === 0 && (
+      <section class="band">
+        <div class="band-label" aria-hidden="true"></div>
+        <div class="band-main"><p>{t.none}</p></div>
+      </section>
+    )}
+    {books.map((book) => <BookItem book={book} level="h2" />)}
+  </div>
+</Base>
