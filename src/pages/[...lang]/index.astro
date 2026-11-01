@@ -1,13 +1,15 @@
 ---
 // Home page, built as a register:
 //   0. title    the heading, its hairline, the four fields in Greek
-//   1. lead-in  two sentences on what the site is about
+//   1. drawing  the three functions converge into one capital that feeds itself, in the heart of three circles
+//      lead-in  two sentences on what the site is about
 //   2. lead     the latest essay, in words only
 //   3. notices  dated register of everything new
 //   4. footer   (in the layout)
 import Base from '../../layouts/Base.astro';
 import SectionHead from '../../components/SectionHead.astro';
 import Sigil from '../../components/Sigil.astro';
+import Convergence from '../../components/Convergence.astro';
 import { href } from '../../lib/url';
 import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
 import { scriptsToHtml } from '../../lib/typography.mjs';
@@ -34,6 +36,7 @@ const notices = await getNotices(lang);
       {themes.map((th) => <a href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
     </p>
 
+    <Convergence />
     <p class="hero-lead">{t.homeLead}</p>
 
     {lead && (

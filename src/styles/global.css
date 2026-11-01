@@ -376,6 +376,29 @@ sub { bottom: -0.2em; }
 .hero-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
 .hero-mark { flex: none; margin-left: -0.95rem; width: 2.1rem; height: 2.1rem; fill: none; stroke: var(--sun); stroke-width: 2.6; stroke-linecap: round; transform: rotate(-150deg); }
 
+/* The drawing of the home page: three functions converge into one capital, in the heart of three circles. */
+.convergence { margin: 0 0 clamp(2rem, 4vw, 3rem); }
+.convergence svg { display: block; width: 100%; height: auto; overflow: visible; }
+.convergence .cv-narrow { display: none; }
+@media (max-width: 40rem) { .convergence .cv-wide { display: none; } .convergence .cv-narrow { display: block; max-width: 24rem; margin-inline: auto; } }
+.cv-circles circle { fill: var(--ink); fill-opacity: 0.03; stroke: var(--ink); stroke-opacity: 0.38; stroke-width: 0.9; }
+.cv-strand path { fill: none; stroke: var(--ink); stroke-width: 1; stroke-linecap: round; }
+.cv-strand circle { fill: var(--ink); }
+.cv-trunk { fill: none; stroke: var(--ink); stroke-width: 1.9; stroke-linecap: round; }
+.cv-loop { fill: none; stroke: var(--sun); stroke-width: 2.6; stroke-linecap: round; }
+.cv-heart { fill: var(--sun); }
+.cv-label { font-family: var(--sans); font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; fill: var(--muted); }
+.cv-field { fill: var(--ink); font-size: 12px; }
+.cv-note { font-family: var(--serif); font-style: italic; font-size: 16px; fill: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .cv-circles { animation: cv-fade 1.2s ease-out both; }
+  .cv-strand path { stroke-dasharray: 1; animation: sigil-draw 1.3s cubic-bezier(0.5, 0, 0.2, 1) both; animation-delay: calc(0.25s + var(--i) * 0.18s); }
+  .cv-trunk { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.5, 0, 0.2, 1) 1.45s both; }
+  .cv-loop { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.6, 0, 0.2, 1) 1.75s both; }
+  .cv-heart { animation: cv-fade 0.5s ease-out 2.3s both; }
+}
+@keyframes cv-fade { from { opacity: 0; } to { opacity: 1; } }
+
 /* Two sentences under the title of the home page: what the site is about. */
 .hero-lead { max-width: 46rem; margin-bottom: clamp(2.8rem, 6vw, 4rem); font-size: 1.2rem; line-height: 1.6; color: var(--muted); }
 

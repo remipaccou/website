@@ -1,0 +1,94 @@
+---
+// The home-page drawing. On the left, the three functions of information
+// arrive, each in its own time, and converge into one capital; on the line,
+// an open circle: that capital feeds its own growth; on the right, the line
+// reaches the heart of three circles, the economy, energy and the climate.
+// Ink and one red, drawn as the signs of the site are. Two layouts: wide
+// (left to right) and narrow (top to bottom) for phones.
+import { langOf, ui } from '../i18n';
+const t = ui[langOf(Astro.url.pathname)].convergence;
+const words = t.loop.split(' ');
+const half = Math.ceil(words.length / 2);
+const noteLines = [words.slice(0, half).join(' '), words.slice(half).join(' ')];
+
+// Wide layout, viewBox 1160 x 420.
+const W = (() => {
+  const V = { x: 900, y: 205 }, r = 112, d = 62;
+  const eco = { x: V.x - 0.866 * d, y: V.y - 0.5 * d }, ene = { x: V.x + 0.866 * d, y: V.y - 0.5 * d }, cli = { x: V.x, y: V.y + d };
+  const C = { x: 500, y: V.y };
+  const loop = { x: 630, y: V.y - 38, r: 38 };
+  const at = (deg: number) => ({ x: loop.x + loop.r * Math.cos((deg * Math.PI) / 180), y: loop.y + loop.r * Math.sin((deg * Math.PI) / 180) });
+  // The open circle of the site's mark, its gap at the upper right.
+  const a = at(-60), b = at(-22);
+  return {
+    box: '0 0 1160 420', V, r, eco, ene, cli,
+    strands: [
+      { d: `M40 95C290 95 400 ${C.y} ${C.x} ${C.y}`, x: 40, y: 95, label: t.transmit },
+      { d: `M130 ${C.y}L${C.x} ${C.y}`, x: 130, y: C.y, label: t.compute },
+      { d: `M220 315C340 315 400 ${C.y} ${C.x} ${C.y}`, x: 220, y: 315, label: t.store },
+    ],
+    trunk: `M${C.x} ${C.y}L${V.x} ${V.y}`,
+    loop: `M${a.x.toFixed(1)} ${a.y.toFixed(1)}A${loop.r} ${loop.r} 0 1 0 ${b.x.toFixed(1)} ${b.y.toFixed(1)}`,
+    note: { x: loop.x, y: V.y + 30, anchor: 'middle', split: false },
+    labels: [
+      { x: eco.x - 0.72 * r, y: eco.y - 0.72 * r, anchor: 'end', text: t.economy },
+      { x: ene.x + 0.72 * r, y: ene.y - 0.72 * r, anchor: 'start', text: t.energy },
+      { x: cli.x, y: cli.y + r + 26, anchor: 'middle', text: t.climate },
+    ],
+    labelDy: -13,
+  };
+})();
+
+// Narrow layout, viewBox 360 x 660.
+const N = (() => {
+  const V = { x: 180, y: 490 }, r = 86, d = 48;
+  const eco = { x: V.x - 0.866 * d, y: V.y - 0.5 * d }, ene = { x: V.x + 0.866 * d, y: V.y - 0.5 * d }, cli = { x: V.x, y: V.y + d };
+  const C = { x: V.x, y: 230 };
+  const loop = { x: V.x + 34, y: 305, r: 34 };
+  const at = (deg: number) => ({ x: loop.x + loop.r * Math.cos((deg * Math.PI) / 180), y: loop.y + loop.r * Math.sin((deg * Math.PI) / 180) });
+  const a = at(-60), b = at(-22);
+  return {
+    box: '0 0 360 660', V, r, eco, ene, cli,
+    strands: [
+      { d: `M60 50C60 160 ${C.x} 170 ${C.x} ${C.y}`, x: 60, y: 50, label: t.transmit },
+      { d: `M${C.x} 90L${C.x} ${C.y}`, x: C.x, y: 90, label: t.compute },
+      { d: `M300 130C300 195 ${C.x} 195 ${C.x} ${C.y}`, x: 300, y: 130, label: t.store },
+    ],
+    trunk: `M${C.x} ${C.y}L${V.x} ${V.y}`,
+    loop: `M${a.x.toFixed(1)} ${a.y.toFixed(1)}A${loop.r} ${loop.r} 0 1 0 ${b.x.toFixed(1)} ${b.y.toFixed(1)}`,
+    // On a phone the note goes on two lines, left of the line; the field names sit above their circles.
+    note: { x: V.x - 16, y: loop.y - 6, anchor: 'end', split: true },
+    labels: [
+      { x: eco.x - 24, y: eco.y - r - 12, anchor: 'middle', text: t.economy },
+      { x: ene.x + 24, y: ene.y - r - 12, anchor: 'middle', text: t.energy },
+      { x: cli.x, y: cli.y + r + 24, anchor: 'middle', text: t.climate },
+    ],
+    labelDy: -12,
+  };
+})();
+---
+<figure class="convergence">
+  {[{ L: W, cls: 'cv-wide' }, { L: N, cls: 'cv-narrow' }].map(({ L, cls }) => (
+    <svg class={cls} viewBox={L.box} role="img" aria-label={t.alt}>
+      <g class="cv-circles">
+        <circle cx={L.eco.x} cy={L.eco.y} r={L.r} />
+        <circle cx={L.ene.x} cy={L.ene.y} r={L.r} />
+        <circle cx={L.cli.x} cy={L.cli.y} r={L.r} />
+      </g>
+      {L.strands.map((s, i) => (
+        <g class="cv-strand" style={`--i:${i}`}>
+          <path d={s.d} pathLength="1" />
+          <circle cx={s.x} cy={s.y} r="3.2" />
+          <text x={s.x} y={s.y + L.labelDy} text-anchor={cls === 'cv-narrow' ? 'middle' : 'start'} class="cv-label">{s.label}</text>
+        </g>
+      ))}
+      <path class="cv-trunk" d={L.trunk} pathLength="1" />
+      <path class="cv-loop" d={L.loop} pathLength="1" />
+      <text class="cv-note" x={L.note.x} y={L.note.y} text-anchor={L.note.anchor}>
+        {L.note.split ? noteLines.map((line, i) => <tspan x={L.note.x} dy={i === 0 ? 0 : 20}>{line}</tspan>) : t.loop}
+      </text>
+      <circle class="cv-heart" cx={L.V.x} cy={L.V.y} r="5" />
+      {L.labels.map((l) => <text class="cv-label cv-field" x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
+    </svg>
+  ))}
+</figure>
