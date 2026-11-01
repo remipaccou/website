@@ -83,11 +83,14 @@ const W = (() => {
     loop: `M${a.x.toFixed(1)} ${a.y.toFixed(1)}A${loop.r} ${loop.r} 0 1 0 ${b.x.toFixed(1)} ${b.y.toFixed(1)}`,
     tail: `L${loop.x} ${V.y}A${loop.r} ${loop.r} 0 0 0 ${loop.x} ${V.y - 2 * loop.r}A${loop.r} ${loop.r} 0 0 0 ${loop.x} ${V.y}L${V.x} ${V.y}`,
     note: { x: loop.x, y: V.y + (mini ? 44 : 30), anchor: 'middle', split: false },
-    labels: [
+    // In the small version the letters are larger: the names sit above their circles.
+    labels: (mini ? [
+      { x: eco.x - 40, y: eco.y - r - 14, anchor: 'middle', text: t.economy },
+      { x: ene.x + 40, y: ene.y - r - 14, anchor: 'middle', text: t.energy },
+    ] : [
       { x: eco.x - 0.72 * r, y: eco.y - 0.72 * r, anchor: 'end', text: t.economy },
       { x: ene.x + 0.72 * r, y: ene.y - 0.72 * r, anchor: 'start', text: t.energy },
-      { x: cli.x, y: cli.y + r + 26, anchor: 'middle', text: t.climate },
-    ],
+    ]).concat([{ x: cli.x, y: cli.y + r + 26, anchor: 'middle', text: t.climate }]),
     labelDy: mini ? -20 : -13,
   };
 })();

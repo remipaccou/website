@@ -1,0 +1,158 @@
+---
+// The history page: the thread of history winds in towards today, as the
+// three commas of a mitsudomoe. One thread for each function of information.
+// A thread is in ink while its function works without electricity and turns
+// red from the year it becomes electric (transmitting 1837, computing 1890,
+// storing 1898, the dates of chapter 1 of the thesis). The threads tighten
+// between 1975 and 2007, when the three functions compose on one substrate,
+// and end in a small red knot: today. Babbage stays a hollow dot: a capacity
+// that never became an infrastructure.
+//
+// The spiral is built so that its length grows with time at a steady rate
+// (the angle turns faster as the radius shrinks), so a line drawn at a steady
+// speed keeps the calendar: the three threads draw themselves together, year
+// by year.
+import { langOf, ui } from '../i18n';
+const lang = langOf(Astro.url.pathname);
+const c = ui[lang].convergence;
+const t = ui[lang].swirl;
+
+const Y0 = 1790, Y1 = 2026, M0 = 1975, M1 = 2007;
+const R0 = 190, RC = 7, V = 6.05; // radii in px; V: length of thread per year
+const SEC = 7 / (Y1 - Y0); // seconds of drawing per year
+
+// Radius: a slow, steady shrink, then a fast one as 2007 nears (about two thirds
+// of the way in by 1975), then the knot. Smooth, so the turns show no corner.
+const radius = (y: number) => {
+  if (y >= M1) return RC;
+  const u = (y - Y0) / (M1 - Y0);
+  return RC + (R0 - RC) * (1 - (0.55 * u + 0.45 * u ** 6));
+};
+
+type Ev = { y: number; en: string; fr: string; hollow?: boolean; mark?: boolean };
+const threads: { label: string; base: number; elec: number; events: Ev[] }[] = [
+  {
+    label: c.transmit, base: -90, elec: 1837,
+    events: [
+      { y: 1794, en: 'Chappe’s optical telegraph', fr: 'le télégraphe optique de Chappe' },
+      { y: 1837, en: 'Morse’s electric telegraph', fr: 'le télégraphe électrique de Morse', mark: true },
+      { y: 1876, en: 'the telephone', fr: 'le téléphone' },
+      { y: 1969, en: 'ARPANET', fr: 'ARPANET' },
+      { y: 1991, en: 'the Web', fr: 'le Web' },
+    ],
+  },
+  {
+    label: c.compute, base: 30, elec: 1890,
+    events: [
+      { y: 1834, en: 'Babbage’s analytical engine, never built', fr: 'la machine analytique de Babbage, jamais construite', hollow: true },
+      { y: 1890, en: 'Hollerith’s tabulating machine, US census', fr: 'la machine de Hollerith, recensement américain', mark: true },
+      { y: 1946, en: 'ENIAC', fr: 'ENIAC' },
+      { y: 1971, en: 'the microprocessor', fr: 'le microprocesseur' },
+    ],
+  },
+  {
+    label: c.store, base: 150, elec: 1898,
+    events: [
+      { y: 1804, en: 'Jacquard’s punched cards', fr: 'les cartes perforées de Jacquard' },
+      { y: 1898, en: 'Poulsen’s magnetic recording', fr: 'l’enregistrement magnétique de Poulsen', mark: true },
+      { y: 1956, en: 'the hard disk', fr: 'le disque dur' },
+      { y: 1970, en: 'DRAM, a memory kept by current', fr: 'la DRAM, une mémoire tenue par le courant' },
+    ],
+  },
+];
+
+// One thread: integrate the angle year by year (step 0.25 year).
+const f = (n: number) => n.toFixed(1);
+function build(base: number) {
+  const pts: { y: number; x: number; yy: number }[] = [];
+  let a = (base * Math.PI) / 180;
+  for (let y = Y0; y <= Y1 + 1e-9; y += 0.25) {
+    const r = radius(y);
+    pts.push({ y, x: r * Math.cos(a), yy: r * Math.sin(a) });
+    a += (V * 0.25) / r;
+  }
+  const at = (y: number) => pts[Math.round((y - Y0) / 0.25)];
+  const path = (from: number, to: number) =>
+    pts.filter((p) => p.y >= from - 1e-9 && p.y <= to + 1e-9).map((p, i) => `${i ? 'L' : 'M'}${f(p.x)} ${f(p.yy)}`).join('');
+  return { at, path };
+}
+
+const drawn = threads.map((th) => {
+  const g = build(th.base);
+  const start = th.events[0].y;
+  const s = g.at(start);
+  const len = Math.hypot(s.x, s.yy);
+  return {
+    ...th,
+    start,
+    ink: g.path(start, th.elec),
+    red: g.path(th.elec, Y1),
+    // The label sits outside the start of the thread, along its radius.
+    lab: { x: (s.x / len) * (len + 18), y: (s.yy / len) * (len + 18), anchor: s.x > 20 ? 'start' : s.x < -20 ? 'end' : 'middle' },
+    dots: th.events.map((e) => {
+      const p = g.at(e.y);
+      const l = Math.hypot(p.x, p.yy);
+      return { ...e, x: p.x, y2: p.yy, yl: { x: (p.x / l) * (l + 13), y: (p.yy / l) * (l + 13) + 4 } };
+    }),
+  };
+});
+const delay = (y: number) => ((y - Y0) * SEC).toFixed(2);
+const dur = (a: number, b: number) => ((b - a) * SEC).toFixed(2);
+---
+<figure class="swirl">
+  <svg viewBox="-300 -250 600 500" role="img" aria-label={t.alt}>
+    {drawn.map((th) => (
+      <g class="sw-thread">
+        <path class="sw-ink" d={th.ink} pathLength="1" style={`animation-delay:${delay(th.start)}s;animation-duration:${dur(th.start, th.elec)}s`} />
+        <path class="sw-red" d={th.red} pathLength="1" style={`animation-delay:${delay(th.elec)}s;animation-duration:${dur(th.elec, Y1)}s`} />
+        <text class="sw-label" x={f(th.lab.x)} y={f(th.lab.y)} text-anchor={th.lab.anchor} style={`animation-delay:${delay(th.start)}s`}>{th.label}</text>
+      </g>
+    ))}
+    {drawn.map((th) =>
+      th.dots.map((d) => (
+        <g class:list={['sw-ev', d.hollow && 'is-hollow', d.mark && 'is-mark', d.y >= th.elec && 'is-red']} tabindex="0" data-label={`${d.y} · ${lang === 'fr' ? d.fr : d.en}`} aria-label={`${d.y}, ${lang === 'fr' ? d.fr : d.en}`} style={`animation-delay:${delay(d.y)}s`}>
+          <circle class="sw-hit" cx={f(d.x)} cy={f(d.y2)} r="11" />
+          <circle class="sw-dot" cx={f(d.x)} cy={f(d.y2)} r={d.mark ? 3.6 : 2.6} />
+          {d.mark && <text class="sw-year" x={f(d.yl.x)} y={f(d.yl.y)} text-anchor={d.yl.x > 0 ? 'start' : 'end'}>{d.y}</text>}
+        </g>
+      )),
+    )}
+    <g class="sw-flow" aria-hidden="true">
+      {drawn.map((th, k) => (
+        <circle class="sw-spark" r="2.4" opacity="0">
+          <animateMotion id={`sw${k}`} path={th.red} dur={`${((Y1 - th.elec) * 0.04).toFixed(2)}s`} begin={`${8 + 1.6 * k}s;sw${k}.end+${(3 + k * 0.7).toFixed(1)}s`} fill="freeze" />
+          <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.06;0.9;1" dur={`${((Y1 - th.elec) * 0.04).toFixed(2)}s`} begin={`sw${k}.begin`} fill="freeze" />
+        </circle>
+      ))}
+      <circle class="sw-ring" cx="0" cy="0" r="7" opacity="0">
+        <animate attributeName="r" values="7;22" dur="1.2s" begin={drawn.map((_, k) => `sw${k}.end`).join(';')} fill="freeze" />
+        <animate attributeName="opacity" values="0.55;0" dur="1.2s" begin={drawn.map((_, k) => `sw${k}.end`).join(';')} fill="freeze" />
+      </circle>
+    </g>
+    <g class="sw-ev sw-core" tabindex="0" data-label={t.core} aria-label={t.core} style={`animation-delay:${delay(M0)}s`}>
+      <circle class="sw-hit" cx="0" cy="0" r="26" />
+      <circle class="sw-heart" cx="0" cy="0" r="3" />
+    </g>
+  </svg>
+  <figcaption>
+    <p class="sw-key">{t.key}</p>
+    <p class="sw-line" aria-live="polite" data-hint={t.hint}>{t.hint}</p>
+  </figcaption>
+</figure>
+
+<script>
+  // Point at a dot (or focus it) to read its year and what happened.
+  const fig = document.querySelector<HTMLElement>('.swirl');
+  const line = fig?.querySelector<HTMLElement>('.sw-line');
+  if (fig && line) {
+    const rest = () => (line.textContent = line.dataset.hint ?? '');
+    fig.querySelectorAll<SVGGElement>('.sw-ev').forEach((ev) => {
+      const show = () => (line.textContent = ev.dataset.label ?? '');
+      ev.addEventListener('pointerenter', show);
+      ev.addEventListener('focus', show);
+      ev.addEventListener('click', show);
+      ev.addEventListener('pointerleave', rest);
+      ev.addEventListener('blur', rest);
+    });
+  }
+</script>

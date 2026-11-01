@@ -423,6 +423,30 @@ sub { bottom: -0.2em; }
 @media (prefers-reduced-motion: no-preference) { .cv-still { display: none; } }
 @keyframes cv-fade { from { opacity: 0; } to { opacity: 1; } }
 
+/* The history page: three threads, one for each function, wind in towards today. Each draws
+   itself at the pace of the calendar (delays and durations are set on each path). */
+.swirl { display: grid; grid-template-columns: minmax(0, 23rem) minmax(0, 1fr); gap: 2.4rem; align-items: center; margin: 0; }
+.swirl svg { display: block; width: 100%; height: auto; overflow: visible; }
+@media (max-width: 40rem) { .swirl { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } .swirl svg { max-width: 21rem; margin-inline: auto; } }
+.sw-ink, .sw-red { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; animation-name: sigil-draw; animation-timing-function: linear; animation-fill-mode: both; }
+.sw-ink { stroke: var(--ink); stroke-opacity: 0.7; stroke-width: 1.2; }
+.sw-red { stroke: var(--sun); stroke-width: 1.6; }
+.sw-label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; fill: var(--muted); animation: cv-fade 0.8s ease-out both; }
+.sw-ev { outline: none; animation: cv-fade 0.5s ease-out both; }
+.sw-hit { fill: transparent; }
+.sw-dot { fill: var(--ink); transform-box: fill-box; transform-origin: center; transition: transform 0.25s ease; }
+.sw-ev.is-red .sw-dot { fill: var(--sun); }
+.sw-ev.is-hollow .sw-dot { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
+.sw-ev:hover .sw-dot, .sw-ev:focus-visible .sw-dot { transform: scale(1.7); }
+.sw-year, .sw-label { paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
+.sw-year { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.06em; fill: var(--sun); }
+.sw-spark { fill: var(--sun); }
+.sw-ring { fill: none; stroke: var(--sun); stroke-width: 1; }
+.sw-heart { fill: var(--sun); }
+.swirl figcaption { margin: 0; }
+.sw-key { font-style: italic; font-size: 1.02rem; line-height: 1.6; color: var(--muted); }
+.sw-line { margin-top: 1rem; min-height: 2.8em; font-family: var(--sans); font-size: 0.7rem; line-height: 1.45; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+
 /* The same drawing, smaller, on a field page: the part that field looks at is lit, the rest
    stays pale; the red dots keep flowing through all of it. Nodes and links fade in by their
    opacity, so they are dimmed through fill and stroke instead. */
