@@ -46,7 +46,7 @@ export const ui = {
       play: 'set in motion',
       pause: 'stop the motion',
       economy: 'economics', energy: 'biophysics', climate: 'climate',
-      alt: 'Three functions of information, transmitting, computing and storing, converge into one capital, which feeds its own growth and reaches the meeting point of the economy, the biophysical world and the climate.',
+      alt: 'A drawing in mirror. On the left, three overlapping circles: the functions of information, transmitting, storing and computing, composed on one substrate. In the middle, in red, the open circle of a capital that reproduces itself, fed by them. On the right, three overlapping circles it reaches through their heart: the economy, the biophysical world and the climate.',
     },
     swirl: {
       alt: 'Three threads, one for each function of information, wind in towards today. The stroke says what electricity does in each: dotted while the function works without depending on it; thin once electricity makes the operation or holds a state (transmitting in 1837, computing in 1946, the working memory of storing in 1970); thick once energy is held continuously for the service to stay available (1895, 1958, 1991). Between 1975 and 2007 the three tighten into one knot, on a common substrate.',
@@ -92,7 +92,7 @@ export const ui = {
       play: 'mettre en mouvement',
       pause: 'arrêter le mouvement',
       economy: 'économie', energy: 'biophysique', climate: 'climat',
-      alt: "Trois fonctions de l’information, transmettre, calculer et stocker, convergent en un seul capital, qui nourrit sa propre croissance et atteint le point où se rencontrent l’économie, le monde biophysique et le climat.",
+      alt: "Un dessin en miroir. À gauche, trois cercles qui se recouvrent : les fonctions de l’information, transmettre, stocker et calculer, composées sur un même substrat. Au milieu, en rouge, le cercle ouvert d’un capital qui se reproduit, qu’elles nourrissent. À droite, trois cercles qu’il atteint par leur cœur : l’économie, le monde biophysique et le climat.",
     },
     swirl: {
       alt: "Trois fils, un par fonction de l’information, s’enroulent vers aujourd’hui. Le trait dit ce que l’électricité y fait : pointillé tant que la fonction n’en dépend pas ; fin quand l’électricité fait l’opération ou maintient un état (transmettre en 1837, calculer en 1946, la mémoire de travail du stockage en 1970) ; épais quand l’énergie est tenue en continu pour que le service reste disponible (1895, 1958, 1991). Entre 1975 et 2007, les trois se resserrent en un seul nœud, sur un même substrat.",
