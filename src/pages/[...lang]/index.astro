@@ -1,7 +1,7 @@
 ---
 // Home page, built as a register:
 //   0. title    the heading, its hairline, the four fields in Greek
-//   1. figure   the timelines of the research project, a drawing of the work itself
+//   1. fields   the four fields, each with the sentence that says what it covers
 //   2. lead     the latest essay, in words only
 //   3. notices  dated register of everything new, with a narrow side column
 //   4. footer   (in the layout)
@@ -11,10 +11,7 @@ import Sigil from '../../components/Sigil.astro';
 import { href } from '../../lib/url';
 import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
 import { scriptsToHtml } from '../../lib/typography.mjs';
-import { publications } from '../../lib/publications';
 import { getNotices } from '../../lib/notices';
-import { projects } from '../../data/projects';
-import { books } from '../../data/books';
 import { langOf, langPaths, lp, themes, ui } from '../../i18n';
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.url.pathname);
@@ -22,12 +19,7 @@ const t = ui[lang];
 
 const essays = await getEssays();
 const lead = essays[0];
-const count = (id: string) =>
-  essays.filter((e) => e.data.theme === id).length + publications.filter((p) => p.theme === id).length + projects.filter((p) => p.theme === id).length + books.filter((p) => p.theme === id).length;
 const notices = await getNotices(lang);
-// The first research project with a drawing gives the home page its image.
-const drawn = projects.find((p) => p.figure);
-const drawing = drawn?.figure && (typeof drawn.figure.src === 'string' ? drawn.figure.src : drawn.figure.src[lang]);
 ---
 <Base>
   <div class="wrap home">
@@ -42,12 +34,15 @@ const drawing = drawn?.figure && (typeof drawn.figure.src === 'string' ? drawn.f
       {themes.map((th) => <a href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
     </p>
 
-    {drawn && drawing && (
-      <figure class="home-figure">
-        <a href={lp(lang, '/projects/')}><img src={href(drawing)} alt={drawn.figure!.alt[lang]} /></a>
-        <figcaption><a href={lp(lang, '/projects/')}>{drawn.title[lang]}</a><span>{t.projectKind}</span></figcaption>
-      </figure>
-    )}
+    <section class="fields-intro" aria-label={t.fields}>
+      {themes.map((th) => (
+        <a class="field-card" href={lp(lang, `/${th.id}/`)}>
+          <Sigil name={th.id} />
+          <h2>{th[lang]}</h2>
+          <p>{th.line[lang]}</p>
+        </a>
+      ))}
+    </section>
 
     {lead && (
       <article class="lead">
@@ -79,10 +74,6 @@ const drawing = drawn?.figure && (typeof drawn.figure.src === 'string' ? drawn.f
           <h3 class="side-head">{t.about}</h3>
           <p>{t.aboutLine}</p>
           <p><a href={lp(lang, '/about/')}>{t.more}</a></p>
-          <h3 class="side-head">{t.themes}</h3>
-          <ul>
-            {themes.map((th) => <li class="with-sigil"><Sigil name={th.id} /><a href={lp(lang, `/${th.id}/`)}>{th[lang]}</a> <span>{count(th.id)}</span></li>)}
-          </ul>
         </aside>
       </div>
     </section>

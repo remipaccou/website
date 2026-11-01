@@ -38,7 +38,7 @@ export const ui = {
     articles: 'Papers', essays: 'Essays', projects: 'Projects', research: 'Research', books: 'Books', fields: 'Fields', talks: 'Talks', about: 'About',
     notices: 'Notices', themes: 'Fields', follow: 'Follow', more: 'More', rss: 'RSS feed',
     readEssay: 'Read the essay', essayKind: 'Essay', articleKind: 'Article', talkKind: 'Talk', projectKind: 'Project',
-    kinds: { 'Journal articles': 'Article', 'Conference papers': 'Conference paper', 'Preprints and working papers': 'Preprint', Reports: 'Report' },
+    kinds: { 'Journal articles': 'Article', 'Conference papers': 'Conference', 'Preprints and working papers': 'Preprint', Reports: 'Report' },
     aboutLine: 'I work on what information technologies do to energy systems and to the climate.',
     views: 'The views expressed here are my own.',
     epigraph: 'The art of progress is to preserve order amid change, and to preserve change amid order.',
