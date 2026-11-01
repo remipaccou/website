@@ -1,14 +1,13 @@
 ---
 // Home page, built as a register:
-//   0. title    the heading, its italic line, the four fields in Greek
-//   1. lead     the latest essay, text first, its image beside it
-//   2. notices  dated register of everything new, with a narrow side column
+//   0. title    the heading, its hairline, the four fields in Greek
+//   1. figure   the timelines of the research project, a drawing of the work itself
+//   2. lead     the latest essay, in words only
+//   3. notices  dated register of everything new, with a narrow side column
 //   4. footer   (in the layout)
-import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import SectionHead from '../../components/SectionHead.astro';
 import Sigil from '../../components/Sigil.astro';
-import { site } from '../../site';
 import { href } from '../../lib/url';
 import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
 import { scriptsToHtml } from '../../lib/typography.mjs';
@@ -26,6 +25,9 @@ const lead = essays[0];
 const count = (id: string) =>
   essays.filter((e) => e.data.theme === id).length + publications.filter((p) => p.theme === id).length + projects.filter((p) => p.theme === id).length + books.filter((p) => p.theme === id).length;
 const notices = await getNotices(lang);
+// The first research project with a drawing gives the home page its image.
+const drawn = projects.find((p) => p.figure);
+const drawing = drawn?.figure && (typeof drawn.figure.src === 'string' ? drawn.figure.src : drawn.figure.src[lang]);
 ---
 <Base>
   <div class="wrap home">
@@ -40,6 +42,13 @@ const notices = await getNotices(lang);
       {themes.map((th) => <a href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
     </p>
 
+    {drawn && drawing && (
+      <figure class="home-figure">
+        <a href={lp(lang, '/projects/')}><img src={href(drawing)} alt={drawn.figure!.alt[lang]} /></a>
+        <figcaption><a href={lp(lang, '/projects/')}>{drawn.title[lang]}</a><span>{t.projectKind}</span></figcaption>
+      </figure>
+    )}
+
     {lead && (
       <article class="lead">
         <div class="lead-text">
@@ -48,11 +57,6 @@ const notices = await getNotices(lang);
           <p class="lead-desc" lang="en" set:html={scriptsToHtml(lead.data.description)} />
           <p class="more"><a href={href(pathOf(lead))}>{t.readEssay}</a></p>
         </div>
-        {lead.data.cover && (
-          <a class="lead-image" href={href(pathOf(lead))} tabindex="-1" aria-hidden="true">
-            <Image src={lead.data.cover} alt="" widths={[480, 800, 1200]} sizes="(max-width: 54rem) 100vw, 26rem" loading="eager" />
-          </a>
-        )}
       </article>
     )}
 
@@ -78,11 +82,6 @@ const notices = await getNotices(lang);
           <h3 class="side-head">{t.themes}</h3>
           <ul>
             {themes.map((th) => <li class="with-sigil"><Sigil name={th.id} /><a href={lp(lang, `/${th.id}/`)}>{th[lang]}</a> <span>{count(th.id)}</span></li>)}
-          </ul>
-          <h3 class="side-head">{t.follow}</h3>
-          <ul>
-            {site.links.github && <li><a href={site.links.github} target="_blank" rel="noopener">GitHub</a></li>}
-            <li><a href={href('/rss.xml')}>{t.rss}</a></li>
           </ul>
         </aside>
       </div>

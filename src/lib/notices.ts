@@ -7,10 +7,10 @@ import { ui, type Lang } from '../i18n';
 
 export interface Notice { sort: number; label: string; kind: string; text: string; detail?: string; url?: string }
 
-// 'YYYY-MM' or 'YYYY-MM-DD' gives a sort key and the label 'YYYY.MM'.
+// 'YYYY-MM' or 'YYYY-MM-DD' gives a sort key; the label is the year, as for papers.
 const parse = (date: string) => {
   const [y, m = '01', d = '01'] = date.split('-');
-  return { sort: Date.UTC(+y, +m - 1, +d), label: date.length > 4 ? `${y}.${m}` : y };
+  return { sort: Date.UTC(+y, +m - 1, +d), label: y };
 };
 
 export async function getNotices(lang: Lang = 'en', limit = 7): Promise<Notice[]> {
@@ -23,7 +23,7 @@ export async function getNotices(lang: Lang = 'en', limit = 7): Promise<Notice[]
   // Papers carry a year only: they sort at the start of that year.
   const papers = publications.map((p) => ({
     ...parse(String(p.year)),
-    kind: ui[lang].articleKind,
+    kind: ui[lang].kinds[p.group as keyof (typeof ui)['en']['kinds']] ?? ui[lang].articleKind,
     text: p.title,
     detail: p.venue ?? p.note,
     url: p.link,

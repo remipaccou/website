@@ -1,0 +1,23 @@
+---
+// A book: its field and status in the margin, the cover and the notice in the text column.
+import BookCover from './BookCover.astro';
+import type { Book } from '../data/books';
+import { langOf, themes } from '../i18n';
+interface Props { book: Book }
+const { book } = Astro.props;
+const lang = langOf(Astro.url.pathname);
+---
+<section class="book band">
+  <p class="band-label book-label">
+    <span>{themes.find((th) => th.id === book.theme)?.[lang]}</span>
+    <span>{book.status[lang]}</span>
+  </p>
+  <div class="band-main book-main">
+    <BookCover book={book} />
+    <div class="book-text">
+      <h3 class="book-title">{book.url ? <a href={book.url}>{book.title[lang]}</a> : book.title[lang]}</h3>
+      <p class="book-subtitle">{book.subtitle[lang]}</p>
+      {book.text && <p class="book-desc">{book.text[lang]}</p>}
+    </div>
+  </div>
+</section>

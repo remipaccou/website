@@ -3,44 +3,44 @@ title: "The Thermodynamic Limits of Terrestrial Computational Intelligence"
 date: 2025-12-12
 topic: Energy
 theme: biophysics
-description: "Exponential curves in AI scaling projections rarely show where they end. This article examines the thermodynamic constraints on terrestrial intelligence—solar radiation, heat dissipation, Landauer's principle, and light-speed latency. The analysis suggests GPT-9 (10³⁶ FLOP) marks a realistic ceiling without planetary sacrifice; GPT-11 would require climate destabilization. A negentropic alternative proposes scaling intelligence through organizational diversity rather than energy accumulation."
+description: "Exponential curves in AI scaling projections rarely show where they end. This article examines the thermodynamic constraints on terrestrial intelligence: solar radiation, heat dissipation, Landauer's principle and light-speed latency. The analysis suggests GPT-9 (10³⁶ FLOP) marks a realistic ceiling without planetary sacrifice; GPT-11 would require climate destabilization. A negentropic alternative proposes scaling intelligence through organizational diversity rather than energy accumulation."
 cover: ./cover.jpg
 coverAlt: "Rolf Landauer at his desk, black-and-white photograph."
 ---
 
-Projections of AI compute typically depict an exponential curve rising indefinitely—training requirements climbing from $10^{25}$ to $10^{30}$ to $10^{40}$ FLOP with no visible ceiling.
+Projections of AI compute typically depict an exponential curve rising indefinitely, with training requirements climbing from $10^{25}$ to $10^{30}$ to $10^{40}$ FLOP and no visible ceiling.
 
 ![Chart of training compute from 2025 to 2040 on a logarithmic scale, rising through bands labelled feasible, climate sacrifice, planet destructive and impossible.](./figure-1-compute-projection.svg "Training compute projections must eventually encounter thermodynamic constraints. The curve cannot extend indefinitely.")
 
-The implicit assumption is that intelligence scales without bound, limited only by capital and engineering. Yet all exponential processes terminate. The question is not whether AI scaling will encounter constraints, but where those constraints lie.
+The implicit assumption is that intelligence scales without bound, limited only by capital and engineering. Exponential growth in a physical system ends somewhere, and the useful question is where.
 
 This article examines the upper bounds of trained AI systems based on energy availability, thermodynamic limits of computation, and heat dissipation capacity of Earth. The analysis suggests that without planetary-scale disruption, approximately GPT-9 level ($10^{36}$ FLOP) represents a realistic ceiling.
 
 Accepting significant climate destabilization extends this to GPT-11 ($10^{40}$ FLOP). Catastrophic scenarios involving biosphere collapse might reach GPT-11.5 ($10^{41}$ FLOP).
 
-These constitute the thermodynamic boundaries of terrestrial intelligence.
+These are orders of magnitude, derived below from three physical constraints.
 
 ## Framework
 
 Three factors structure this analysis:
 
-**Energy** — bounded by solar radiation incident on Earth and the planet’s capacity to dissipate heat into space. This constitutes the primary constraint on computation.
+**Energy**, bounded by solar radiation incident on Earth and the planet’s capacity to dissipate heat into space. This is the primary constraint on computation.
 
-**Computational efficiency** — bounded by thermodynamic principles, specifically the Landauer limit on irreversible computation. Efficiency improvements can extend capability but cannot escape physical law.
+**Computational efficiency**, bounded by thermodynamic principles, specifically the Landauer limit on irreversible computation. Efficiency improvements can extend capability but cannot escape physical law.
 
-**Training paradigm** — the current approach to frontier language models involves expensive, extended training runs followed by relatively lower-cost inference. This analysis assumes continuation of this paradigm.
+**Training paradigm**: the current approach to frontier language models involves expensive, extended training runs followed by relatively lower-cost inference. This analysis assumes continuation of this paradigm.
 
 ## Energy Constraints
 
 We consider four energy scenarios of increasing magnitude:
 
-$E_0 = 100\ \mathrm{GW}$ ($10^{11}$ W) — current global datacenter capacity, 2025.
+$E_0 = 100\ \mathrm{GW}$ ($10^{11}$ W): current global datacenter capacity, 2025.
 
-$E_1 = 200\ \mathrm{GW}$ ($2\times10^{11}$ W) — projected global datacenter capacity by 2030.
+$E_1 = 200\ \mathrm{GW}$ ($2\times10^{11}$ W): projected global datacenter capacity by 2030.
 
-$E_2 = 1\ \mathrm{PW}$ ($10^{15}$ W) — theoretical maximum from solar capture at continental scale.
+$E_2 = 1\ \mathrm{PW}$ ($10^{15}$ W): theoretical maximum from solar capture at continental scale.
 
-$E_3 = 50\ \mathrm{PW}$ ($5\times10^{16}$ W) — nuclear energy generation at catastrophic scale.
+$E_3 = 50\ \mathrm{PW}$ ($5\times10^{16}$ W): nuclear energy generation at catastrophic scale.
 
 The $E_2$ scenario derives from the following calculation. Given Earth’s surface area of $5\times10^{14}$ m$^2$, land coverage of 29%, average solar irradiance of 168 W/m$^2$, and assuming 20% land utilization with 20% conversion efficiency:
 
@@ -48,7 +48,7 @@ $$
 E_2 = (5 \times 10^{14}\,\mathrm{m^2}) \times (0.29 \times 0.20 \times 0.20) \times (168\,\mathrm{W/m^2}) \approx 10^{15}\,\mathrm{W}
 $$
 
-Solar capture at this scale would reduce Earth’s albedo, contributing 1-2K of warming through altered reflectivity. However, solar power possesses a crucial thermodynamic advantage: it redirects energy already arriving at Earth rather than introducing new heat into the system.
+Solar capture at this scale would reduce Earth’s albedo, contributing 1-2K of warming through altered reflectivity. Solar power has one thermodynamic advantage, though: it redirects energy already arriving at Earth rather than introducing new heat into the system.
 
 ![Bar chart of four power scenarios, from 100 GW today to 50 PW, set against Earth's heat dissipation limit.](./figure-2-energy-scenarios.svg "Four orders of magnitude separate current infrastructure from thermodynamic limits.")
 
@@ -58,7 +58,7 @@ $$
 P = \sigma \varepsilon A T^4
 $$
 
-Energy generated on Earth—rather than captured from incident sunlight—must be dissipated as additional heat, raising equilibrium temperature. The relationship between power generation and temperature increase follows from radiative balance:
+Energy generated on Earth (rather than captured from incident sunlight) must be dissipated as additional heat, raising equilibrium temperature. The relationship between power generation and temperature increase follows from radiative balance:
 
 | Power Added     | Earth Temperature | Consequence               |
 |-----------------|-------------------|---------------------------|
@@ -97,11 +97,11 @@ Current hardware achieves approximately $10^{13}$ FLOPS/W (NVIDIA H100), five or
 
 Three efficiency scenarios structure the subsequent analysis:
 
-$\eta_0 = 10^{13}\ \mathrm{FLOPS/W}$ — current state of the art (H100-class hardware).
+$\eta_0 = 10^{13}\ \mathrm{FLOPS/W}$: current state of the art (H100-class hardware).
 
-$\eta_1 = 5\times10^{16}\ \mathrm{FLOPS/W}$ — 1% of Landauer limit, potentially achievable through neuromorphic or novel architectures.
+$\eta_1 = 5\times10^{16}\ \mathrm{FLOPS/W}$: 1% of Landauer limit, potentially achievable through neuromorphic or novel architectures.
 
-$\eta_2 = 5\times10^{18}\ \mathrm{FLOPS/W}$ — approaching Landauer limit, requiring near-perfect reversible computing.
+$\eta_2 = 5\times10^{18}\ \mathrm{FLOPS/W}$: approaching Landauer limit, requiring near-perfect reversible computing.
 
 ## Scenarios
 
@@ -129,7 +129,7 @@ $$
 (5 \times 10^{16}) \times (2 \times 10^{11}) \times (1.6 \times 10^{7}) \times (0.2) \approx 3.1 \times 10^{35}\ \mathrm{FLOP}
 $$
 
-*Outcome:* GPT-9 equivalent—10,000× more capable than C1. This scenario requires substantial scientific breakthroughs in computational efficiency but remains within sustainable energy bounds.
+*Outcome:* GPT-9 equivalent, with 10,000 times the training compute of C1. This scenario requires substantial scientific breakthroughs in computational efficiency but remains within sustainable energy bounds.
 
 ### C3: Planetary Commitment
 
@@ -153,7 +153,7 @@ $$
 (4.6 \times 10^{18}) \times (5 \times 10^{16}) \times (1.6 \times 10^{7}) \times (0.2) \approx 7.4 \times 10^{41}\ \mathrm{FLOP}
 $$
 
-*Outcome:* GPT-11.5 equivalent—a marginal gain of 0.5 generations. Cost: biosphere collapse, ocean evaporation, civilizational destruction. A pyrrhic achievement.
+*Outcome:* GPT-11.5 equivalent, a marginal gain of half a generation, at the cost of biosphere collapse, ocean evaporation and the destruction of civilization.
 
 ![Scenarios C1 to C4 placed on a logarithmic compute scale, with the corresponding model generations from GPT-4 to GPT-11.5.](./figure-4-scenarios-ladder.svg "Each increment in capability demands exponentially greater sacrifice.")
 
@@ -161,21 +161,21 @@ $$
 
 Several additional constraints compound those discussed above.
 
-**Distribution and latency.** Scenarios $E_2$ and $E_3$ require planetary-scale heat dissipation, which necessitates geographic distribution of compute. This introduces speed-of-light latency—a signal traversing Earth requires approximately 67 milliseconds. Current training algorithms assume low-latency synchronization; distributed architectures would require fundamental algorithmic innovation.
+**Distribution and latency.** Scenarios $E_2$ and $E_3$ require planetary-scale heat dissipation, which necessitates geographic distribution of compute. This introduces speed-of-light latency: a signal crossing the planet takes about 67 milliseconds. Current training algorithms assume low-latency synchronization; distributed architectures would require fundamental algorithmic innovation.
 
-**Quantum computing.** While quantum systems excel at specific problem classes, their applicability to neural network training remains uncertain. Moreover, cryogenic cooling requirements would shift rather than eliminate thermodynamic burdens.
+**Quantum computing.** While quantum systems excel at specific problem classes, their applicability to neural network training remains uncertain. Their cryogenic cooling would also shift the thermodynamic burden rather than remove it.
 
 **Reversible computing.** Theoretically capable of circumventing Landauer limits by avoiding bit erasure, reversible computing remains incompatible with current training methods. Backpropagation inherently involves irreversible weight updates. As Michael Frank has noted, practical reversible computing would require changes as fundamental as the transition from stone tablets to microprocessors.
 
-![Diagram of four constraints around terrestrial intelligence: energy, heat, Landauer and latency.](./figure-5-four-walls.svg "Four independent constraints bound terrestrial intelligence—each sufficient alone.")
+![Diagram of four constraints around terrestrial intelligence: energy, heat, Landauer and latency.](./figure-5-four-walls.svg "Four independent constraints bound terrestrial intelligence, each sufficient on its own.")
 
-**Extended training.** Longer training duration offers linear gains: one order of magnitude per decade. Reaching GPT-11 through duration alone would require millennia—at which point the endeavor becomes indistinguishable from civilizational projects like Dyson sphere construction.
+**Extended training.** Longer training duration offers linear gains: one order of magnitude per decade. Reaching GPT-11 through duration alone would take millennia, at which point the endeavor becomes indistinguishable from civilizational projects like Dyson sphere construction.
 
 ## Food for Thought: An Alternative Framework
 
 The preceding analysis operates within a specific paradigm: intelligence as a quantity produced through energy expenditure. This framing, while useful for establishing bounds, may obscure alternative approaches.
 
-The philosopher Bernard Stiegler developed a critique of what he termed “entropization”—the tendency of technological systems to accelerate energy dissipation while impoverishing knowledge diversity. Against this, he proposed “negentropy”: the cultivation of difference and organization that works against universal disorder.
+The philosopher Bernard Stiegler developed a critique of what he termed “entropization”: the tendency of technological systems to accelerate energy dissipation while impoverishing knowledge diversity. Against this, he proposed “negentropy”: the cultivation of difference and organization that works against universal disorder.
 
 ### C5: Organizational Intelligence
 
@@ -189,7 +189,7 @@ $$
 
 *Parameters:* Collective learning efficiency 10-100× current approaches; energy requirement 1-100 MW.
 
-*Outcome:* Not a singular superintelligence but a distributed cognitive ecosystem—resilient, adaptive, sustainable. The human scientific community offers a partial model: collective intelligence emerging from diverse perspectives rather than concentrated computation.
+*Outcome:* A distributed form of collective cognition rather than a single superintelligence. The human scientific community offers a partial model: collective intelligence emerging from diverse perspectives rather than concentrated computation.
 
 ![Two columns contrasting an entropic paradigm of intelligence, based on accumulation, with a negentropic one, based on organisation.](./figure-6-two-paradigms.svg "Entropic accumulation versus negentropic cultivation.")
 
@@ -203,9 +203,9 @@ GPT-11 ($10^{40}$ FLOP) constitutes the theoretical maximum within Earth’s hea
 
 Beyond this, marginal capability gains demand catastrophic planetary costs. The thermodynamic return on civilizational investment becomes vanishingly small.
 
-These bounds are not arbitrary policy constraints but physical law. Earth is a closed thermodynamic system with finite capacity for computation. Intelligence that wishes to continue scaling must either leave the planet or transform its own paradigm.
+These bounds come from physics: Earth exchanges energy with space, and its capacity to radiate the heat that computation produces is finite. Scaling beyond them means either leaving the planet or changing what is scaled.
 
-The fifth scenario suggests such a transformation may be possible. Perhaps the relevant question is not how much energy intelligence requires, but how intelligence might be cultivated rather than manufactured—a shift from entropy to negentropy, from accumulation to organization.
+The fifth scenario sketches the second path, and I hold it as a hypothesis rather than a result (the Knowledge Diversity Index above is a proposal, not a measured quantity). It leaves open how much of what we call intelligence could be cultivated through organization rather than manufactured with energy.
 
 ---
 
@@ -294,7 +294,7 @@ Rajbhandari, S., Rasley, J., Ruwase, O., & He, Y. (2020). ZeRO: Memory optimizat
 
 ### Philosophy & Alternative Paradigms
 
-Stiegler, B. (2018). *The Neganthropocene*. Open Humanities Press. <https://doi.org/10.26530/OAPEN_1004195>
+Stiegler, B. (2018). *The Neganthropocene*. Open Humanities Press. <https://www.openhumanitiespress.org/books/titles/the-neganthropocene/>
 
 Stiegler, B. (2015). *La Société automatique: 1. L’avenir du travail*. Fayard.
 

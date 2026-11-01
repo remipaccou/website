@@ -9,10 +9,9 @@ const t = ui[lang];
 // Two levels. First the kinds of work and the person, beside the name;
 // below, more quietly, the fields that cut across them.
 const main = [
-  { label: t.articles, path: '/articles/' },
   { label: t.essays, path: '/essays/' },
+  { label: t.articles, path: '/articles/' },
   { label: t.projects, path: '/projects/' },
-  { label: t.books, path: '/books/' },
   ...(talks.length > 0 ? [{ label: t.talks, path: '/talks/' }] : []),
   { label: t.about, path: '/about/' },
 ];
@@ -20,10 +19,12 @@ const fields = themes.map((th) => ({ id: th.id, label: th[lang], path: `/${th.id
 const known = [...main, ...fields].some((i) => i.path === here) || here === '/';
 ---
 <header class="site-header" id="site-menu">
-  <blockquote class={here === '/' ? 'epigraph' : 'epigraph epigraph-inner'}>
-    <p>{t.epigraph}</p>
-    <footer>Alfred North Whitehead, <cite>Process and Reality</cite>, 1929</footer>
-  </blockquote>
+  {here === '/' && (
+    <blockquote class="epigraph">
+      <p>{t.epigraph}</p>
+      <footer>Alfred North Whitehead, <cite>Process and Reality</cite>, 1929</footer>
+    </blockquote>
+  )}
   <div class="wrap">
     <div class="site-top">
       <a class="site-name" href={lp(lang, '/')}><Sigil name="enso" class="site-mark" /><span>{site.author}</span></a>
