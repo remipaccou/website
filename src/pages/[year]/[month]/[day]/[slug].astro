@@ -4,7 +4,6 @@ import 'computer-modern/cmu-serif.css';
 import { render } from 'astro:content';
 import { getImage, Image } from 'astro:assets';
 import Base from '../../../../layouts/Base.astro';
-import Comments from '../../../../components/Comments.astro';
 import { site } from '../../../../site';
 import { scriptsToHtml } from '../../../../lib/typography.mjs';
 import { getEssays, dateParts, slugOf, longDate, isoDate } from '../../../../lib/writing';
@@ -19,9 +18,7 @@ export async function getStaticPaths() {
 
 const { essay } = Astro.props;
 const { Content } = await render(essay);
-const { title, description, date, topic, cover, coverAlt, responses } = essay.data;
-// The link appears once an email address is set in src/site.ts.
-const respond = site.links.email && `mailto:${site.links.email}?subject=${encodeURIComponent(`Response to: ${title}`)}`;
+const { title, description, date, topic, cover, coverAlt } = essay.data;
 const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'jpg' })).src : undefined;
 ---
 <Base title={title} description={description} image={shareImage} type="article" published={date}>
@@ -48,21 +45,5 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
     <div class="prose paper-body">
       <Content />
     </div>
-
-    {respond && <p class="respond"><a href={respond}>Write a response</a></p>}
-
-    {responses.length > 0 && (
-      <section class="responses">
-        <h2>Responses</h2>
-        {responses.map((r) => (
-          <div class="response">
-            <p class="response-by"><b>{r.author}</b>, <time datetime={isoDate(r.date)}>{longDate(r.date)}</time></p>
-            {r.body.trim().split(/\n\s*\n/).map((para) => <p>{para}</p>)}
-          </div>
-        ))}
-      </section>
-    )}
-
-    <Comments term={essay.id} />
   </article>
 </Base>

@@ -17,9 +17,6 @@ const writing = defineCollection({
       cover: image().optional(),
       coverAlt: z.string().default(''),
       draft: z.boolean().default(false),
-      responses: z
-        .array(z.object({ author: z.string(), date: z.coerce.date(), body: z.string() }))
-        .default([]),
     }),
 });
 
