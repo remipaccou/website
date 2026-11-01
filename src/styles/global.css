@@ -406,13 +406,15 @@ sub { bottom: -0.2em; }
 @media (max-width: 54rem) { .epigraph footer { display: block; margin: 0.2rem 0 0; white-space: normal; } }
 
 /* Books: a drawn cover beside the notice. */
-.book { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 5rem); align-items: center; }
-.book + .book { margin-top: 5rem; }
-.book-title { margin-top: 0.6rem; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.2; }
+.book-label { display: flex; flex-direction: column; gap: 1.7rem; }
+.book-main { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); column-gap: clamp(1.75rem, 4vw, 3rem); align-items: start; }
+.book-main .cover-photo, .book-main .cover { width: 100%; }
+.book-title { margin-top: 0; font-size: clamp(1.5rem, 2.4vw, 1.85rem); line-height: 1.2; }
 .book-title a { color: var(--ink); text-decoration: none; }
-.book-subtitle { margin-top: 0.5rem; font-style: italic; font-size: 1.15rem; color: var(--muted); max-width: 26rem; }
-.book-desc { margin-top: 1.4rem; max-width: 34rem; }
-@media (max-width: 44rem) { .book { grid-template-columns: minmax(0, 1fr); row-gap: 2.4rem; } .cover { max-width: 17rem; } }
+.book-subtitle { margin-top: 0.5rem; font-style: italic; font-size: 1.15rem; color: var(--muted); }
+.book-desc { margin-top: 1.4rem; }
+@media (max-width: 54rem) { .book-label { flex-direction: row; gap: 0 1.2rem; } }
+@media (max-width: 44rem) { .book-main { grid-template-columns: minmax(0, 1fr); row-gap: 2.4rem; } .book-main .cover-photo, .book-main .cover { max-width: 17rem; } }
 
 .cover { --night: #12233b; --page-white: #f7f5f0; --u: 0.17rem; width: 17rem; max-width: 100%; margin: 0; aspect-ratio: 2 / 3; display: grid; grid-template-rows: 56% 44%; background: var(--page-white); color: var(--night); box-shadow: 0 1.2rem 2.4rem -0.8rem rgb(11 22 38 / 0.4), 0 0.15rem 0.5rem rgb(11 22 38 / 0.18); }
 .cover p { margin: 0; }

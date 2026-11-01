@@ -18,13 +18,18 @@ const t = ui[lang];
       </section>
     )}
     {books.map((book) => (
-      <section class="book">
-        <BookCover book={book} />
-        <div class="book-text">
-          <p class="meta">{book.status[lang]}, {themes.find((th) => th.id === book.theme)?.[lang]}</p>
-          <h2 class="book-title">{book.url ? <a href={book.url}>{book.title[lang]}</a> : book.title[lang]}</h2>
-          <p class="book-subtitle">{book.subtitle[lang]}</p>
-          {book.text && <p class="book-desc">{book.text[lang]}</p>}
+      <section class="book band">
+        <p class="band-label book-label">
+          <span>{themes.find((th) => th.id === book.theme)?.[lang]}</span>
+          <span>{book.status[lang]}</span>
+        </p>
+        <div class="band-main book-main">
+          <BookCover book={book} />
+          <div class="book-text">
+            <h2 class="book-title">{book.url ? <a href={book.url}>{book.title[lang]}</a> : book.title[lang]}</h2>
+            <p class="book-subtitle">{book.subtitle[lang]}</p>
+            {book.text && <p class="book-desc">{book.text[lang]}</p>}
+          </div>
         </div>
       </section>
     ))}
