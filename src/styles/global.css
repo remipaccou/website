@@ -403,18 +403,17 @@ sub { bottom: -0.2em; }
 .cv-toggle { display: block; margin: 0.3rem 0 0 auto; padding: 0.3rem 0; background: none; border: 0; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); cursor: pointer; }
 .cv-toggle:hover, .cv-toggle:focus-visible { color: var(--sun); }
 .cv-toggle[hidden] { display: none; }
-@media (prefers-reduced-motion: no-preference) {
-  .cv-circles { animation: cv-fade 1.2s ease-out both; }
-  .cv-strand path { stroke-dasharray: 1; animation: sigil-draw 1.3s cubic-bezier(0.5, 0, 0.2, 1) both; animation-delay: calc(0.25s + var(--i) * 0.18s); }
-  .cv-trunk { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.5, 0, 0.2, 1) 1.45s both; }
-  .cv-loop { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.6, 0, 0.2, 1) 1.75s both; }
-  .cv-heart { animation: cv-fade 0.5s ease-out 2.3s both; }
-  .cv-still { display: none; }
-  .cv-root { stroke-dasharray: 1; animation: sigil-draw 1.2s cubic-bezier(0.5, 0, 0.2, 1) both; animation-delay: calc(2.5s + var(--i) * 0.2s); }
-  .cv-root.l1 { animation-delay: calc(3.2s + var(--i) * 0.2s); }
-  .cv-link { animation: cv-fade 1.4s ease-out 4.4s both; }
-  .cv-node { animation: cv-fade 0.5s ease-out both; animation-delay: calc(4s + var(--n) * 0.07s); }
-}
+/* The drawing traces itself once, for every reader: lines drawn, fades, nothing that zooms. */
+.cv-circles { animation: cv-fade 1.2s ease-out both; }
+.cv-strand path { stroke-dasharray: 1; animation: sigil-draw 1.3s cubic-bezier(0.5, 0, 0.2, 1) both; animation-delay: calc(0.25s + var(--i) * 0.18s); }
+.cv-trunk { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.5, 0, 0.2, 1) 1.45s both; }
+.cv-loop { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.6, 0, 0.2, 1) 1.75s both; }
+.cv-heart { animation: cv-fade 0.5s ease-out 2.3s both; }
+.cv-root { stroke-dasharray: 1; animation: sigil-draw 1.2s cubic-bezier(0.5, 0, 0.2, 1) both; animation-delay: calc(2.5s + var(--i) * 0.2s); }
+.cv-root.l1 { animation-delay: calc(3.2s + var(--i) * 0.2s); }
+.cv-link { animation: cv-fade 1.4s ease-out 4.4s both; }
+.cv-node { animation: cv-fade 0.5s ease-out both; animation-delay: calc(4s + var(--n) * 0.07s); }
+@media (prefers-reduced-motion: no-preference) { .cv-still { display: none; } }
 @keyframes cv-fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* Two sentences under the title of the home page: what the site is about. */
@@ -504,17 +503,16 @@ sub { bottom: -0.2em; }
 .footer-mark { position: absolute; left: 50%; top: 0; width: 1.6rem; height: 1.6rem; transform: translate(-50%, -50%) rotate(-150deg); stroke-width: 3; background: var(--paper); padding: 0 0.6rem; box-sizing: content-box; }
 @media (max-width: 54rem) { .page-sigil { margin-bottom: 0.4rem; } }
 
-/* The signs draw themselves: once when the page opens, again under the pointer. */
+/* The signs draw themselves: once when the page opens, again under the pointer. A line that
+   draws itself is a quiet motion, so it plays for every reader, reduced motion or not. */
 .sigil path { stroke-dasharray: 1; stroke-dashoffset: 0; }
-@media (prefers-reduced-motion: no-preference) {
-  .sigil path { animation: sigil-draw 1.5s cubic-bezier(0.6, 0, 0.2, 1) both; }
-  .sigil path:nth-child(2) { animation-delay: 0.25s; }
-  .sigil path:nth-child(3) { animation-delay: 0.5s; }
-  .site-mark path { animation-duration: 1.9s; }
-  .hero-mark path { animation-delay: 0.9s; animation-duration: 1.6s; }
-  .hero-line { transform-origin: left; animation: line-draw 1.1s cubic-bezier(0.6, 0, 0.2, 1) both; }
-  a:hover > .sigil path, .with-sigil:hover .sigil path, .page-sigil:hover .sigil path, .footer-mark:hover path { animation: sigil-redraw 1.2s cubic-bezier(0.6, 0, 0.2, 1) both; }
-}
+.sigil path { animation: sigil-draw 1.5s cubic-bezier(0.6, 0, 0.2, 1) both; }
+.sigil path:nth-child(2) { animation-delay: 0.25s; }
+.sigil path:nth-child(3) { animation-delay: 0.5s; }
+.site-mark path { animation-duration: 1.9s; }
+.hero-mark path { animation-delay: 0.9s; animation-duration: 1.6s; }
+.hero-line { transform-origin: left; animation: line-draw 1.1s cubic-bezier(0.6, 0, 0.2, 1) both; }
+a:hover > .sigil path, .with-sigil:hover .sigil path, .page-sigil:hover .sigil path, .footer-mark:hover path { animation: sigil-redraw 1.2s cubic-bezier(0.6, 0, 0.2, 1) both; }
 @keyframes sigil-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes sigil-redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes line-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
