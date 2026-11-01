@@ -1,8 +1,9 @@
 ---
 // The timeline of the research project (chapter 1 of the thesis), under the
-// drawing of the threads. A red line marks the present year: it crosses the
-// timeline in step with the threads above, and the reader can move it by
-// hand; the dots on the threads follow (src/scripts/history.ts).
+// drawing of the threads. Its black lines turn red behind a small red dot that
+// runs along each of them, all at the same year: the lineages advance together
+// and converge towards the cloud. The year runs in step with the threads above,
+// and the reader can take it in hand (src/scripts/history.ts).
 import { projects } from '../data/projects';
 import { href } from '../lib/url';
 import { langOf, ui } from '../i18n';
@@ -19,9 +20,13 @@ const X1800 = 112, PER_YEAR = 2.405, AXIS = 359;
       <div class="frise-wrap">
         <img src={href(src)} alt={fig.alt[lang]} loading="lazy" />
         <svg class="frise-now" viewBox="0 0 781.746 433.283" aria-hidden="true">
+          {/* Filled by the script: a red copy of the timeline's lines, uncovered up to the present
+              year, and a small red dot where each line meets that year. */}
+          <defs><clipPath id="fr-clip"><rect class="fr-clip-rect" x="0" y="0" width="0" height="433.283" /></clipPath></defs>
+          <g class="fr-red" clip-path="url(#fr-clip)"></g>
+          <g class="fr-dots"></g>
           <g class="fr-now" opacity="0">
-            <line class="fr-hair" x1="0" x2="0" y1="6" y2={AXIS} />
-            <circle class="fr-dot" cx="0" cy={AXIS} r="2.8" />
+            <circle class="fr-dot" cx="0" cy={AXIS} r="2.2" />
             <text class="fr-year" x="4" y={AXIS - 5}>1790</text>
           </g>
         </svg>
