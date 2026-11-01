@@ -35,7 +35,7 @@ export const ui = {
     description: 'Articles, essays and research projects by Rémi Paccou on information, energy and ecology.',
     // The large title of the home page: the core of the research, in one sentence.
     heading: 'Exploring the patterns of information across nature and society',
-    articles: 'Papers', essays: 'Essays', projects: 'Projects', research: 'Research', books: 'Books', fields: 'Fields', talks: 'Talks', about: 'About',
+    articles: 'Papers', essays: 'Essays', projects: 'Projects', research: 'Research', books: 'Book', fields: 'Fields', talks: 'Talks', about: 'About',
     notices: 'Notices', themes: 'Fields', follow: 'Follow', more: 'More', rss: 'RSS feed',
     readEssay: 'Read the essay', essayKind: 'Essay', articleKind: 'Article', talkKind: 'Talk', projectKind: 'Project',
     kinds: { 'Journal articles': 'Article', 'Conference papers': 'Conference', 'Preprints and working papers': 'Preprint', Reports: 'Report' },
@@ -72,7 +72,7 @@ export const ui = {
     title: 'Information, énergie et écologie',
     description: "Articles, essais et projets de recherche de Rémi Paccou sur l’information, l’énergie et l’écologie.",
     heading: "Explorer les motifs de l’information, entre nature et société",
-    articles: 'Articles', essays: 'Essais', projects: 'Projets', research: 'Recherche', books: 'Livres', fields: 'Domaines', talks: 'Interventions', about: 'À propos',
+    articles: 'Articles', essays: 'Essais', projects: 'Projets', research: 'Recherche', books: 'Livre', fields: 'Domaines', talks: 'Interventions', about: 'À propos',
     notices: 'Actualités', themes: 'Domaines', follow: 'Suivre', more: 'Lire la suite', rss: 'Flux RSS',
     readEssay: "Lire l’essai (en anglais)", essayKind: 'Essai', articleKind: 'Article', talkKind: 'Intervention', projectKind: 'Projet',
     kinds: { 'Journal articles': 'Article', 'Conference papers': 'Communication', 'Preprints and working papers': 'Prépublication', Reports: 'Rapport' },

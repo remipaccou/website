@@ -22,6 +22,8 @@ export default defineConfig({
     '/category/energy': `${prefix}/essays/`,
     '/writing': `${prefix}/essays/`,
     '/publications': `${prefix}/articles/`,
+    '/books': `${prefix}/book/`,
+    '/fr/books': `${prefix}/fr/book/`,
   },
   markdown: {
     processor: unified({
