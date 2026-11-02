@@ -284,7 +284,7 @@ sub { bottom: -0.2em; }
   @page { size: A4; margin: 2.4cm 2.6cm 2.6cm; @bottom-center { content: counter(page); font-family: 'CMU Serif', serif; font-size: 9.5pt; } }
   :root { --paper: #fff; --ink: #000; --muted: #333; --rule: #bbb; }
   html, body { background: #fff; color: #000; }
-  .site-header, .site-footer, .skip, .read-brush, .paper-cite, .sidenote, .cv-toggle, .convergence, .swirl, .greek, .epigraph, .frise-now, .frise-hint, .frise-open { display: none !important; }
+  .site-header, .site-footer, .skip, .read-brush, .paper-cite, .sidenote, .cv-toggle, .convergence, .swirl, .epigraph, .frise-now, .frise-hint, .frise-open { display: none !important; }
   .paper { padding-top: 0; font-size: 10.5pt; line-height: 1.42; }
   .paper > * { max-width: none; }
   .paper .prose h2, .paper .prose h3 { break-after: avoid; }
@@ -584,15 +584,8 @@ sub { bottom: -0.2em; }
 .epigraph footer { display: inline; margin-left: 0.8rem; font-family: var(--sans); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap; }
 .epigraph + .wrap { padding-top: 1.4rem; }
 
-/* The four Greek words. */
-.greek { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; padding-block: 1.6rem clamp(2.4rem, 6vw, 3.6rem); font-family: 'EB Garamond Variable', serif; font-size: 1.4rem; line-height: 1.2; }
-.greek a { color: var(--ink); text-decoration: none; }
-.greek a:hover { color: var(--accent); }
-.greek + .lead { margin-top: 0; }
-@media (min-width: 88rem) {
-  .greek { position: fixed; left: 2.2rem; top: 50%; transform: translateY(-50%); flex-direction: row; flex-wrap: nowrap; gap: 1.8rem; padding: 0; writing-mode: vertical-rl; font-size: 1.3rem; }
-  .hero-sub { margin-bottom: clamp(2.4rem, 6vw, 3.6rem); }
-}
+/* The hairline under the title, then the drawing. */
+.home .hero-sub { margin-bottom: clamp(2.4rem, 6vw, 3.6rem); }
 @media (max-width: 54rem) { .epigraph footer { display: block; margin: 0.2rem 0 0; white-space: normal; } }
 
 /* Books: a drawn cover beside the notice. */
@@ -694,7 +687,6 @@ sub { bottom: -0.2em; }
 /* Philosophy, after the four fields: set apart by a thin rule, in red. */
 .field-nav li.is-apart { padding-left: 1.7rem; border-left: 1px solid var(--rule); }
 .site-header .field-nav li.is-apart a { color: var(--sun); }
-.greek a.is-apart { color: var(--sun); margin-inline-start: 0.8rem; }
 .field-nav .sigil path { animation: sigil-draw 1.5s cubic-bezier(0.6, 0, 0.2, 1) var(--p) both, sigil-live 5s ease-in-out calc(3s + var(--live, 0s) + var(--p)) infinite; }
 .site-mark { animation: enso-sway 7s ease-in-out infinite alternate; }
 .site-mark path { animation: sigil-draw 1.9s cubic-bezier(0.6, 0, 0.2, 1) both, sigil-live-slow 10s ease-in-out 4s infinite; }

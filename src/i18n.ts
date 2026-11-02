@@ -19,41 +19,42 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 // For getStaticPaths of pages under src/pages/[...lang]/.
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
-// The fields the work is filed under, each with the Greek word it comes from
-// and, under the title of its page, a sentence that is either a fact or a
-// short quotation from an author the thesis leans on, with who said it.
+// The fields the work is filed under, each with, under the title of its page,
+// a sentence taken from the thesis: a fact or a short quotation, with who
+// said it.
 // Philosophy comes after the four, set apart and in red: it looks at the
 // whole rather than at a part.
 export const themes = [
   {
-    id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία',
+    id: 'history', en: 'History', fr: 'Histoire',
     // The motto of the Paris-Lyon-Méditerranée railway's accounts, thesis ch. 1 (mechanised data).
-    line: { en: '“First organise, then mechanise.”', fr: '« D’abord organiser, ensuite mécaniser. »' },
+    line: { en: '“First organise, then mechanise.”', fr: '« D’abord organiser, ensuite mécaniser. »' },
     by: { en: 'Georges Bolle, head of accounts of the PLM railway, 1929 (my translation)', fr: 'Georges Bolle, chef de la comptabilité du PLM, 1929' },
   },
   {
-    id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία',
+    id: 'economics', en: 'Economics', fr: 'Économie',
     // The epigraph of thesis ch. 2; the French is the thesis's own translation.
-    line: { en: '“It is unworthy of excellent men to lose hours like slaves in the labor of calculation, which could be safely relegated to anyone else if the machine were used.”', fr: '« Il est indigne d’hommes éminents de perdre des heures, comme des esclaves, au labeur du calcul, qui pourrait être confié en toute sûreté au premier venu si l’on employait la machine. »' },
+    line: { en: '“It is unworthy of excellent men to lose hours like slaves in the labor of calculation, which could be safely relegated to anyone else if the machine were used.”', fr: '« Il est indigne d’hommes éminents de perdre des heures, comme des esclaves, au labeur du calcul, qui pourrait être confié en toute sûreté au premier venu si l’on employait la machine. »' },
     by: { en: 'Leibniz, 1685, translated by Mark Kormes', fr: 'Leibniz, 1685 (ma traduction)' },
   },
   {
-    id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις',
+    id: 'biophysics', en: 'Biophysics', fr: 'Biophysique',
     // Thesis ch. 3, after Daumas, Histoire générale des techniques, p. 296.
-    line: { en: 'The watch is “a machine with zero efficiency”: “it is not work that is asked of it, but information.”', fr: 'La montre est « une machine à rendement nul » : « ce n’est pas du travail qu’on lui demande, mais de l’information ».' },
+    line: { en: 'The watch is “a machine with zero efficiency”: “it is not work that is asked of it, but information.”', fr: 'La montre est « une machine à rendement nul » : « ce n’est pas du travail qu’on lui demande, mais de l’information ».' },
     by: { en: 'Maurice Daumas, 1964 (my translation)', fr: 'Maurice Daumas, 1964' },
   },
   {
-    id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα',
-    // IPCC AR6 WG I, Summary for Policymakers, A.1 (the official French version).
-    line: { en: '“It is unequivocal that human influence has warmed the atmosphere, ocean and land.”', fr: '« Il est sans équivoque que l’influence humaine a réchauffé l’atmosphère, l’océan et les terres. »' },
+    id: 'climate', en: 'Climate', fr: 'Climat',
+    // Thesis ch. 3, on the IPCC's sixth assessment report.
+    line: { en: 'Mean surface temperature has risen by about 1.1 °C above the pre-industrial period. The attribution of this warming to human greenhouse gas emissions is called “unequivocal”.', fr: 'La température moyenne de surface a augmenté d’environ 1,1 °C par rapport à la période préindustrielle. L’attribution de ce réchauffement aux émissions anthropiques de gaz à effet de serre est qualifiée de « sans équivoque ».' },
     by: { en: 'IPCC, Sixth Assessment Report, 2021', fr: 'GIEC, sixième rapport d’évaluation, 2021' },
   },
   {
-    id: 'philosophy', en: 'Philosophy', fr: 'Philosophie', greek: 'τέχνη', apart: true,
-    // Du mode d'existence des objets techniques, Aubier, introduction, p. 12.
-    line: { en: '“What resides in machines is human reality, human gesture fixed and crystallised in structures that work.”', fr: '« Ce qui réside dans les machines, c’est de la réalité humaine, du geste humain fixé et cristallisé en structures qui fonctionnent. »' },
-    by: { en: 'Gilbert Simondon, 1958 (my translation)', fr: 'Gilbert Simondon, 1958' },
+    id: 'philosophy', en: 'Philosophy', fr: 'Philosophie', apart: true,
+    // The first line of the thesis, left in English as it is there.
+    line: { en: '“Information is information, not matter or energy. No materialism which does not admit this can survive at the present day.”', fr: '« Information is information, not matter or energy. No materialism which does not admit this can survive at the present day. »' },
+    by: { en: 'Norbert Wiener, Cybernetics, 1948', fr: 'Norbert Wiener, Cybernetics, 1948' },
+    quoteLang: 'en',
   },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];

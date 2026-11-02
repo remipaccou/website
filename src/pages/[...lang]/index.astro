@@ -1,6 +1,6 @@
 ---
 // Home page, built as a register:
-//   0. title    the heading, its hairline, the four fields in Greek
+//   0. title    the heading and its hairline
 //   1. drawing  the three functions meet in one line, the red capital that reproduces itself at the centre, the three fields
 //      lead-in  two sentences on what the site is about
 //   2. lead     the latest essay, in words only
@@ -14,7 +14,7 @@ import { href } from '../../lib/url';
 import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
 import { scriptsToHtml } from '../../lib/typography.mjs';
 import { getNotices } from '../../lib/notices';
-import { langOf, langPaths, lp, themes, ui } from '../../i18n';
+import { langOf, langPaths, ui } from '../../i18n';
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.url.pathname);
 const t = ui[lang];
@@ -30,11 +30,6 @@ const notices = await getNotices(lang);
     <p class="hero-sub">
       <span class="hero-line" aria-hidden="true"></span>
       <Sigil name="enso" class="hero-mark" />
-    </p>
-    {/* The fields under their Greek names: down the left edge on wide screens, in a row otherwise;
-        philosophy last, set apart, in red. */}
-    <p class="greek">
-      {themes.map((th) => <a class:list={['apart' in th && 'is-apart']} href={lp(lang, `/${th.id}/`)} lang="grc" title={th[lang]}>{th.greek}</a>)}
     </p>
 
     <Convergence />

@@ -2,8 +2,8 @@
 import Sigil from './Sigil.astro';
 // 'line', when given, is a quiet sentence under the title that says what the page holds;
 // with 'by', it is a quotation (or a fact), and 'by' says who said it.
-interface Props { title: string; sigil?: 'history' | 'economics' | 'biophysics' | 'climate' | 'philosophy'; line?: string; by?: string }
-const { title, sigil, line, by } = Astro.props;
+interface Props { title: string; sigil?: 'history' | 'economics' | 'biophysics' | 'climate' | 'philosophy'; line?: string; by?: string; quoteLang?: string }
+const { title, sigil, line, by, quoteLang } = Astro.props;
 ---
 <header class="page-head band">
   <div class="band-label page-sigil">{sigil && <Sigil name={sigil} />}</div>
@@ -12,7 +12,7 @@ const { title, sigil, line, by } = Astro.props;
     {line && !by && <p class="page-lead page-line">{line}</p>}
     {line && by && (
       <figure class="page-quote">
-        <blockquote><p class="page-lead page-line">{line}</p></blockquote>
+        <blockquote lang={quoteLang}><p class="page-lead page-line">{line}</p></blockquote>
         <figcaption class="page-by">{by}</figcaption>
       </figure>
     )}
