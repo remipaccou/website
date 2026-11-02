@@ -29,7 +29,7 @@ export const themes = [
     id: 'history', en: 'History', fr: 'Histoire',
     // The motto of the Paris-Lyon-Méditerranée railway's accounts, thesis ch. 1 (mechanised data).
     line: { en: '“First organise, then mechanise.”', fr: '« D’abord organiser, ensuite mécaniser. »' },
-    by: { en: 'Georges Bolle, head of accounts of the PLM railway, 1929 (my translation)', fr: 'Georges Bolle, chef de la comptabilité du PLM, 1929' },
+    by: { en: 'Georges Bolle, head of accounts of the PLM railway, 1929', fr: 'Georges Bolle, chef de la comptabilité du PLM, 1929' },
   },
   {
     id: 'economics', en: 'Economics', fr: 'Économie',
