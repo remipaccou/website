@@ -49,10 +49,11 @@ def figure1():
     ax.plot(t, curve(t), color=K, lw=1.6, solid_capstyle="round")
     t = np.linspace(2036, 2037.7, 30)
     ax.plot(t, curve(t), color=K, lw=1.1, ls=(0, (1, 3)))
-    for level, name in ((36, "GPT-9"), (40, "GPT-11")):
+    # The two ceilings of the scenarios (C2 and C3), in compute; the generation is only a convention.
+    for level, name in ((34.5, r"C2, $3\times10^{34}$ (about GPT-9)"), (40.2, r"C3, $1.6\times10^{40}$")):
         ax.axhline(level, color=K, lw=0.6, ls=(0, (6, 4)))
         ax.text(2025.3, level + 0.45, name, va="bottom")
-    for level, zone in ((30.5, "feasible"), (38, "climate sacrifice"), (41.6, "planet destructive"), (44.4, "impossible")):
+    for level, zone in ((30.5, "feasible"), (37.4, "climate sacrifice"), (41.6, "planet destructive"), (44.4, "impossible")):
         ax.text(2039.9, level, zone, ha="right", va="center", style="italic")
     ax.axhline(43, color=K, lw=0.6, ls=(0, (6, 4)))
     ax.set_xlim(2025, 2040); ax.set_ylim(24, 46)
@@ -102,27 +103,25 @@ def figure4():
     fig, ax = axes(4.6, left=0.13, right=0.98, bottom=0.04, top=0.97)
     rungs = [
         (25, "GPT-4", "today", ""),
-        (31.5, "GPT-6", "C1, market-bounded growth", ""),
-        (35.5, "GPT-9", "C2, coordinated national effort", ""),
-        (40.2, "GPT-11", "C3, planetary commitment", "warming of 1 to 2 K"),
-        (41.86, "GPT-11.5", "C4, catastrophic overshoot", "biosphere collapse"),
+        (30.5, "GPT-6 to 7", "C1, market-bounded growth", ""),
+        (34.5, "about GPT-9", "C2, coordinated national effort", ""),
+        (40.2, "GPT-11 to 12", "C3, planetary commitment", "warming of 1 to 2 K"),
+        (41.88, "about GPT-12.5", "C4, catastrophic overshoot", "biosphere collapse"),
     ]
+    # C3 and C4 sit close together: their text is nudged apart, the dots stay true;
+    # the cost goes on a line of its own under the scenario.
+    nudge = {41.88: 42.35, 40.2: 39.75}
     for log, model, scenario, cost in rungs:
+        y = nudge.get(log, log)
         ax.plot([0, 0.06], [log, log], color=K, lw=0.8)
         ax.plot(0, log, "o", color=K, ms=6.5, clip_on=False)
-        ax.text(0.1, log, model, va="center")
-        ax.text(0.3, log, scenario, va="center", style="italic")
+        ax.text(0.1, y, model, va="center")
+        ax.text(0.36, y, scenario, va="center", style="italic")
         if cost:
-            ax.text(1.0, log, cost, va="center", ha="right")
-    ax.text(1.0, 39.0, "", ha="right")
+            ax.text(0.36, y - 1.05, cost, va="center")
     ax.set_xlim(0, 1); ax.set_ylim(24, 44)
     ax.set_xticks([]); powers(ax, "y", [25, 30, 35, 40]); ax.set_ylabel("Training compute (FLOP)")
     ax.spines["bottom"].set_visible(False)
-    # C3 and C4 sit close together: nudge their text apart, keep the dots true.
-    for text in ax.texts:
-        y = text.get_position()[1]
-        if abs(y - 41.86) < 0.01: text.set_y(42.35)
-        if abs(y - 40.2) < 0.01: text.set_y(39.75)
     save(fig, "figure-4-scenarios-ladder.svg")
 
 
