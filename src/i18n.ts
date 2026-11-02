@@ -99,6 +99,7 @@ export const ui = {
     otherLang: 'Français', inEnglish: '',
     groups: { 'Journal articles': 'Journal articles', 'Conference papers': 'Conference papers', 'Preprints and working papers': 'Preprints and working papers', Reports: 'Reports' },
     and: ' and ', or: ' or ', reach: 'You can reach me through ',
+    etAl: 'et al.', homeTimeline: 'Timeline', homePaper: 'Latest paper', allPapers: 'All papers', contact: 'Contact',
     aboutText: [
       'I am Rémi Paccou. I work on what information technologies do to energy systems and to the climate.',
       "I direct sustainability research at Schneider Electric's research institute. At CIRED, I am writing a doctoral thesis on how digitalisation enters energy-climate scenarios, drawing on economics, energy and the history of techniques.",
@@ -145,6 +146,7 @@ export const ui = {
     otherLang: 'English', inEnglish: 'en anglais',
     groups: { 'Journal articles': 'Articles de revue', 'Conference papers': 'Actes de conférence', 'Preprints and working papers': 'Prépublications et documents de travail', Reports: 'Rapports' },
     and: ' et ', or: ' ou ', reach: 'Vous pouvez me joindre par ',
+    etAl: 'et al.', homeTimeline: 'Frise', homePaper: 'Dernier article', allPapers: 'Tous les articles', contact: 'Contact',
     aboutText: [
       "Je suis Rémi Paccou. Je travaille sur ce que les technologies de l’information font aux systèmes énergétiques et au climat.",
       "Je dirige la recherche en durabilité de l’institut de recherche de Schneider Electric. Au CIRED, je prépare une thèse sur la place de la numérisation dans les scénarios énergie-climat, entre économie, énergie et histoire des techniques.",

@@ -11,6 +11,10 @@ const writing = defineCollection({
       title: z.string(),
       date: z.coerce.date(),
       description: z.string(),
+      // The summary in French, shown on French pages (the essay itself keeps its language).
+      descriptionFr: z.string().optional(),
+      // The essay set at the head of the home page; without one, the latest.
+      featured: z.boolean().default(false),
       topic: z.string().optional(),
       // The field the essay is filed under.
       theme: z.enum(['history', 'economics', 'biophysics', 'climate', 'philosophy']).optional(),

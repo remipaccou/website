@@ -13,7 +13,9 @@ const lang = langOf(Astro.url.pathname);
   <div class="essay-date"><time datetime={isoDate(essay.data.date)}>{longDate(essay.data.date, lang)}</time>{theme && <Sigil name={theme} class="item-sign" />}</div>
   <div class="essay-body">
     <h3 class="essay-title"><a href={href(pathOf(essay))} lang="en">{essay.data.title}</a></h3>
-    <p class="essay-desc" lang="en" set:html={scriptsToHtml(essay.data.description)} />
+    {lang === 'fr' && essay.data.descriptionFr
+      ? <p class="essay-desc" set:html={scriptsToHtml(essay.data.descriptionFr)} />
+      : <p class="essay-desc" lang="en" set:html={scriptsToHtml(essay.data.description)} />}
     {ui[lang].inEnglish && <p class="essay-note">{ui[lang].inEnglish}</p>}
   </div>
 </li>

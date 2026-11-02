@@ -37,12 +37,12 @@ const io = new IntersectionObserver(
 );
 document.querySelectorAll('.sigil:not(.site-mark):not(.field-nav .sigil)').forEach((s) => io.observe(s));
 
-// One sign every three to six seconds, chosen at random.
+// One sign every eight to fourteen seconds, chosen at random: the site lives, quietly.
 const tick = () => {
   if (!document.hidden) {
     const signs = [...visible].filter((v) => v.matches('.sigil'));
     if (signs.length) pass(signs[Math.floor(Math.random() * signs.length)]);
   }
-  setTimeout(tick, 3000 + Math.random() * 3000);
+  setTimeout(tick, 8000 + Math.random() * 6000);
 };
-setTimeout(tick, 4500);
+setTimeout(tick, 6000);

@@ -93,5 +93,6 @@ const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: 'j
     <Sigil name="enso" class="paper-end" />
   </article>
   <script>import '../../../../scripts/paper';</script>
+  <script is:inline>addEventListener('beforeprint', () => document.querySelectorAll('details.fold').forEach((d) => (d.open = true)));</script>
   <script>import '../../../../scripts/frises';</script>
 </Base>

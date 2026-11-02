@@ -112,9 +112,25 @@ export function mountFrise(fig: HTMLElement) {
     })
     .catch(() => {});
 
-  // By hand: the pointer over the timeline sets the year.
+  // By hand: the pointer over the timeline sets the year. On a touch screen the
+  // finger scrolls the timeline sideways, and a tap sets the year for a few
+  // seconds. From the keyboard, the arrows move the year (one year, ten with
+  // Shift), Home and End go to the ends.
   const handlers: ((y: number | null) => void)[] = [];
   const wrap = svg.parentElement!;
+  const fr = document.documentElement.lang.startsWith('fr');
+  wrap.tabIndex = 0;
+  wrap.setAttribute('role', 'slider');
+  wrap.setAttribute('aria-label', fr ? 'Année de la frise (flèches gauche et droite)' : 'Year of the timeline (left and right arrows)');
+  wrap.setAttribute('aria-valuemin', String(Math.round(first)));
+  wrap.setAttribute('aria-valuemax', String(Math.round(last)));
+  let release = 0;
+  const hold = (y: number, ms = 0) => {
+    clearTimeout(release);
+    handlers.forEach((h) => h(y));
+    wrap.setAttribute('aria-valuenow', String(Math.round(y)));
+    if (ms) release = window.setTimeout(() => handlers.forEach((h) => h(null)), ms);
+  };
   const fromPointer = (ev: PointerEvent) => {
     const r = svg.getBoundingClientRect();
     const ux = ((ev.clientX - r.left) / r.width) * cal.w;
@@ -124,10 +140,17 @@ export function mountFrise(fig: HTMLElement) {
       if (ux >= s[i][1]) y = s[i][0] + ((ux - s[i][1]) * (s[i + 1][0] - s[i][0])) / (s[i + 1][1] - s[i][1]);
     return Math.min(last, Math.max(first, y));
   };
-  const take = (ev: PointerEvent) => handlers.forEach((h) => h(fromPointer(ev)));
-  wrap.addEventListener('pointermove', take);
-  wrap.addEventListener('pointerdown', take);
-  wrap.addEventListener('pointerleave', () => handlers.forEach((h) => h(null)));
+  wrap.addEventListener('pointermove', (ev) => { if (ev.pointerType !== 'touch') hold(fromPointer(ev)); });
+  wrap.addEventListener('pointerdown', (ev) => hold(fromPointer(ev), ev.pointerType === 'touch' ? 4000 : 0));
+  wrap.addEventListener('pointerleave', (ev) => { if (ev.pointerType !== 'touch') handlers.forEach((h) => h(null)); });
+  wrap.addEventListener('keydown', (ev) => {
+    const step = ev.shiftKey ? 10 : 1;
+    const to = ({ ArrowLeft: year - step, ArrowDown: year - step, ArrowRight: year + step, ArrowUp: year + step, Home: first, End: last } as Record<string, number>)[ev.key];
+    if (to === undefined) return;
+    ev.preventDefault();
+    hold(Math.min(last, Math.max(first, Math.round(to))), 6000);
+  });
+  wrap.addEventListener('blur', () => { clearTimeout(release); handlers.forEach((h) => h(null)); });
 
   return { set, first, last, get year() { return year; }, onHand: (h: (y: number | null) => void) => handlers.push(h) };
 }

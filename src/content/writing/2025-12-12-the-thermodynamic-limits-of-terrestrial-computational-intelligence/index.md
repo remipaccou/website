@@ -4,6 +4,7 @@ date: 2025-12-12
 topic: Energy
 theme: biophysics
 description: "Exponential curves in AI scaling projections rarely show where they end. This article examines the thermodynamic constraints on terrestrial intelligence: solar radiation, heat dissipation, Landauer's principle and light-speed latency. The analysis suggests GPT-9 (10³⁶ FLOP) marks a realistic ceiling without planetary sacrifice; GPT-11 would require climate destabilization. A negentropic alternative proposes scaling intelligence through organizational diversity rather than energy accumulation."
+descriptionFr: "Les courbes exponentielles des projections de l’IA montrent rarement où elles s’arrêtent. Cet article examine les contraintes thermodynamiques qui pèsent sur une intelligence terrestre : le rayonnement solaire, la dissipation de la chaleur, le principe de Landauer et la latence imposée par la vitesse de la lumière. L’analyse suggère que GPT-9 (10³⁶ FLOP) marque un plafond réaliste sans sacrifice planétaire ; GPT-11 exigerait de déstabiliser le climat. Une alternative néguentropique propose de faire croître l’intelligence par la diversité des organisations plutôt que par l’accumulation d’énergie."
 cover: ./cover.jpg
 coverAlt: "Rolf Landauer at his desk, black-and-white photograph."
 ---
@@ -336,7 +337,8 @@ Henderson, P., Hu, J., Romoff, J., Brunskill, E., Jurafsky, D., & Pineau, J. (20
 
 ## Appendix: Detailed Calculations
 
-<div class="derivations">
+<details class="derivations fold">
+<summary>Show the calculations, A1 to A14</summary>
 
 This appendix provides complete derivations for all numerical results presented in the main text.
 
@@ -517,7 +519,7 @@ $$
 \end{aligned}
 $$
 
-</div>
+</details>
 
 ## Summary of Key Values
 

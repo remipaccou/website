@@ -1,11 +1,12 @@
 ---
-// Home page, built as a register:
-//   0. title    the heading and its hairline
+// Home page, built as a register, so that the first screen says what the work
+// is about and offers something to read:
+//   0. title    the heading, its hairline, and two sentences on what the site is about
 //   1. drawing  the three functions meet in one line, the red capital that reproduces itself at the centre, the three fields
-//      lead-in  two sentences on what the site is about
-//   2. lead     the latest essay, in words only
-//   3. notices  dated register of everything new
-//   4. footer   (in the layout)
+//   2. lead     the essay chosen for the head (featured), else the latest, in words only
+//   3. entries  a timeline of the thesis and the latest paper
+//   4. notices  the three latest things, then the book, the feed and how to reach me
+//   5. footer   (in the layout)
 import Base from '../../layouts/Base.astro';
 import SectionHead from '../../components/SectionHead.astro';
 import Sigil from '../../components/Sigil.astro';
@@ -14,14 +15,22 @@ import { href } from '../../lib/url';
 import { getEssays, pathOf, longDate, isoDate } from '../../lib/writing';
 import { scriptsToHtml } from '../../lib/typography.mjs';
 import { getNotices } from '../../lib/notices';
-import { langOf, langPaths, ui } from '../../i18n';
+import { publications } from '../../lib/publications';
+import { projects } from '../../data/projects';
+import { langOf, langPaths, lp, ui } from '../../i18n';
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.url.pathname);
 const t = ui[lang];
 
 const essays = await getEssays();
-const lead = essays[0];
-const notices = await getNotices(lang);
+const lead = essays.find((e) => e.data.featured) ?? essays[0];
+const leadDesc = lang === 'fr' && lead?.data.descriptionFr;
+const notices = await getNotices(lang, 3);
+// The timeline of the three functions, as a light picture (the drawing itself is on the history page).
+const timeline = projects.find((p) => p.theme === 'history' && p.figure);
+// The latest paper, first author and venue.
+const paper = [...publications].sort((a, b) => b.year - a.year)[0];
+const paperBy = paper && (paper.authors.length > 2 ? `${paper.authors[0].name} ${t.etAl}` : paper.authors.map((a) => a.name).join(t.and));
 ---
 <Base>
   <div class="wrap home">
@@ -32,19 +41,39 @@ const notices = await getNotices(lang);
       <Sigil name="enso" class="hero-mark" />
     </p>
 
-    <Convergence />
     <p class="hero-lead">{t.homeLead}</p>
+    <Convergence />
 
     {lead && (
       <article class="lead">
         <div class="lead-text">
           <p class="meta"><time datetime={isoDate(lead.data.date)}>{longDate(lead.data.date, lang)}</time></p>
           <h2 class="lead-title"><a href={href(pathOf(lead))} lang="en">{lead.data.title}</a></h2>
-          <p class="lead-desc" lang="en" set:html={scriptsToHtml(lead.data.description)} />
+          {leadDesc
+            ? <p class="lead-desc" set:html={scriptsToHtml(leadDesc)} />
+            : <p class="lead-desc" lang="en" set:html={scriptsToHtml(lead.data.description)} />}
           <p class="more"><a href={href(pathOf(lead))}>{t.readEssay}</a></p>
         </div>
       </article>
     )}
+
+    <section class="entries">
+      {timeline && (
+        <a class="entry entry-timeline" href={lp(lang, '/history/')}>
+          <span class="meta">{t.homeTimeline}</span>
+          <img src={href(`/figures/home-timeline.${lang}.webp`)} alt={timeline.figure!.alt[lang]} width="1251" height="694" loading="lazy" decoding="async" />
+          <span class="entry-title">{timeline.title[lang]}</span>
+        </a>
+      )}
+      {paper && (
+        <div class="entry entry-paper">
+          <span class="meta">{t.homePaper}</span>
+          <h3 class="entry-title"><a href={paper.link ?? lp(lang, '/articles/')} target={paper.link ? '_blank' : undefined} rel="noopener" lang="en">{paper.title}</a></h3>
+          <p class="entry-by">{paperBy}{paper.venue && <Fragment>, <cite>{paper.venue}</cite></Fragment>}, {paper.year}</p>
+          <p class="more"><a href={lp(lang, '/articles/')}>{t.allPapers}</a></p>
+        </div>
+      )}
+    </section>
 
     <section class="block">
       <SectionHead title={t.notices} />
@@ -60,6 +89,7 @@ const notices = await getNotices(lang);
             </li>
           ))}
       </ul>
+      <p class="home-links"><a href={lp(lang, '/book/')}>{t.books}</a><a href={href('/rss.xml')}>{t.rss}</a><a href={lp(lang, '/about/')}>{t.contact}</a></p>
     </section>
   </div>
 </Base>
