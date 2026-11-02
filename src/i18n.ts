@@ -35,13 +35,13 @@ export const themes = [
     id: 'economics', en: 'Economics', fr: 'Économie',
     // The epigraph of thesis ch. 2; the French is the thesis's own translation.
     line: { en: '“It is unworthy of excellent men to lose hours like slaves in the labor of calculation, which could be safely relegated to anyone else if the machine were used.”', fr: '« Il est indigne d’hommes éminents de perdre des heures, comme des esclaves, au labeur du calcul, qui pourrait être confié en toute sûreté au premier venu si l’on employait la machine. »' },
-    by: { en: 'Leibniz, 1685, translated by Mark Kormes', fr: 'Leibniz, 1685 (ma traduction)' },
+    by: { en: 'Leibniz, 1685, translated by Mark Kormes', fr: 'Leibniz, 1685' },
   },
   {
     id: 'biophysics', en: 'Biophysics', fr: 'Biophysique',
     // Thesis ch. 3, after Daumas, Histoire générale des techniques, p. 296.
     line: { en: 'The watch is “a machine with zero efficiency”: “it is not work that is asked of it, but information.”', fr: 'La montre est « une machine à rendement nul » : « ce n’est pas du travail qu’on lui demande, mais de l’information ».' },
-    by: { en: 'Maurice Daumas, 1964 (my translation)', fr: 'Maurice Daumas, 1964' },
+    by: { en: 'Maurice Daumas, 1964', fr: 'Maurice Daumas, 1964' },
   },
   {
     id: 'climate', en: 'Climate', fr: 'Climat',
@@ -53,7 +53,7 @@ export const themes = [
     id: 'philosophy', en: 'Philosophy', fr: 'Philosophie', apart: true,
     // Simondon, Du mode d'existence des objets techniques, Aubier, introduction, p. 12.
     line: { en: '“What resides in machines is human reality, human gesture fixed and crystallised in structures that work.”', fr: '« Ce qui réside dans les machines, c’est de la réalité humaine, du geste humain fixé et cristallisé en structures qui fonctionnent. »' },
-    by: { en: 'Gilbert Simondon, 1958 (my translation)', fr: 'Gilbert Simondon, 1958' },
+    by: { en: 'Gilbert Simondon, 1958', fr: 'Gilbert Simondon, 1958' },
   },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
