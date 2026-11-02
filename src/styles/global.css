@@ -454,6 +454,8 @@ sub { bottom: -0.2em; }
 .convergence .cv-narrow { display: none; }
 @media (max-width: 40rem) { .convergence .cv-wide { display: none; } .convergence .cv-narrow { display: block; max-width: 24rem; margin-inline: auto; } }
 .cv-circles circle { fill: var(--ink); fill-opacity: 0.03; stroke: var(--ink); stroke-opacity: 0.38; stroke-width: 0.9; }
+.cv-strand path { fill: none; stroke: var(--ink); stroke-width: 1; stroke-linecap: round; }
+.cv-strand circle { fill: var(--ink); }
 .cv-trunk { fill: none; stroke: var(--ink); stroke-width: 1.9; stroke-linecap: round; }
 .cv-loop { fill: none; stroke: var(--sun); stroke-width: 2.6; stroke-linecap: round; }
 .cv-heart { fill: var(--sun); }
@@ -469,17 +471,13 @@ sub { bottom: -0.2em; }
 .cv-root.l1 { stroke-width: 0.75; }
 .cv-link { fill: none; stroke: var(--sun); stroke-width: 0.8; stroke-linecap: round; stroke-opacity: 0.32; stroke-dasharray: 0.004 0.016; }
 .cv-node { fill: var(--sun); }
-/* The functions, on the left: the same web as the fields, in ink. */
-.cv-root.cv-in { stroke: var(--ink); stroke-opacity: 0.42; }
-.cv-link.cv-in { stroke: var(--ink); stroke-opacity: 0.22; }
-.cv-node.cv-in { fill: var(--ink); fill-opacity: 0.7; }
-.cv-heart.cv-in { fill: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .cv-waves, .cv-beat { display: none; } }
 .cv-toggle { display: block; margin: 0.3rem 0 0 auto; padding: 0.3rem 0; background: none; border: 0; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); cursor: pointer; }
 .cv-toggle:hover, .cv-toggle:focus-visible { color: var(--sun); }
 .cv-toggle[hidden] { display: none; }
 /* The drawing traces itself once, for every reader: lines drawn, fades, nothing that zooms. */
 .cv-circles { animation: cv-fade 1.2s ease-out both; }
+.cv-strand path { stroke-dasharray: 1; animation: sigil-draw 1.3s cubic-bezier(0.5, 0, 0.2, 1) both; animation-delay: calc(0.25s + var(--i) * 0.18s); }
 .cv-trunk { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.5, 0, 0.2, 1) 1.45s both; }
 .cv-trunk.t1 { animation-delay: 2.15s; }
 .cv-loop { stroke-dasharray: 1; animation: sigil-draw 0.9s cubic-bezier(0.6, 0, 0.2, 1) 1.75s both; }
@@ -488,12 +486,6 @@ sub { bottom: -0.2em; }
 .cv-root.l1 { animation-delay: calc(3.2s + var(--i) * 0.2s); }
 .cv-link { animation: cv-fade 1.4s ease-out 4.4s both; }
 .cv-node { animation: cv-fade 0.5s ease-out both; animation-delay: calc(4s + var(--n) * 0.07s); }
-/* The functions draw themselves first, from their circles in towards their heart. */
-.cv-root.cv-in.l1 { animation-delay: calc(0.3s + var(--i) * 0.18s); }
-.cv-root.cv-in.l0 { animation-delay: calc(0.9s + var(--i) * 0.18s); }
-.cv-link.cv-in { animation-delay: 1.3s; }
-.cv-node.cv-in { animation-delay: calc(0.2s + var(--n) * 0.07s); }
-.cv-heart.cv-in { animation-delay: 1.3s; }
 @media (prefers-reduced-motion: no-preference) { .cv-still { display: none; } }
 @keyframes cv-fade { from { opacity: 0; } to { opacity: 1; } }
 
@@ -574,8 +566,7 @@ sub { bottom: -0.2em; }
 .cv-mini .cv-field { font-size: 20px; }
 .cv-mini .cv-note { font-size: 26px; }
 @media (max-width: 40rem) { .convergence.cv-mini .cv-narrow { max-width: 17rem; } .cv-mini .cv-narrow .cv-label { font-size: 15px; } .cv-mini .cv-narrow .cv-field { font-size: 16px; } .cv-mini .cv-narrow .cv-note { font-size: 20px; } }
-.cv-focus :is(.cv-trunk, .cv-loop, .cv-note, .cv-circles circle, .cv-field, .cv-root) { opacity: 0.22; }
-.cv-focus .cv-heart.cv-in { fill-opacity: 0.25; }
+.cv-focus :is(.cv-strand, .cv-trunk, .cv-loop, .cv-note, .cv-circles circle, .cv-field, .cv-root) { opacity: 0.22; }
 .cv-focus .cv-node { fill-opacity: 0.25; }
 .cv-focus .cv-link { stroke-opacity: 0.1; }
 .convergence.cv-focus-history .part-history, .convergence.cv-focus-economics .part-economics, .convergence.cv-focus-biophysics .part-biophysics, .convergence.cv-focus-climate .part-climate { opacity: 1; fill-opacity: 1; }
@@ -720,3 +711,7 @@ a:hover > .sigil path, .with-sigil:hover .sigil path, .page-sigil:hover .sigil p
 
 /* Field pages: a quiet sentence under the title. */
 .page-line { margin-top: 1rem; max-width: 34rem; font-size: 1.15rem; line-height: 1.55; font-style: italic; color: var(--muted); }
+/* Under a field's title: a short quotation, or a fact, and who said it. */
+.page-quote { margin: 0; }
+.page-quote blockquote { margin: 0; }
+.page-by { margin-top: 0.55rem; max-width: 34rem; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted); }

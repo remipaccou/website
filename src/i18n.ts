@@ -20,14 +20,41 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
 // The fields the work is filed under, each with the Greek word it comes from
-// and the sentence that introduces its page. Philosophy comes after the four,
-// set apart and in red: it looks at the whole rather than at a part.
+// and, under the title of its page, a sentence that is either a fact or a
+// short quotation from an author the thesis leans on, with who said it.
+// Philosophy comes after the four, set apart and in red: it looks at the
+// whole rather than at a part.
 export const themes = [
-  { id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία', line: { en: 'How the techniques that transmit, store and compute found their place in the economy, and who came to pay for them.', fr: "Comment les techniques qui transmettent, conservent et calculent ont trouvé leur place dans l’économie, et qui a fini par les payer." } },
-  { id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία', line: { en: 'What computing does to the price and to the value of electricity.', fr: "Ce que le calcul fait au prix et à la valeur de l’électricité." } },
-  { id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις', line: { en: 'The energy and the heat that information requires, and the limits the Earth sets to them.', fr: "L’énergie et la chaleur que demande l’information, et les limites que la Terre leur fixe." } },
-  { id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα', line: { en: 'Where digital infrastructures meet the trajectories of the climate.', fr: 'Là où les infrastructures numériques rencontrent les trajectoires du climat.' } },
-  { id: 'philosophy', en: 'Philosophy', fr: 'Philosophie', greek: 'τέχνη', apart: true, line: { en: 'Thinking about technics, with Simondon, Stiegler and Yuk Hui.', fr: 'Penser la technique, avec Simondon, Stiegler et Yuk Hui.' } },
+  {
+    id: 'history', en: 'History', fr: 'Histoire', greek: 'ἱστορία',
+    // The motto of the Paris-Lyon-Méditerranée railway's accounts, thesis ch. 1 (mechanised data).
+    line: { en: '“First organise, then mechanise.”', fr: '« D’abord organiser, ensuite mécaniser. »' },
+    by: { en: 'Georges Bolle, head of accounts of the PLM railway, 1929 (my translation)', fr: 'Georges Bolle, chef de la comptabilité du PLM, 1929' },
+  },
+  {
+    id: 'economics', en: 'Economics', fr: 'Économie', greek: 'οἰκονομία',
+    // The epigraph of thesis ch. 2; the French is the thesis's own translation.
+    line: { en: '“It is unworthy of excellent men to lose hours like slaves in the labor of calculation, which could be safely relegated to anyone else if the machine were used.”', fr: '« Il est indigne d’hommes éminents de perdre des heures, comme des esclaves, au labeur du calcul, qui pourrait être confié en toute sûreté au premier venu si l’on employait la machine. »' },
+    by: { en: 'Leibniz, 1685, translated by Mark Kormes', fr: 'Leibniz, 1685 (ma traduction)' },
+  },
+  {
+    id: 'biophysics', en: 'Biophysics', fr: 'Biophysique', greek: 'φύσις',
+    // Thesis ch. 3, after Daumas, Histoire générale des techniques, p. 296.
+    line: { en: 'The watch is “a machine with zero efficiency”: “it is not work that is asked of it, but information.”', fr: 'La montre est « une machine à rendement nul » : « ce n’est pas du travail qu’on lui demande, mais de l’information ».' },
+    by: { en: 'Maurice Daumas, 1964 (my translation)', fr: 'Maurice Daumas, 1964' },
+  },
+  {
+    id: 'climate', en: 'Climate', fr: 'Climat', greek: 'κλίμα',
+    // IPCC AR6 WG I, Summary for Policymakers, A.1 (the official French version).
+    line: { en: '“It is unequivocal that human influence has warmed the atmosphere, ocean and land.”', fr: '« Il est sans équivoque que l’influence humaine a réchauffé l’atmosphère, l’océan et les terres. »' },
+    by: { en: 'IPCC, Sixth Assessment Report, 2021', fr: 'GIEC, sixième rapport d’évaluation, 2021' },
+  },
+  {
+    id: 'philosophy', en: 'Philosophy', fr: 'Philosophie', greek: 'τέχνη', apart: true,
+    // Du mode d'existence des objets techniques, Aubier, introduction, p. 12.
+    line: { en: '“What resides in machines is human reality, human gesture fixed and crystallised in structures that work.”', fr: '« Ce qui réside dans les machines, c’est de la réalité humaine, du geste humain fixé et cristallisé en structures qui fonctionnent. »' },
+    by: { en: 'Gilbert Simondon, 1958 (my translation)', fr: 'Gilbert Simondon, 1958' },
+  },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
 
@@ -48,7 +75,7 @@ export const ui = {
       play: 'set in motion',
       pause: 'stop the motion',
       economy: 'economics', energy: 'biophysics', climate: 'climate',
-      alt: 'A drawing in mirror. On the left, three overlapping circles: the functions of information, transmitting, storing and computing, composed on one substrate. In the middle, in red, the open circle of a capital that reproduces itself, fed by them. On the right, three overlapping circles it reaches through their heart: the economy, the biophysical world and the climate.',
+      alt: 'On the left, three functions of information, transmitting, computing and storing, arrive each in its own time and meet in one line. At the centre, in red, the open circle of a capital that reproduces itself. From it the line reaches, on the right, the heart of three overlapping circles: the economy, the biophysical world and the climate.',
     },
     swirl: {
       alt: 'Three threads, one for each function of information, wind in towards today. The stroke says what electricity does in each: dotted while the function works without depending on it; thin once electricity makes the operation or holds a state (transmitting in 1837, computing in 1946, the working memory of storing in 1970); thick once energy is held continuously for the service to stay available (1895, 1958, 1991). Between 1975 and 2007 the three tighten into one knot, on a common substrate.',
@@ -94,7 +121,7 @@ export const ui = {
       play: 'mettre en mouvement',
       pause: 'arrêter le mouvement',
       economy: 'économie', energy: 'biophysique', climate: 'climat',
-      alt: "Un dessin en miroir. À gauche, trois cercles qui se recouvrent : les fonctions de l’information, transmettre, stocker et calculer, composées sur un même substrat. Au milieu, en rouge, le cercle ouvert d’un capital qui se reproduit, qu’elles nourrissent. À droite, trois cercles qu’il atteint par leur cœur : l’économie, le monde biophysique et le climat.",
+      alt: "À gauche, trois fonctions de l’information, transmettre, calculer et stocker, arrivent chacune à son heure et se rejoignent en une seule ligne. Au centre, en rouge, le cercle ouvert d’un capital qui se reproduit. De là, la ligne atteint, à droite, le cœur de trois cercles qui se recouvrent : l’économie, le monde biophysique et le climat.",
     },
     swirl: {
       alt: "Trois fils, un par fonction de l’information, s’enroulent vers aujourd’hui. Le trait dit ce que l’électricité y fait : pointillé tant que la fonction n’en dépend pas ; fin quand l’électricité fait l’opération ou maintient un état (transmettre en 1837, calculer en 1946, la mémoire de travail du stockage en 1970) ; épais quand l’énergie est tenue en continu pour que le service reste disponible (1895, 1958, 1991). Entre 1975 et 2007, les trois se resserrent en un seul nœud, sur un même substrat.",

@@ -1,18 +1,18 @@
 ---
-// The home-page drawing, in mirror. On the left, three circles that overlap:
-// the three functions of information, transmitting, storing, computing, which
-// compose on one substrate (chapter 1 of the thesis). In the middle, in red,
-// the open circle of a capital that reproduces itself (chapter 2). On the
-// right, three circles that overlap: the economy, the biophysical world and
-// the climate, three systems in interaction (chapter 3). Red dots leave the
-// functions, meet at their heart, turn in the capital, and enter the fields
-// through the heart of the three systems. Two layouts: wide (left to right)
-// and narrow (top to bottom) for phones.
+// The home-page drawing, balanced around the red capital at its centre. On the
+// left, the three functions of information arrive, each in its own time, and
+// meet in one line (chapter 1 of the thesis). In the middle, in red, the open
+// circle of a capital that reproduces itself (chapter 2). On the right, the
+// line reaches the heart of three circles that overlap: the economy, the
+// biophysical world and the climate (chapter 3). Three into one, one into
+// three; the strands reach as far to the left as the circles to the right.
+// Red dots leave the strands, turn in the capital and enter the fields. Two
+// layouts: wide (left to right) and narrow (top to bottom) for phones.
 //
 // On a field page the same drawing comes back smaller (mini), with the part
-// that field looks at lit and the rest left pale: history, the three
-// functions; economics, the capital and the circle of the economy;
-// biophysics, the circle of energy; climate, the circle of the climate.
+// that field looks at lit and the rest left pale: history, the three functions
+// arriving; economics, the capital and the circle of the economy; biophysics,
+// the circle of energy; climate, the circle of the climate.
 import { langOf, ui } from '../i18n';
 type Field = 'history' | 'economics' | 'biophysics' | 'climate';
 interface Props { focus?: Field; mini?: boolean }
@@ -26,113 +26,126 @@ const noteLines = [words.slice(0, half).join(' '), words.slice(half).join(' ')];
 
 type Pt = { x: number; y: number };
 const f = (p: Pt) => `${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
+const n1 = (v: number) => v.toFixed(1);
 
-// Three overlapping circles around a heart V, and the web inside them: thin
-// roots from the heart into each circle, and links from one circle to the next
-// through the zones where they overlap. Built in units of r; sx and sy mirror
-// it (sx = -1: left-right; sy = -1: top-bottom), so the functions are the
-// mirror image of the fields.
-function venn(V: Pt, r: number, d: number, sx = 1, sy = 1) {
-  const pt = (deg: number, k: number) => ({ x: V.x + sx * k * r * Math.cos((deg * Math.PI) / 180), y: V.y + sy * k * r * Math.sin((deg * Math.PI) / 180) });
+// Three overlapping circles around a heart V, and what the heart sends into
+// them: rings that spread (diffusion), thin red roots that grow into each
+// circle (complexity), and sparks that pass from one circle to the next
+// through the zones where they overlap (interaction). Built in units of r, so
+// both layouts share it.
+function venn(V: Pt, r: number, d: number) {
+  const pt = (deg: number, k: number) => ({ x: V.x + k * r * Math.cos((deg * Math.PI) / 180), y: V.y + k * r * Math.sin((deg * Math.PI) / 180) });
+  // Economy (upper left), energy (upper right), climate (below).
   const circles = [
-    { x: V.x - sx * 0.866 * d, y: V.y - sy * 0.5 * d },
-    { x: V.x + sx * 0.866 * d, y: V.y - sy * 0.5 * d },
-    { x: V.x, y: V.y + sy * d },
+    { x: V.x - 0.866 * d, y: V.y - 0.5 * d },
+    { x: V.x + 0.866 * d, y: V.y - 0.5 * d },
+    { x: V.x, y: V.y + d },
   ];
   const arms = [{ th: 210, a: -16, b: 24 }, { th: 330, a: -22, b: 18 }, { th: 90, a: -22, b: 22 }];
-  const roots: { out: string; in: string; i: number; lvl: number }[] = [];
-  const tips: (Pt & { deg: number; out: string; in: string })[] = [];
+  const roots: { d: string; i: number; lvl: number }[] = [];
+  const tips: (Pt & { deg: number; path: string })[] = [];
   arms.forEach((A, i) => {
     const S = pt(A.th + 6, 0.58), c = pt(A.th - 8, 0.3);
-    roots.push({ out: `M${f(V)}Q${f(c)} ${f(S)}`, in: `M${f(S)}Q${f(c)} ${f(V)}`, i, lvl: 0 });
+    const stem = `M${f(V)}Q${f(c)} ${f(S)}`;
+    roots.push({ d: stem, i, lvl: 0 });
     for (const [da, k] of [[A.a, 1.04], [A.b, 1.14]]) {
       const T = pt(A.th + da, k), c2 = pt(A.th + da * 0.4, 0.85);
-      roots.push({ out: `M${f(S)}Q${f(c2)} ${f(T)}`, in: `M${f(T)}Q${f(c2)} ${f(S)}`, i, lvl: 1 });
-      tips.push({ ...T, deg: A.th + da, out: `M${f(V)}Q${f(c)} ${f(S)}Q${f(c2)} ${f(T)}`, in: `M${f(T)}Q${f(c2)} ${f(S)}Q${f(c)} ${f(V)}` });
+      roots.push({ d: `M${f(S)}Q${f(c2)} ${f(T)}`, i, lvl: 1 });
+      tips.push({ ...T, deg: A.th + da, path: `${stem}Q${f(c2)} ${f(T)}` });
     }
   });
+  // Each link leaves one circle's root and reaches the next, through their overlap.
   const links = [[0, 1], [1, 2], [2, 0]].map(([i, j]) => {
     const from = tips[2 * i + 1], to = tips[2 * j];
     let mid = (from.deg + to.deg) / 2;
     if (Math.abs(from.deg - to.deg) > 180) mid += 180;
     return `M${f(from)}Q${f(pt(mid, 1.05))} ${f(to)}`;
   });
-  return { V, r, circles, roots, tips, links, R: 1.35 * r };
+  return { V, r, circles, roots, tips, links, R: 1.35 * r, reach: r + 0.866 * d };
 }
 
 // The capital: the open circle of the site's mark, its gap at the upper right.
 function ring(c: Pt, rc: number) {
   const at = (deg: number) => ({ x: c.x + rc * Math.cos((deg * Math.PI) / 180), y: c.y + rc * Math.sin((deg * Math.PI) / 180) });
-  const a = at(-60), b = at(-22);
-  return `M${f(a)}A${rc} ${rc} 0 1 0 ${f(b)}`;
+  return `M${f(at(-60))}A${rc} ${rc} 0 1 0 ${f(at(-22))}`;
 }
 
-// The flow: six small red dots, one every 1.5 s. Each leaves a root of one
-// function, reaches the heart of the functions, turns one and a half times in
-// the capital and reaches the heart of the fields in 5.5 s, then enters one
-// field along a root in 1.5 s, and starts again 9.5 s later. Functions and
-// fields are crossed, so that each function feeds two fields. When a dot
-// reaches a root that touches the next circle, a smaller dot carries on along
-// the link, through the zone where the two overlap.
-const START = 3.2, GAP = 1.5, T1 = 5.5, T2 = 1.5, CYCLE = 9.5;
-const dots = [0, 1, 2, 3, 4, 5].map((n) => ({ n, from: n, tip: (n * 5) % 6 }));
-const linkFrom = [1, 3, 5].map((tip) => dots.find((d) => d.tip === tip)!.n);
+// A strand from its first point to the knot K where the three meet, leaving
+// and arriving level with the line (horizontal or vertical).
+function strand(s: Pt, K: Pt, vertical: boolean) {
+  if (vertical ? s.x === K.x : s.y === K.y) return `M${f(s)}L${f(K)}`;
+  if (vertical) {
+    const span = K.y - s.y;
+    return `M${f(s)}C${n1(s.x)} ${n1(s.y + 0.5 * span)} ${n1(K.x)} ${n1(K.y - 0.3 * span)} ${f(K)}`;
+  }
+  const span = K.x - s.x;
+  return `M${f(s)}C${n1(s.x + 0.5 * span)} ${n1(s.y)} ${n1(K.x - 0.3 * span)} ${n1(K.y)} ${f(K)}`;
+}
 
-// Wide layout, viewBox 1160 x 420: the capital at the centre, the two sets of
-// circles at the same distance on either side.
+// The flow: six small red dots, one every 1.5 s. Each leaves one of the three
+// strands, turns one and a half times in the capital and reaches the heart of
+// the fields in 5.5 s whatever its strand, then enters one circle along a root
+// in 1.5 s, and starts again 9.5 s later. Strands and circles are crossed, so
+// that each function feeds two fields. When a dot reaches a root that touches
+// the next circle, a smaller dot carries on along the link, through the zone
+// where the two overlap.
+const START = 3.2, GAP = 1.5, T1 = 5.5, T2 = 1.5, CYCLE = 9.5;
+const dots = [0, 1, 2, 3, 4, 5].map((n) => ({ n, strand: n % 3, tip: (n * 5) % 6 }));
+const linkFrom = [1, 3, 5].map((tip) => dots.find((d) => d.tip === tip)!.n);
+const labelsOf = [t.transmit, t.compute, t.store];
+
+// Wide layout, viewBox 1160 x 420: the capital at the centre; the first strand
+// starts as far to the left as the circles reach to the right.
 const W = (() => {
   const Y = 205, X0 = 580, D = 340, r = 100, d = 56, rc = 46;
-  const L = venn({ x: X0 - D, y: Y }, r, d, -1, 1), R = venn({ x: X0 + D, y: Y }, r, d);
+  const R = venn({ x: X0 + D, y: Y }, r, d);
   const into = { x: X0 - rc, y: Y }, outof = { x: X0 + rc, y: Y };
+  const K = { x: into.x - 70, y: Y };
+  const x0 = X0 - D - R.reach;
+  const starts = [{ x: x0, y: Y - 118 }, { x: x0 + 80, y: Y }, { x: x0 + 160, y: Y + 118 }];
+  const [c0, c1, c2] = R.circles;
   return {
-    box: '0 0 1160 420', L, R,
+    box: '0 0 1160 420', R,
+    // The names sit above their first point, the lowest below it, clear of its strand.
+    strands: starts.map((s, i) => ({ ...s, d: strand(s, K, false), label: labelsOf[i], anchor: 'start', dy: i === 2 ? (mini ? 34 : 24) : mini ? -20 : -13 })),
     ring: ring({ x: X0, y: Y }, rc),
-    trunks: [`M${f(L.V)}L${f(into)}`, `M${f(outof)}L${f(R.V)}`],
-    // From the heart of the functions, once and a half round the capital, to the heart of the fields.
+    trunks: [`M${f(K)}L${f(into)}`, `M${f(outof)}L${f(R.V)}`],
+    // From the knot, once and a half round the capital, to the heart of the fields.
     tail: `L${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}A${rc} ${rc} 0 0 1 ${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}L${f(R.V)}`,
     note: { x: X0, y: Y + rc + (mini ? 46 : 32), anchor: 'middle', split: false },
     // In the small version the letters are larger: the names of the upper circles sit above them.
-    labels: (k: 'L' | 'R') => {
-      const S = k === 'L' ? L : R, s = k === 'L' ? -1 : 1;
-      const [c0, c1, c2] = S.circles;
-      const words = k === 'L' ? [t.store, t.transmit, t.compute] : [t.economy, t.energy, t.climate];
-      const top = mini
-        ? [{ x: c0.x - s * 40, y: c0.y - r - 14, anchor: 'middle' }, { x: c1.x + s * 40, y: c1.y - r - 14, anchor: 'middle' }]
-        : [{ x: c0.x - s * 0.72 * r, y: c0.y - 0.72 * r, anchor: s > 0 ? 'end' : 'start' }, { x: c1.x + s * 0.72 * r, y: c1.y - 0.72 * r, anchor: s > 0 ? 'start' : 'end' }];
-      return [...top, { x: c2.x, y: c2.y + r + 26, anchor: 'middle' }].map((p, i) => ({ ...p, text: words[i] }));
-    },
+    labels: [
+      ...(mini
+        ? [{ x: c0.x - 40, y: c0.y - r - 14, anchor: 'middle' }, { x: c1.x + 40, y: c1.y - r - 14, anchor: 'middle' }]
+        : [{ x: c0.x - 0.72 * r, y: c0.y - 0.72 * r, anchor: 'end' }, { x: c1.x + 0.72 * r, y: c1.y - 0.72 * r, anchor: 'start' }]),
+      { x: c2.x, y: c2.y + r + 26, anchor: 'middle' },
+    ].map((p, i) => ({ ...p, text: [t.economy, t.energy, t.climate][i] })),
   };
 })();
 
-// Narrow layout, viewBox 360 x 680: the functions above, the capital in the
-// middle, the fields below.
+// Narrow layout, viewBox 360 x 680: the functions arrive from above, the
+// capital in the middle, the fields below.
 const N = (() => {
   const X = 180, Yc = 340, D = 190, r = 76, d = 42, rc = 34;
-  const L = venn({ x: X, y: Yc - D }, r, d, 1, -1), R = venn({ x: X, y: Yc + D }, r, d);
+  const R = venn({ x: X, y: Yc + D }, r, d);
   const into = { x: X, y: Yc - rc }, outof = { x: X, y: Yc + rc };
+  const K = { x: X, y: into.y - 50 };
+  const starts = [{ x: 60, y: 42 }, { x: X, y: 92 }, { x: 300, y: 142 }];
+  const [c0, c1, c2] = R.circles;
   return {
-    box: '0 0 360 680', L, R,
+    box: '0 0 360 680', R,
+    strands: starts.map((s, i) => ({ ...s, d: strand(s, K, true), label: labelsOf[i], anchor: 'middle', dy: mini ? -16 : -12 })),
     ring: ring({ x: X, y: Yc }, rc),
-    trunks: [`M${f(L.V)}L${f(into)}`, `M${f(outof)}L${f(R.V)}`],
+    trunks: [`M${f(K)}L${f(into)}`, `M${f(outof)}L${f(R.V)}`],
     tail: `L${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}A${rc} ${rc} 0 0 1 ${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}L${f(R.V)}`,
     // On a phone the note goes on two lines, left of the capital.
     note: { x: X - rc - 14, y: Yc - 6, anchor: 'end', split: true },
-    // The names of the two circles nearest the capital sit either side of the line.
-    labels: (k: 'L' | 'R') => {
-      const S = k === 'L' ? L : R;
-      const [c0, c1, c2] = S.circles;
-      if (k === 'R')
-        return [
-          { x: X - 10, y: c0.y - r - 12, anchor: 'end', text: t.economy },
-          { x: X + 10, y: c1.y - r - 12, anchor: 'start', text: t.energy },
-          { x: c2.x, y: c2.y + r + 24, anchor: 'middle', text: t.climate },
-        ];
-      return [
-        { x: X - 10, y: c0.y + r + 22, anchor: 'end', text: t.store },
-        { x: X + 10, y: c1.y + r + 22, anchor: 'start', text: t.transmit },
-        { x: c2.x, y: c2.y - r - 12, anchor: 'middle', text: t.compute },
-      ];
-    },
+    // The names of the two upper circles sit either side of the line.
+    labels: [
+      { x: X - 10, y: c0.y - r - 12, anchor: 'end', text: t.economy },
+      { x: X + 10, y: c1.y - r - 12, anchor: 'start', text: t.energy },
+      { x: c2.x, y: c2.y + r + 24, anchor: 'middle', text: t.climate },
+    ],
   };
 })();
 ---
@@ -140,7 +153,6 @@ const N = (() => {
   {[{ G: { ...W, id: 'cvw' }, cls: 'cv-wide' }, { G: { ...N, id: 'cvn' }, cls: 'cv-narrow' }].map(({ G, cls }) => (
     <svg class={cls} viewBox={G.box} role="img" aria-label={t.alt}>
       <g class="cv-circles">
-        {G.L.circles.map((c, i) => <circle class="part-history" cx={c.x} cy={c.y} r={G.L.r} style={`--i:${i}`} />)}
         {G.R.circles.map((c, i) => <circle class={`part-${circlePart[i]}`} cx={c.x} cy={c.y} r={G.R.r} />)}
       </g>
       <g class="cv-web" aria-hidden="true">
@@ -151,11 +163,16 @@ const N = (() => {
             <animate attributeName="opacity" values="0.3;0" dur="5s" begin={`${G.id}p${p.n}a.end`} fill="freeze" />
           </circle>
         ))}</g>
-        {G.L.links.map((d) => <path class="cv-link cv-in part-history" d={d} pathLength="1" />)}
-        {G.L.roots.map((p) => <path class={`cv-root cv-in l${p.lvl} part-history`} d={p.in} pathLength="1" style={`--i:${p.i}`} />)}
         {G.R.links.map((d) => <path class="cv-link" d={d} pathLength="1" />)}
-        {G.R.roots.map((p) => <path class={`cv-root l${p.lvl} part-${circlePart[p.i]}`} d={p.out} pathLength="1" style={`--i:${p.i}`} />)}
+        {G.R.roots.map((p) => <path class={`cv-root l${p.lvl} part-${circlePart[p.i]}`} d={p.d} pathLength="1" style={`--i:${p.i}`} />)}
       </g>
+      {G.strands.map((s, i) => (
+        <g class="cv-strand part-history" style={`--i:${i}`}>
+          <path d={s.d} pathLength="1" />
+          <circle cx={s.x} cy={s.y} r="3.2" />
+          <text x={s.x} y={s.y + s.dy} text-anchor={s.anchor} class="cv-label">{s.label}</text>
+        </g>
+      ))}
       {G.trunks.map((d, i) => <path class={`cv-trunk t${i}`} d={d} pathLength="1" />)}
       <path class="cv-loop part-economics" d={G.ring} pathLength="1" />
       <text class="cv-note part-economics" x={G.note.x} y={G.note.y} text-anchor={G.note.anchor}>
@@ -168,8 +185,8 @@ const N = (() => {
         </circle>
         {dots.map((p) => (
           <circle class="cv-dot" r="2.6" opacity="0">
-            <animateMotion id={`${G.id}p${p.n}a`} path={G.L.tips[p.from].in + G.tail} dur={`${T1}s`} begin={`${START + GAP * p.n}s;${G.id}p${p.n}b.end+${CYCLE - T1 - T2}s`} fill="freeze" />
-            <animateMotion id={`${G.id}p${p.n}b`} path={G.R.tips[p.tip].out} dur={`${T2}s`} begin={`${G.id}p${p.n}a.end`} fill="freeze" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.3 0.5 0.4 1" />
+            <animateMotion id={`${G.id}p${p.n}a`} path={G.strands[p.strand].d + G.tail} dur={`${T1}s`} begin={`${START + GAP * p.n}s;${G.id}p${p.n}b.end+${CYCLE - T1 - T2}s`} fill="freeze" />
+            <animateMotion id={`${G.id}p${p.n}b`} path={G.R.tips[p.tip].path} dur={`${T2}s`} begin={`${G.id}p${p.n}a.end`} fill="freeze" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.3 0.5 0.4 1" />
             <animate attributeName="opacity" values="0;0.95" dur="0.4s" begin={`${G.id}p${p.n}a.begin`} fill="freeze" />
             <animate attributeName="opacity" values="0.95;0.95;0" keyTimes="0;0.7;1" dur={`${T2}s`} begin={`${G.id}p${p.n}b.begin`} fill="freeze" />
           </circle>
@@ -181,12 +198,9 @@ const N = (() => {
           </circle>
         ))}
       </g>
-      <circle class="cv-heart cv-in part-history" cx={G.L.V.x} cy={G.L.V.y} r="3.4" />
       <circle class="cv-heart" cx={G.R.V.x} cy={G.R.V.y} r="5" />
-      {G.L.tips.map((p, n) => <circle class="cv-node cv-in part-history" cx={p.x} cy={p.y} r="1.9" style={`--n:${n}`} />)}
       {G.R.tips.map((p, n) => <circle class={`cv-node part-${circlePart[Math.floor(n / 2)]}`} cx={p.x} cy={p.y} r="2.1" style={`--n:${n}`} />)}
-      {G.labels('L').map((l) => <text class="cv-label cv-field part-history" x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
-      {G.labels('R').map((l, i) => <text class={`cv-label cv-field part-${circlePart[i]}`} x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
+      {G.labels.map((l, i) => <text class={`cv-label cv-field part-${circlePart[i]}`} x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
     </svg>
   ))}
   <button class="cv-toggle" type="button" hidden data-play={t.play} data-pause={t.pause}>{t.pause}</button>
