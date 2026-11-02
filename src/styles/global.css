@@ -281,7 +281,7 @@ sub { bottom: -0.2em; }
    the margins of a LaTeX article, page numbers where the browser can, and no menu, footer,
    brush or button. Other pages keep their content without the furniture. */
 @media print {
-  @page { size: A4; margin: 2.4cm 2.6cm 2.6cm; @bottom-center { content: counter(page); font-family: 'CMU Serif', serif; font-size: 9.5pt; } }
+  @page { size: A4; margin: 2.4cm 2.6cm 2.6cm; @bottom-center { content: counter(page); font-family: 'Spectral', serif; font-size: 9.5pt; } }
   :root { --paper: #fff; --ink: #000; --muted: #333; --rule: #bbb; }
   html, body { background: #fff; color: #000; }
   .site-header, .site-footer, .skip, .read-brush, .paper-cite, .sidenote, .cv-toggle, .convergence, .swirl, .epigraph, .frise-now, .frise-hint, .frise-open { display: none !important; }
@@ -301,19 +301,20 @@ sub { bottom: -0.2em; }
 .derivations .katex-display > .katex { text-align: left; }
 .derivations .katex { font-size: 1em; }
 
-/* Essays, set like a LaTeX article. Text, headings, captions and tables use
-   Computer Modern, the face of the equations, so the page is of one piece. */
+/* Essays, laid out like a LaTeX article (numbered sections, equations, figures,
+   tables) but set in the face of the rest of the site; only the equations keep
+   Computer Modern. */
 .paper {
-  --cm: 'CMU Serif', 'KaTeX_Main', 'Latin Modern Roman', 'Times New Roman', serif;
+  --cm: var(--serif);
   --measure: 36rem;
-  font-family: var(--cm); font-weight: 500; font-size: 1.12rem; line-height: 1.5;
+  font-family: var(--cm); font-weight: 400; font-size: 1.08rem; line-height: 1.6;
   padding-top: clamp(2.5rem, 7vw, 4.5rem);
   counter-reset: sec eq fig tab;
 }
 .paper > * { max-width: var(--measure); margin-inline: auto; }
-.paper b, .paper strong, .paper th { font-weight: 700; }
+.paper b, .paper strong, .paper th { font-weight: 600; }
 .paper-head { text-align: center; }
-.paper-head h1 { font-size: clamp(1.6rem, 3.6vw, 2.05rem); font-weight: 500; line-height: 1.25; letter-spacing: 0; }
+.paper-head h1 { font-size: clamp(1.6rem, 3.6vw, 2.05rem); font-weight: 400; line-height: 1.25; letter-spacing: 0; }
 .paper-author { margin-top: 1.5rem; font-size: 1.2rem; }
 .paper-date { margin-top: 0.5rem; font-size: 1.2rem; }
 /* The field of the essay, as a seal under its date; an open circle where the text ends. */
@@ -381,11 +382,11 @@ sub { bottom: -0.2em; }
 
 .paper .prose > p, .paper .prose li, .paper .references p, .paper .derivations p { text-align: justify; hyphens: auto; text-wrap: pretty; }
 .paper .prose > * + * { margin-top: 0.9em; }
-.paper .prose h2 { font-size: 1.44em; font-weight: 700; letter-spacing: 0; margin-top: 2.2em; counter-increment: sec; counter-reset: sub; text-align: left; }
+.paper .prose h2 { font-size: 1.44em; font-weight: 500; letter-spacing: 0; margin-top: 2.2em; counter-increment: sec; counter-reset: sub; text-align: left; }
 .paper .prose h2::before { content: counter(sec); margin-right: 1em; color: var(--sun); }
-.paper .prose h3 { font-size: 1.2em; font-weight: 700; margin-top: 1.8em; counter-increment: sub; }
+.paper .prose h3 { font-size: 1.2em; font-weight: 500; margin-top: 1.8em; counter-increment: sub; }
 .paper .prose > h3::before { content: counter(sec) '.' counter(sub); margin-right: 1em; color: var(--sun); }
-.paper .prose h4 { font-size: 1em; font-weight: 700; }
+.paper .prose h4 { font-size: 1em; font-weight: 500; }
 /* References, appendices and what follows them are not numbered. */
 .paper .prose h2:has(+ .references), .paper .prose .references ~ h2 { counter-increment: none; }
 .paper .prose h2:has(+ .references)::before, .paper .prose .references ~ h2::before, .paper .prose .references ~ h3::before { content: none; }
