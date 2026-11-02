@@ -20,8 +20,8 @@ export const lp = (lang: Lang, path: string) => `${base}${lang === 'fr' ? '/fr' 
 export const langPaths = () => [{ params: { lang: undefined } }, { params: { lang: 'fr' } }];
 
 // The fields the work is filed under, each with, under the title of its page,
-// a sentence taken from the thesis: a fact or a short quotation, with who
-// said it.
+// a fact or a short quotation and who said it: taken from the thesis for the
+// four fields, from Simondon for philosophy.
 // Philosophy comes after the four, set apart and in red: it looks at the
 // whole rather than at a part.
 export const themes = [
@@ -51,10 +51,9 @@ export const themes = [
   },
   {
     id: 'philosophy', en: 'Philosophy', fr: 'Philosophie', apart: true,
-    // The first line of the thesis, left in English as it is there.
-    line: { en: '“Information is information, not matter or energy. No materialism which does not admit this can survive at the present day.”', fr: '« Information is information, not matter or energy. No materialism which does not admit this can survive at the present day. »' },
-    by: { en: 'Norbert Wiener, Cybernetics, 1948', fr: 'Norbert Wiener, Cybernetics, 1948' },
-    quoteLang: 'en',
+    // Simondon, Du mode d'existence des objets techniques, Aubier, introduction, p. 12.
+    line: { en: '“What resides in machines is human reality, human gesture fixed and crystallised in structures that work.”', fr: '« Ce qui réside dans les machines, c’est de la réalité humaine, du geste humain fixé et cristallisé en structures qui fonctionnent. »' },
+    by: { en: 'Gilbert Simondon, 1958 (my translation)', fr: 'Gilbert Simondon, 1958' },
   },
 ] as const;
 export type ThemeId = (typeof themes)[number]['id'];
