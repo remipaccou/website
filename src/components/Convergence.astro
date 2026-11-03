@@ -6,17 +6,20 @@
 // line reaches the heart of three circles that overlap: the economy, the
 // biophysical world and the climate (chapter 3). Three into one, one into
 // three; the strands reach as far to the left as the circles to the right.
-// Red dots leave the strands, turn in the capital and enter the fields. Two
-// layouts: wide (left to right) and narrow (top to bottom) for phones.
+// Two layouts: wide (left to right) and narrow (top to bottom) for phones.
 //
 // On a field page the same drawing comes back smaller (mini), with the part
 // that field looks at lit and the rest left pale: history, the three functions
 // arriving; economics, the capital and the circle of the economy; biophysics,
-// the circle of energy; climate, the circle of the climate. There the dots
-// tell a story instead of a steady flow (src/scripts/cv-story.ts): one per
-// function, then pairs that meet or miss each other, a capital that gathers
-// them, the field of the page reached first, and the others in their turn,
-// until all three are touched, in about fifteen seconds.
+// the circle of energy; climate, the circle of the climate.
+//
+// Red dots tell a story of about fifteen seconds (src/scripts/cv-story.ts):
+// one per function, then pairs that meet or miss each other, straight through
+// the capital into the circles, the field of the page first (the economy on
+// the home page); the capital gathers what passes and the spread to the other
+// fields quickens with it, until all three are touched. Then the functions
+// turn into a living dotted flow, the three circles stay lit and linked, and
+// the capital keeps what it has gathered.
 import { langOf, ui } from '../i18n';
 type Field = 'history' | 'economics' | 'biophysics' | 'climate';
 interface Props { focus?: Field; mini?: boolean }
@@ -86,16 +89,6 @@ function strand(s: Pt, K: Pt, vertical: boolean) {
   return `M${f(s)}C${n1(s.x + 0.5 * span)} ${n1(s.y)} ${n1(K.x - 0.3 * span)} ${n1(K.y)} ${f(K)}`;
 }
 
-// The flow: six small red dots, one every 1.5 s. Each leaves one of the three
-// strands, turns one and a half times in the capital and reaches the heart of
-// the fields in 5.5 s whatever its strand, then enters one circle along a root
-// in 1.5 s, and starts again 9.5 s later. Strands and circles are crossed, so
-// that each function feeds two fields. When a dot reaches a root that touches
-// the next circle, a smaller dot carries on along the link, through the zone
-// where the two overlap.
-const START = 3.2, GAP = 1.5, T1 = 5.5, T2 = 1.5, CYCLE = 9.5;
-const dots = [0, 1, 2, 3, 4, 5].map((n) => ({ n, strand: n % 3, tip: (n * 5) % 6 }));
-const linkFrom = [1, 3, 5].map((tip) => dots.find((d) => d.tip === tip)!.n);
 const labelsOf = [t.transmit, t.compute, t.store];
 
 // Wide layout, viewBox 1160 x 420: the capital at the centre; the first strand
@@ -115,7 +108,6 @@ const W = (() => {
     ring: ring({ x: X0, y: Y }, rc),
     trunks: [`M${f(K)}L${f(into)}`, `M${f(outof)}L${f(R.V)}`],
     // From the knot, once and a half round the capital, to the heart of the fields.
-    tail: `L${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}A${rc} ${rc} 0 0 1 ${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}L${f(R.V)}`,
     note: { x: X0, y: Y + rc + (mini ? 46 : 32), anchor: 'middle', split: false },
     // In the small version the letters are larger: the names of the upper circles sit above them.
     labels: [
@@ -141,7 +133,6 @@ const N = (() => {
     strands: starts.map((s, i) => ({ ...s, d: strand(s, K, true), label: labelsOf[i], anchor: 'middle', dy: mini ? -16 : -12 })),
     ring: ring({ x: X, y: Yc }, rc),
     trunks: [`M${f(K)}L${f(into)}`, `M${f(outof)}L${f(R.V)}`],
-    tail: `L${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}A${rc} ${rc} 0 0 1 ${f(into)}A${rc} ${rc} 0 0 1 ${f(outof)}L${f(R.V)}`,
     // On a phone the note goes on two lines, left of the capital.
     note: { x: X - rc - 14, y: Yc - 6, anchor: 'end', split: true },
     // The names of the two upper circles sit either side of the line.
@@ -155,18 +146,12 @@ const N = (() => {
 ---
 <figure class:list={['convergence', mini && 'cv-mini', focus && `cv-focus cv-focus-${focus}`]}>
   {[{ G: { ...W, id: 'cvw' }, cls: 'cv-wide' }, { G: { ...N, id: 'cvn' }, cls: 'cv-narrow' }].map(({ G, cls }) => (
-    <svg class={cls} viewBox={G.box} role="img" aria-label={t.alt} data-cap={`${G.cap.x} ${G.cap.y} ${G.cap.rc} ${G.cap.ain} ${G.cap.aout}`} data-dot={cls === 'cv-wide' ? 4.2 : 3.2}>
+    <svg class={cls} viewBox={G.box} role="img" aria-label={t.alt} data-cap={`${G.cap.x} ${G.cap.y} ${G.cap.rc} ${G.cap.ain} ${G.cap.aout}`} data-dot={mini ? (cls === 'cv-wide' ? 4.2 : 3.2) : cls === 'cv-wide' ? 3 : 2.6}>
       <g class="cv-circles">
         {G.R.circles.map((c, i) => <circle class={`part-${circlePart[i]}`} cx={c.x} cy={c.y} r={G.R.r} />)}
       </g>
       <g class="cv-web" aria-hidden="true">
         <g class="cv-still">{[0.34, 0.62, 0.9].map((k) => <circle class="cv-ring" cx={G.R.V.x} cy={G.R.V.y} r={k * G.R.R} />)}</g>
-        {!mini && <g class="cv-waves">{dots.map((p) => (
-          <circle class="cv-ring" cx={G.R.V.x} cy={G.R.V.y} r="0" opacity="0">
-            <animate attributeName="r" values={`3;${G.R.R}`} dur="5s" begin={`${G.id}p${p.n}a.end`} keySplines="0.2 0.6 0.35 1" calcMode="spline" keyTimes="0;1" fill="freeze" />
-            <animate attributeName="opacity" values="0.3;0" dur="5s" begin={`${G.id}p${p.n}a.end`} fill="freeze" />
-          </circle>
-        ))}</g>}
         {G.R.links.map((d) => <path class="cv-link" d={d} pathLength="1" />)}
         {G.R.roots.map((p) => <path class={`cv-root l${p.lvl} part-${circlePart[p.i]}`} d={p.d} pathLength="1" style={`--i:${p.i}`} />)}
       </g>
@@ -178,36 +163,13 @@ const N = (() => {
         </g>
       ))}
       {G.trunks.map((d, i) => <path class={`cv-trunk t${i}`} d={d} pathLength="1" />)}
-      {mini && <circle class="cv-mass" cx={G.cap.x} cy={G.cap.y} r={G.cap.rc * 0.8} />}
+      <circle class="cv-mass" cx={G.cap.x} cy={G.cap.y} r={G.cap.rc * 0.8} />
       <path class="cv-loop part-economics" d={G.ring} pathLength="1" />
       <text class="cv-note part-economics" x={G.note.x} y={G.note.y} text-anchor={G.note.anchor}>
         {G.note.split ? noteLines.map((line, i) => <tspan x={G.note.x} dy={i === 0 ? 0 : mini ? 26 : 20}>{line}</tspan>) : t.loop}
       </text>
-      {mini ? (
-        <>
-          <g class="cv-guides" fill="none" stroke="none" aria-hidden="true">{G.R.tips.map((p) => <path d={p.path} />)}</g>
-          <g class="cv-flow" aria-hidden="true"></g>
-        </>
-      ) : <g class="cv-flow" aria-hidden="true">
-        <circle class="cv-beat" cx={G.R.V.x} cy={G.R.V.y} r="5" opacity="0">
-          <animate attributeName="r" values="5;12" dur="0.8s" begin={dots.map((p) => `${G.id}p${p.n}a.end`).join(';')} fill="freeze" />
-          <animate attributeName="opacity" values="0.5;0" dur="0.8s" begin={dots.map((p) => `${G.id}p${p.n}a.end`).join(';')} fill="freeze" />
-        </circle>
-        {dots.map((p) => (
-          <circle class="cv-dot" r="2.6" opacity="0">
-            <animateMotion id={`${G.id}p${p.n}a`} path={G.strands[p.strand].d + G.tail} dur={`${T1}s`} begin={`${START + GAP * p.n}s;${G.id}p${p.n}b.end+${CYCLE - T1 - T2}s`} fill="freeze" />
-            <animateMotion id={`${G.id}p${p.n}b`} path={G.R.tips[p.tip].path} dur={`${T2}s`} begin={`${G.id}p${p.n}a.end`} fill="freeze" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.3 0.5 0.4 1" />
-            <animate attributeName="opacity" values="0;0.95" dur="0.4s" begin={`${G.id}p${p.n}a.begin`} fill="freeze" />
-            <animate attributeName="opacity" values="0.95;0.95;0" keyTimes="0;0.7;1" dur={`${T2}s`} begin={`${G.id}p${p.n}b.begin`} fill="freeze" />
-          </circle>
-        ))}
-        {G.R.links.map((d, k) => (
-          <circle class="cv-dot" r="1.8" opacity="0">
-            <animateMotion path={d} dur="2.2s" begin={`${G.id}p${linkFrom[k]}b.end-0.3s`} fill="freeze" />
-            <animate attributeName="opacity" values="0;0.8;0.8;0" keyTimes="0;0.15;0.8;1" dur="2.2s" begin={`${G.id}p${linkFrom[k]}b.end-0.3s`} fill="freeze" />
-          </circle>
-        ))}
-      </g>}
+      <g class="cv-guides" fill="none" stroke="none" aria-hidden="true">{G.R.tips.map((p) => <path d={p.path} />)}</g>
+      <g class="cv-flow" aria-hidden="true"></g>
       <circle class="cv-heart" cx={G.R.V.x} cy={G.R.V.y} r="5" />
       {G.R.tips.map((p, n) => <circle class={`cv-node part-${circlePart[Math.floor(n / 2)]}`} cx={p.x} cy={p.y} r="2.1" style={`--n:${n}`} />)}
       {G.labels.map((l, i) => <text class={`cv-label cv-field part-${circlePart[i]}`} x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
@@ -217,18 +179,15 @@ const N = (() => {
 </figure>
 
 <script>
-  // The drawing always moves; one click stops it or sets it going again. A
-  // reader who asked the system for less motion keeps the dots, which move
-  // slowly along the lines, but loses the rings and the beat (see the CSS).
+  // The drawing always moves; one click stops its clock or sets it going again
+  // (src/scripts/cv-story.ts reads the class).
   import '../scripts/cv-story';
   const fig = document.querySelector<HTMLElement>('.convergence');
   const btn = fig?.querySelector<HTMLButtonElement>('.cv-toggle');
   if (fig && btn) {
-    const svgs = [...fig.querySelectorAll('svg')];
     let moving = true;
     btn.addEventListener('click', () => {
       moving = !moving;
-      svgs.forEach((s) => (moving ? s.unpauseAnimations() : s.pauseAnimations()));
       fig.classList.toggle('cv-paused', !moving);
       btn.textContent = moving ? btn.dataset.pause! : btn.dataset.play!;
     });
