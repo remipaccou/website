@@ -12,7 +12,11 @@
 // On a field page the same drawing comes back smaller (mini), with the part
 // that field looks at lit and the rest left pale: history, the three functions
 // arriving; economics, the capital and the circle of the economy; biophysics,
-// the circle of energy; climate, the circle of the climate.
+// the circle of energy; climate, the circle of the climate. There the dots
+// tell a story instead of a steady flow (src/scripts/cv-story.ts): one per
+// function, then pairs that meet or miss each other, a capital that gathers
+// them, the field of the page reached first, and the others in their turn,
+// until all three are touched, in about fifteen seconds.
 import { langOf, ui } from '../i18n';
 type Field = 'history' | 'economics' | 'biophysics' | 'climate';
 interface Props { focus?: Field; mini?: boolean }
@@ -105,7 +109,7 @@ const W = (() => {
   const starts = [{ x: x0, y: Y - 118 }, { x: x0 + 80, y: Y }, { x: x0 + 160, y: Y + 118 }];
   const [c0, c1, c2] = R.circles;
   return {
-    box: '0 0 1160 420', R,
+    box: '0 0 1160 420', R, cap: { x: X0, y: Y, rc, ain: 180, aout: 0 },
     // The names sit above their first point, the lowest below it, clear of its strand.
     strands: starts.map((s, i) => ({ ...s, d: strand(s, K, false), label: labelsOf[i], anchor: 'start', dy: i === 2 ? (mini ? 34 : 24) : mini ? -20 : -13 })),
     ring: ring({ x: X0, y: Y }, rc),
@@ -133,7 +137,7 @@ const N = (() => {
   const starts = [{ x: 60, y: 42 }, { x: X, y: 92 }, { x: 300, y: 142 }];
   const [c0, c1, c2] = R.circles;
   return {
-    box: '0 0 360 680', R,
+    box: '0 0 360 680', R, cap: { x: X, y: Yc, rc, ain: -90, aout: 90 },
     strands: starts.map((s, i) => ({ ...s, d: strand(s, K, true), label: labelsOf[i], anchor: 'middle', dy: mini ? -16 : -12 })),
     ring: ring({ x: X, y: Yc }, rc),
     trunks: [`M${f(K)}L${f(into)}`, `M${f(outof)}L${f(R.V)}`],
@@ -151,18 +155,18 @@ const N = (() => {
 ---
 <figure class:list={['convergence', mini && 'cv-mini', focus && `cv-focus cv-focus-${focus}`]}>
   {[{ G: { ...W, id: 'cvw' }, cls: 'cv-wide' }, { G: { ...N, id: 'cvn' }, cls: 'cv-narrow' }].map(({ G, cls }) => (
-    <svg class={cls} viewBox={G.box} role="img" aria-label={t.alt}>
+    <svg class={cls} viewBox={G.box} role="img" aria-label={t.alt} data-cap={`${G.cap.x} ${G.cap.y} ${G.cap.rc} ${G.cap.ain} ${G.cap.aout}`} data-dot={cls === 'cv-wide' ? 4.2 : 3.2}>
       <g class="cv-circles">
         {G.R.circles.map((c, i) => <circle class={`part-${circlePart[i]}`} cx={c.x} cy={c.y} r={G.R.r} />)}
       </g>
       <g class="cv-web" aria-hidden="true">
         <g class="cv-still">{[0.34, 0.62, 0.9].map((k) => <circle class="cv-ring" cx={G.R.V.x} cy={G.R.V.y} r={k * G.R.R} />)}</g>
-        <g class="cv-waves">{dots.map((p) => (
+        {!mini && <g class="cv-waves">{dots.map((p) => (
           <circle class="cv-ring" cx={G.R.V.x} cy={G.R.V.y} r="0" opacity="0">
             <animate attributeName="r" values={`3;${G.R.R}`} dur="5s" begin={`${G.id}p${p.n}a.end`} keySplines="0.2 0.6 0.35 1" calcMode="spline" keyTimes="0;1" fill="freeze" />
             <animate attributeName="opacity" values="0.3;0" dur="5s" begin={`${G.id}p${p.n}a.end`} fill="freeze" />
           </circle>
-        ))}</g>
+        ))}</g>}
         {G.R.links.map((d) => <path class="cv-link" d={d} pathLength="1" />)}
         {G.R.roots.map((p) => <path class={`cv-root l${p.lvl} part-${circlePart[p.i]}`} d={p.d} pathLength="1" style={`--i:${p.i}`} />)}
       </g>
@@ -174,11 +178,17 @@ const N = (() => {
         </g>
       ))}
       {G.trunks.map((d, i) => <path class={`cv-trunk t${i}`} d={d} pathLength="1" />)}
+      {mini && <circle class="cv-mass" cx={G.cap.x} cy={G.cap.y} r={G.cap.rc * 0.8} />}
       <path class="cv-loop part-economics" d={G.ring} pathLength="1" />
       <text class="cv-note part-economics" x={G.note.x} y={G.note.y} text-anchor={G.note.anchor}>
         {G.note.split ? noteLines.map((line, i) => <tspan x={G.note.x} dy={i === 0 ? 0 : mini ? 26 : 20}>{line}</tspan>) : t.loop}
       </text>
-      <g class="cv-flow" aria-hidden="true">
+      {mini ? (
+        <>
+          <g class="cv-guides" fill="none" stroke="none" aria-hidden="true">{G.R.tips.map((p) => <path d={p.path} />)}</g>
+          <g class="cv-flow" aria-hidden="true"></g>
+        </>
+      ) : <g class="cv-flow" aria-hidden="true">
         <circle class="cv-beat" cx={G.R.V.x} cy={G.R.V.y} r="5" opacity="0">
           <animate attributeName="r" values="5;12" dur="0.8s" begin={dots.map((p) => `${G.id}p${p.n}a.end`).join(';')} fill="freeze" />
           <animate attributeName="opacity" values="0.5;0" dur="0.8s" begin={dots.map((p) => `${G.id}p${p.n}a.end`).join(';')} fill="freeze" />
@@ -197,7 +207,7 @@ const N = (() => {
             <animate attributeName="opacity" values="0;0.8;0.8;0" keyTimes="0;0.15;0.8;1" dur="2.2s" begin={`${G.id}p${linkFrom[k]}b.end-0.3s`} fill="freeze" />
           </circle>
         ))}
-      </g>
+      </g>}
       <circle class="cv-heart" cx={G.R.V.x} cy={G.R.V.y} r="5" />
       {G.R.tips.map((p, n) => <circle class={`cv-node part-${circlePart[Math.floor(n / 2)]}`} cx={p.x} cy={p.y} r="2.1" style={`--n:${n}`} />)}
       {G.labels.map((l, i) => <text class={`cv-label cv-field part-${circlePart[i]}`} x={l.x} y={l.y} text-anchor={l.anchor}>{l.text}</text>)}
@@ -210,6 +220,7 @@ const N = (() => {
   // The drawing always moves; one click stops it or sets it going again. A
   // reader who asked the system for less motion keeps the dots, which move
   // slowly along the lines, but loses the rings and the beat (see the CSS).
+  import '../scripts/cv-story';
   const fig = document.querySelector<HTMLElement>('.convergence');
   const btn = fig?.querySelector<HTMLButtonElement>('.cv-toggle');
   if (fig && btn) {
@@ -218,6 +229,7 @@ const N = (() => {
     btn.addEventListener('click', () => {
       moving = !moving;
       svgs.forEach((s) => (moving ? s.unpauseAnimations() : s.pauseAnimations()));
+      fig.classList.toggle('cv-paused', !moving);
       btn.textContent = moving ? btn.dataset.pause! : btn.dataset.play!;
     });
     btn.hidden = false;
