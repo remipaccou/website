@@ -100,7 +100,7 @@ export const ui = {
     groups: { 'Journal articles': 'Journal articles', 'Conference papers': 'Conference papers', 'Preprints and working papers': 'Preprints and working papers', Reports: 'Reports' },
     and: ' and ', or: ' or ', reach: 'You can reach me through ',
     etAl: 'et al.', homeTimeline: 'Timeline', homePaper: 'Latest paper', allPapers: 'All papers', contact: 'Contact',
-    meso: 'Mesoeconomics', macro: 'Macroeconomics', semis: 'Semiconductors', inPreparation: 'In preparation.', levels: 'The two levels of the field',
+    meso: 'Mesoeconomics', macro: 'Macroeconomics', semis: 'Semiconductors', mesoItems: 'The timeline of the emergences · Semiconductors', inPreparation: 'In preparation.', levels: 'The two levels of the field',
     mesoLine: 'A sector and its arrangements: who finances capacity, who bears its costs, how its outlets are formed.',
     macroLine: 'The whole economy: what the digital sector passes on to output, labour, prices and electricity demand.',
     aboutText: [
@@ -151,7 +151,7 @@ export const ui = {
     groups: { 'Journal articles': 'Articles de revue', 'Conference papers': 'Actes de conférence', 'Preprints and working papers': 'Prépublications et documents de travail', Reports: 'Rapports' },
     and: ' et ', or: ' ou ', reach: 'Vous pouvez me joindre par ',
     etAl: 'et al.', homeTimeline: 'Frise', homePaper: 'Dernier article', allPapers: 'Tous les articles', contact: 'Contact',
-    meso: 'Mésoéconomie', macro: 'Macroéconomie', semis: 'Semi-conducteurs', inPreparation: 'En préparation.', levels: 'Les deux niveaux du domaine',
+    meso: 'Mésoéconomie', macro: 'Macroéconomie', semis: 'Semi-conducteurs', mesoItems: 'La frise des émergences · Les semi-conducteurs', inPreparation: 'En préparation.', levels: 'Les deux niveaux du domaine',
     mesoLine: 'Un secteur et ses arrangements : qui finance les capacités, qui en porte les charges, comment se forment ses débouchés.',
     macroLine: 'L’économie entière : ce que le secteur numérique transmet à la croissance, au travail, aux prix et à la demande d’électricité.',
     aboutText: [

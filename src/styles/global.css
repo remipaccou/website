@@ -134,24 +134,42 @@ h2.band-label { font-weight: 400; }
 .band-note { padding-top: 0.55rem; color: var(--muted); font-style: italic; }
 /* Scripts sit between a field's timeline and its first band, so .band + .band does not reach it. */
 .frise-band ~ .band { margin-top: 4.5rem; }
-/* Economics: its two levels, offered under the title, then each a part of the page. */
-.levels { margin-top: 0.5rem; }
-.levels-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); border-top: 1px solid var(--rule); padding-top: 1.5rem; }
-.level { display: flex; flex-direction: column; gap: 0.5rem; color: var(--ink); text-decoration: none; }
-.level-name { font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.15; transition: color 0.2s; }
-.level-line { color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
-.level:hover .level-name, .level:focus-visible .level-name { color: var(--sun); }
-.band.level-head, .frise-band ~ .band.level-head { margin-top: 6rem; scroll-margin-top: 1.5rem; }
-.level-head h2 { font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.15; padding-top: 1.3rem; border-top: 1px solid var(--ink); }
-.level-head + .frise-band { margin-top: 2.2rem; }
-.level-head + .band { margin-top: 1.6rem; }
-h3.band-label { font-weight: 400; }
-.band.level-end, .frise-band ~ .band.level-end { margin-top: 6rem; }
-.level-end > .band-main { border-top: 1px solid var(--ink); }
-.level-end + .band, .frise-band ~ .level-end + .band { margin-top: 1.6rem; }
-@media (max-width: 54rem) { .level-end > .band-label { display: none; } .band.level-end, .frise-band ~ .band.level-end { margin-top: 4.5rem; } }
-@media (max-width: 54rem) { .levels > .band-label, .level-head > .band-label { display: none; } .band.level-head, .frise-band ~ .band.level-head { margin-top: 4.5rem; } }
-@media (max-width: 46rem) { .levels-grid { grid-template-columns: minmax(0, 1fr); } }
+/* Economics: two faces mirrored on a seam. Leaning towards one widens it a little; choosing it
+   opens it and folds the other into a strip that keeps its name, written along the seam. */
+.faces { display: flex; align-items: stretch; margin-top: 1rem; border-block: 1px solid var(--ink); }
+.face { position: relative; flex: 1 1 0; min-width: 0; transition: flex-grow 0.55s cubic-bezier(.2,.7,.2,1), flex-basis 0.55s cubic-bezier(.2,.7,.2,1), background-color 0.3s; }
+.face-meso { border-right: 1px solid var(--ink); }
+.face-head { position: relative; padding: clamp(1.8rem, 4vw, 3rem) clamp(1rem, 3vw, 2.6rem); display: flex; flex-direction: column; gap: 0.7rem; }
+.face-meso .face-head { align-items: flex-end; text-align: right; }
+.face-macro .face-head { align-items: flex-start; text-align: left; }
+.face-head h2 { margin: 0; font-size: inherit; }
+.face-btn { all: unset; cursor: pointer; }
+.face-btn::after { content: ''; position: absolute; inset: 0; }
+.face-btn:focus-visible { outline: none; }
+.face-btn:focus-visible .face-name { outline: 2px solid var(--sun); outline-offset: 0.3rem; }
+.face-name { display: block; font-size: clamp(1.1rem, 4.6vw, 2.1rem); line-height: 1.1; color: var(--ink); transition: color 0.2s; }
+.face-line { max-width: 24rem; color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+.face-items { font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.face:hover .face-name, .face-btn:focus-visible .face-name, .face.is-open .face-name { color: var(--sun); }
+@media (hover: hover) { .faces:not([data-open]) .face:hover { flex-grow: 1.35; background: var(--panel); } }
+/* One face open: it takes the room; the other is a strip with its name along the seam. */
+.face.is-closed { flex: 0 0 clamp(2.6rem, 5vw, 3.6rem); }
+.face.is-closed .face-head { position: sticky; top: 0; padding: 1.6rem 0; align-items: center; }
+.face.is-closed .face-line, .face.is-closed .face-items { display: none; }
+.face.is-closed .face-name { writing-mode: vertical-rl; font-size: clamp(1.05rem, 2vw, 1.3rem); white-space: nowrap; }
+.face-meso.is-closed .face-name { transform: rotate(180deg); }
+.face.is-closed { cursor: pointer; }
+.face.is-closed:hover { background: var(--panel); }
+.face.is-open .face-head { padding-bottom: 1.4rem; }
+.face.is-open .face-items { display: none; }
+.face-body { padding: 0 clamp(1rem, 3vw, 2.6rem) clamp(2rem, 4vw, 3rem); text-align: left; animation: face-in 0.6s ease-out both; }
+.face-body .project-figure { width: auto; justify-self: normal; margin: 0.6rem 0 0; }
+.face-part { margin-top: 3.5rem; }
+.face-part h3 { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+@keyframes face-in { from { opacity: 0; } to { opacity: 1; } }
+.faces ~ .band { margin-top: 4.5rem; }
+@media (max-width: 46rem) { .face-head { padding-inline: 0.8rem; } .face-line { font-size: 0.9rem; } .face-body { padding-inline: 0.8rem; } }
+@media (prefers-reduced-motion: reduce) { .face, .face-body { transition: none; animation: none; } }
 
 @media (max-width: 54rem) {
   .band { grid-template-columns: minmax(0, 1fr); }
