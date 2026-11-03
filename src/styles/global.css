@@ -131,6 +131,9 @@ p { margin: 0; }
 .page-head + .band, .essay-head + .band { margin-top: 0; }
 .band-label { color: var(--muted); padding-top: 0.55rem; }
 h2.band-label { font-weight: 400; }
+.band-note { padding-top: 0.55rem; color: var(--muted); font-style: italic; }
+/* Scripts sit between a field's timeline and its first band, so .band + .band does not reach it. */
+.frise-band ~ .band { margin-top: 4.5rem; }
 
 @media (max-width: 54rem) {
   .band { grid-template-columns: minmax(0, 1fr); }

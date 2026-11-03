@@ -56,6 +56,13 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
     )}
     <script>import '../../scripts/history';</script>
     <script>import '../../scripts/frises';</script>
+    {/* A strand of the economics field still to be written: the heading holds its place. */}
+    {th.id === 'economics' && (
+      <section class="band" id="semiconductors">
+        <h2 class="band-label">{t.semiconductors}</h2>
+        <div class="band-main"><p class="band-note">{t.inPreparation}</p></div>
+      </section>
+    )}
     {empty && (
       <section class="band">
         <div class="band-label" aria-hidden="true"></div>
