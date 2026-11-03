@@ -56,12 +56,19 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
     )}
     <script>import '../../scripts/history';</script>
     <script>import '../../scripts/frises';</script>
-    {/* A strand of the economics field still to be written: the heading holds its place. */}
+    {/* The economics field in two parts still to be written, the meso level (the semiconductors
+        first) and the macro level: the headings hold their place. */}
     {th.id === 'economics' && (
-      <section class="band" id="semiconductors">
-        <h2 class="band-label">{t.semiconductors}</h2>
-        <div class="band-main"><p class="band-note">{t.inPreparation}</p></div>
-      </section>
+      <>
+        <section class="band" id="meso">
+          <h2 class="band-label">{t.meso}</h2>
+          <div class="band-main"><p class="band-note">{t.mesoNote}</p></div>
+        </section>
+        <section class="band" id="macro">
+          <h2 class="band-label">{t.macro}</h2>
+          <div class="band-main"><p class="band-note">{t.inPreparation}</p></div>
+        </section>
+      </>
     )}
     {empty && (
       <section class="band">
