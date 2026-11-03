@@ -134,6 +134,24 @@ h2.band-label { font-weight: 400; }
 .band-note { padding-top: 0.55rem; color: var(--muted); font-style: italic; }
 /* Scripts sit between a field's timeline and its first band, so .band + .band does not reach it. */
 .frise-band ~ .band { margin-top: 4.5rem; }
+/* Economics: its two levels, offered under the title, then each a part of the page. */
+.levels { margin-top: 0.5rem; }
+.levels-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+.level { display: flex; flex-direction: column; gap: 0.5rem; color: var(--ink); text-decoration: none; }
+.level-name { font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.15; transition: color 0.2s; }
+.level-line { color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+.level:hover .level-name, .level:focus-visible .level-name { color: var(--sun); }
+.band.level-head, .frise-band ~ .band.level-head { margin-top: 6rem; scroll-margin-top: 1.5rem; }
+.level-head h2 { font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.15; padding-top: 1.3rem; border-top: 1px solid var(--ink); }
+.level-head + .frise-band { margin-top: 2.2rem; }
+.level-head + .band { margin-top: 1.6rem; }
+h3.band-label { font-weight: 400; }
+.band.level-end, .frise-band ~ .band.level-end { margin-top: 6rem; }
+.level-end > .band-main { border-top: 1px solid var(--ink); }
+.level-end + .band, .frise-band ~ .level-end + .band { margin-top: 1.6rem; }
+@media (max-width: 54rem) { .level-end > .band-label { display: none; } .band.level-end, .frise-band ~ .band.level-end { margin-top: 4.5rem; } }
+@media (max-width: 54rem) { .levels > .band-label, .level-head > .band-label { display: none; } .band.level-head, .frise-band ~ .band.level-head { margin-top: 4.5rem; } }
+@media (max-width: 46rem) { .levels-grid { grid-template-columns: minmax(0, 1fr); } }
 
 @media (max-width: 54rem) {
   .band { grid-template-columns: minmax(0, 1fr); }

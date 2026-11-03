@@ -49,25 +49,45 @@ const empty = essays.length + articles.length + mine.length + myBooks.length ===
         <Frise id="transmit" hint={t.swirl.friseSolo} />
       </section>
     )}
+    {/* Economics opens on its two levels, each a part of the page below: the meso level holds the
+        timeline of the emergences (techniques, each with its place, payer and form, joining one
+        stock) and the semiconductors; the macro level is still to be written. */}
     {th.id === 'economics' && (
-      <section class="frise-band">
-        <Frise id="confluence" hint={t.swirl.friseSolo} />
-      </section>
+      <>
+        <nav class="band levels" aria-label={t.levels}>
+          <div class="band-label" aria-hidden="true"></div>
+          <div class="band-main levels-grid">
+            <a class="level" href="#meso"><span class="level-name">{t.meso}</span><span class="level-line">{t.mesoLine}</span></a>
+            <a class="level" href="#macro"><span class="level-name">{t.macro}</span><span class="level-line">{t.macroLine}</span></a>
+          </div>
+        </nav>
+        <header class="band level-head" id="meso">
+          <div class="band-label" aria-hidden="true"></div>
+          <div class="band-main"><h2>{t.meso}</h2></div>
+        </header>
+        <section class="frise-band">
+          <Frise id="confluence" hint={t.swirl.friseSolo} />
+        </section>
+      </>
     )}
     <script>import '../../scripts/history';</script>
     <script>import '../../scripts/frises';</script>
-    {/* The economics field in two parts still to be written, the meso level (the semiconductors
-        first) and the macro level: the headings hold their place. */}
     {th.id === 'economics' && (
       <>
-        <section class="band" id="meso">
-          <h2 class="band-label">{t.meso}</h2>
-          <div class="band-main"><p class="band-note">{t.mesoNote}</p></div>
-        </section>
-        <section class="band" id="macro">
-          <h2 class="band-label">{t.macro}</h2>
+        <section class="band">
+          <h3 class="band-label">{t.semis}</h3>
           <div class="band-main"><p class="band-note">{t.inPreparation}</p></div>
         </section>
+        <header class="band level-head" id="macro">
+          <div class="band-label" aria-hidden="true"></div>
+          <div class="band-main"><h2>{t.macro}</h2></div>
+        </header>
+        <section class="band">
+          <div class="band-label" aria-hidden="true"></div>
+          <div class="band-main"><p class="band-note">{t.inPreparation}</p></div>
+        </section>
+        {/* A rule closes the two levels: what follows is filed under the whole field. */}
+        <div class="band level-end" aria-hidden="true"><div class="band-label"></div><div class="band-main"></div></div>
       </>
     )}
     {empty && (

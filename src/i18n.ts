@@ -100,7 +100,9 @@ export const ui = {
     groups: { 'Journal articles': 'Journal articles', 'Conference papers': 'Conference papers', 'Preprints and working papers': 'Preprints and working papers', Reports: 'Reports' },
     and: ' and ', or: ' or ', reach: 'You can reach me through ',
     etAl: 'et al.', homeTimeline: 'Timeline', homePaper: 'Latest paper', allPapers: 'All papers', contact: 'Contact',
-    meso: 'Mesoeconomics', macro: 'Macroeconomics', mesoNote: 'Semiconductors, in preparation.', inPreparation: 'In preparation.',
+    meso: 'Mesoeconomics', macro: 'Macroeconomics', semis: 'Semiconductors', inPreparation: 'In preparation.', levels: 'The two levels of the field',
+    mesoLine: 'A sector and its arrangements: who finances capacity, who bears its costs, how its outlets are formed.',
+    macroLine: 'The whole economy: what the digital sector passes on to output, labour, prices and electricity demand.',
     aboutText: [
       'I am Rémi Paccou. I study the structural energy and economic mechanisms through which digitalization and AI reshape the relationship between information, computation, electricity systems, and climate pathways.',
       'Trained as a generalist engineer with a specialization in thermodynamics at Arts et Métiers, and with business experience at UNC Kenan-Flagler and INSEAD, I have spent over 15 years at Schneider Electric connecting R&D, strategy, and operations. For the past 5 years, I have worked as a Director of Research at the Schneider Electric Research Institute. At CIRED, I am writing a doctoral thesis on how digitalization enters energy-climate scenarios, drawing on economics, energy and the history of techniques.',
@@ -149,7 +151,9 @@ export const ui = {
     groups: { 'Journal articles': 'Articles de revue', 'Conference papers': 'Actes de conférence', 'Preprints and working papers': 'Prépublications et documents de travail', Reports: 'Rapports' },
     and: ' et ', or: ' ou ', reach: 'Vous pouvez me joindre par ',
     etAl: 'et al.', homeTimeline: 'Frise', homePaper: 'Dernier article', allPapers: 'Tous les articles', contact: 'Contact',
-    meso: 'Mésoéconomie', macro: 'Macroéconomie', mesoNote: 'Les semi-conducteurs, en préparation.', inPreparation: 'En préparation.',
+    meso: 'Mésoéconomie', macro: 'Macroéconomie', semis: 'Semi-conducteurs', inPreparation: 'En préparation.', levels: 'Les deux niveaux du domaine',
+    mesoLine: 'Un secteur et ses arrangements : qui finance les capacités, qui en porte les charges, comment se forment ses débouchés.',
+    macroLine: 'L’économie entière : ce que le secteur numérique transmet à la croissance, au travail, aux prix et à la demande d’électricité.',
     aboutText: [
       "Je suis Rémi Paccou. J’étudie les mécanismes structurels, énergétiques et économiques, par lesquels la numérisation et l’IA transforment la relation entre l’information, le calcul, les systèmes électriques et les trajectoires climatiques.",
       "Ingénieur généraliste des Arts et Métiers, spécialisé en thermodynamique, formé au management à UNC Kenan-Flagler et à l’INSEAD, j’ai passé plus de 15 ans chez Schneider Electric à relier la R&D, la stratégie et les opérations. Depuis 5 ans, je suis directeur de recherche à l’institut de recherche de Schneider Electric. Au CIRED, je prépare une thèse sur la place de la numérisation dans les scénarios énergie-climat, entre économie, énergie et histoire des techniques.",
