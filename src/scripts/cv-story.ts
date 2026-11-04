@@ -9,8 +9,10 @@
 // sparks along the links to the others: the spread speeds up until all three
 // are touched. Then the functions turn into a living dotted flow, the circles
 // stay lit and linked, the capital keeps its grains, and a quiet flow goes on.
-// On the home page the economy is the first field. A reader who asked for less
-// motion sees the end at once; the pause button of the drawing stops the clock.
+// On the home page the economy is the first field. The story plays for every
+// reader, as the drawing always has: dots that glide, nothing that zooms. A
+// reader who asked for less motion is spared only the rings that spread; the
+// pause button of the drawing stops the clock.
 type Pt = { x: number; y: number };
 const NS = 'http://www.w3.org/2000/svg';
 const PARTS = ['economics', 'biophysics', 'climate'];
@@ -95,6 +97,7 @@ function tell(fig: HTMLElement, svg: SVGSVGElement) {
   const fade = (e: Element, ms = 450) => { const a = e.animate([{ opacity: getComputedStyle(e).opacity }, { opacity: 0 }], { duration: ms }); a.onfinish = () => e.remove(); };
   // A ring that spreads from a point and fades.
   const pulse = (p: Pt, r: number, dur = 1600, strength = 0.5) => {
+    if (reduce) return;
     const c = make('cv-pulse', r); place(c, p);
     const a = c.animate([{ transform: 'scale(0.15)', opacity: strength }, { transform: 'scale(1)', opacity: 0 }], { duration: dur, easing: 'cubic-bezier(.2,.6,.35,1)' });
     a.onfinish = () => c.remove();
@@ -135,11 +138,6 @@ function tell(fig: HTMLElement, svg: SVGSVGElement) {
     [0, 500, 1000].forEach((d) => setTimeout(() => pulse(V, 150, 2600, 0.35), d));
   };
 
-  if (reduce) {
-    [0, 1, 2].forEach((i) => { shown[i] = level[i] = 1; paint(i); });
-    deposit(16); flowing(); svg.classList.add('cv-systemic');
-    return;
-  }
   [0, 1, 2].forEach(paint);
 
   const dots: Dot[] = [];
